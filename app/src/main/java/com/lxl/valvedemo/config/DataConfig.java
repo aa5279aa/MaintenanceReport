@@ -75,7 +75,6 @@ public class DataConfig {
 
         SingleSelectionModel value = new SingleSelectionModel();
         value.level = 0;
-        value.key = "root";
         value.anwserStr = "选择种类";
         value.isCanSelect = true;
 
@@ -83,18 +82,15 @@ public class DataConfig {
         SingleSelectionModel value1 = new SingleSelectionModel();
         SingleSelectionModel value2 = new SingleSelectionModel();
 
-        value0.key = "0";
         value0.level = 1;
         value0.isCanSelect = false;
         value0.itemStr = "机械设备";
 //        value0.anwserStr = "请选择专业";
 
-        value1.key = "1";
         value1.level = 1;
         value1.itemStr = "电气";
         value1.isCanSelect = false;
 
-        value2.key = "2";
         value2.level = 1;
         value2.itemStr = "仪表航空通信";
         value2.isCanSelect = false;
@@ -105,9 +101,6 @@ public class DataConfig {
         value.selectList.add(value2);
 
 
-        map.put(value.key, value);
-        map.put(value0.key, value0);
-        map.put(value1.key, value1);
     }
 
     public static SingleSelectionModel getSingleSelctionEntity(String key) {

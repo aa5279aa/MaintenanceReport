@@ -17,6 +17,7 @@
         <activity
             android:name="com.lxl.valvedemo.page.StockRegisterActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,10 +28,12 @@
         <activity
             android:name=".page.ReportActivity"
             android:label="@string/title_activity_select"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
         <activity
             android:name=".page.SelectActivity"
             android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
     </application>
 

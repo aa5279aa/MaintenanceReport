@@ -15,14 +15,15 @@ import java.util.List;
 public class TableConfig {
 
     private static TableConfig tableConfig;
-    public List<SingleSelectionModel> mSelectionModelList = new ArrayList<>();
+    public SingleSelectionModel mSelectionModel = new SingleSelectionModel();
 
     private TableConfig() {
     }
 
-    public static TableConfig getInstance() {
+    public static TableConfig getInstance(Context context) {
         if (tableConfig == null) {
             tableConfig = new TableConfig();
+            tableConfig.initData(context);
         }
         return tableConfig;
     }
@@ -35,27 +36,47 @@ public class TableConfig {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mSelectionModelList = new ArrayList<>();
         for (String line : lineList) {
-            String[] split = line.split("~");
-            String plate = split[0];
-            String major = split[1];
-            String form = split[2];
-            SingleSelectionModel plateModel = findFromModel(mSelectionModelList, plate);
-            if (plateModel == null) {
-                plateModel = new SingleSelectionModel();
-                mSelectionModelList.add(plateModel);
-            }
-
-            plateModel
-
+            addLine2ModelList(line, mSelectionModel.selectList);
         }
+    }
 
+    private void addLine2ModelList(String line, List<SingleSelectionModel> list) {
+        String[] split = line.split("~");
+        if (split.length != 3) {
+            return;
+        }
+        String plate = split[0];
+        String major = split[1];
+        String form = split[2];
+        SingleSelectionModel plateModel = findFromModel(list, plate);
+        if (plateModel == null) {
+            plateModel = new SingleSelectionModel();
+            plateModel.itemStr = plate;
+            plateModel.level = 1;
+            list.add(plateModel);
+        }
+        SingleSelectionModel majorModel = findFromModel(plateModel.selectList, major);
+        if (majorModel == null) {
+            majorModel = new SingleSelectionModel();
+            majorModel.itemStr = major;
+            majorModel.level = 2;
+            plateModel.selectList.add(majorModel);
+        }
+        SingleSelectionModel formModel = findFromModel(majorModel.selectList, form);
+        if (formModel == null) {
+            formModel = new SingleSelectionModel();
+            formModel.itemStr = form;
+            formModel.level = 3;
+            formModel.isCanJump = true;
+            formModel.anwserStr = "anwserStr";//对应的表格名称
+            majorModel.selectList.add(formModel);
+        }
     }
 
     public SingleSelectionModel findFromModel(List<SingleSelectionModel> list, String line) {
         for (SingleSelectionModel model : list) {
-            if (model.key.equals(line)) {
+            if (model.itemStr.equals(line)) {
                 return model;
             }
         }
