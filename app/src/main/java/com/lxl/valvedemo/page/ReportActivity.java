@@ -1,4 +1,4 @@
-package com.lxl.valvedemo;
+package com.lxl.valvedemo.page;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,9 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lxl.valvedemo.BaseActivity;
+import com.lxl.valvedemo.MainActivity;
+import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.DataConfig;
-import com.lxl.valvedemo.entity.ReportSelectionItemEntity;
-import com.lxl.valvedemo.entity.ReportSelectionSubItemEntity;
+import com.lxl.valvedemo.model.ReportSelectionItemEntity;
+import com.lxl.valvedemo.model.ReportSelectionSubItemEntity;
 import com.lxl.valvedemo.util.PoiHelper;
 import com.lxl.valvedemo.view.ListLinearLayout;
 

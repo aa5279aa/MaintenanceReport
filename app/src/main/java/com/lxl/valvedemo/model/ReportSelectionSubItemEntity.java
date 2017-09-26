@@ -1,4 +1,4 @@
-package com.lxl.valvedemo.entity;
+package com.lxl.valvedemo.model;
 
 /**
  * Created by xiangleiliu on 2017/8/27.

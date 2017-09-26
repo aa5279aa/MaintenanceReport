@@ -1,8 +1,8 @@
 package com.lxl.valvedemo.config;
 
-import com.lxl.valvedemo.entity.ReportSelectionItemEntity;
-import com.lxl.valvedemo.entity.ReportSelectionSubItemEntity;
-import com.lxl.valvedemo.entity.SingleSelectionEntity;
+import com.lxl.valvedemo.model.ReportSelectionItemEntity;
+import com.lxl.valvedemo.model.ReportSelectionSubItemEntity;
+import com.lxl.valvedemo.model.SingleSelectionModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class DataConfig {
 
-    static Map<String, SingleSelectionEntity> map = new HashMap<String, SingleSelectionEntity>();
+    static Map<String, SingleSelectionModel> map = new HashMap<String, SingleSelectionModel>();
     static Map<String, List<ReportSelectionItemEntity>> reportmap = new HashMap<String, List<ReportSelectionItemEntity>>();
 
     public static void init() {
@@ -73,15 +73,15 @@ public class DataConfig {
             return;
         }
 
-        SingleSelectionEntity value = new SingleSelectionEntity();
+        SingleSelectionModel value = new SingleSelectionModel();
         value.level = 0;
         value.key = "root";
         value.anwserStr = "选择种类";
         value.isCanSelect = true;
 
-        SingleSelectionEntity value0 = new SingleSelectionEntity();
-        SingleSelectionEntity value1 = new SingleSelectionEntity();
-        SingleSelectionEntity value2 = new SingleSelectionEntity();
+        SingleSelectionModel value0 = new SingleSelectionModel();
+        SingleSelectionModel value1 = new SingleSelectionModel();
+        SingleSelectionModel value2 = new SingleSelectionModel();
 
         value0.key = "0";
         value0.level = 1;
@@ -104,61 +104,18 @@ public class DataConfig {
         value.selectList.add(value1);
         value.selectList.add(value2);
 
-//        SingleSelectionEntity value00 = new SingleSelectionEntity();
-//        SingleSelectionEntity value01 = new SingleSelectionEntity();
-//        SingleSelectionEntity value02 = new SingleSelectionEntity();
-//        value00.key = "0_0";
-//        value00.level = 2;
-//        value00.isCanSelect = true;
-//        value00.itemStr = "设备专业";
-//        value00.anwserStr = "请选择站点";
-//
-//        value01.key = "0_1";
-//        value01.level = 2;
-//        value01.isCanSelect = false;
-//        value01.itemStr = "电气专业";
-//
-//        value02.key = "0_2";
-//        value02.level = 2;
-//        value02.isCanSelect = false;
-//        value02.itemStr = "仪表自动化专业";
-//
-//        value0.selectList.add(value00);
-//        value0.selectList.add(value01);
-//        value0.selectList.add(value02);
-//
-//        SingleSelectionEntity value000 = new SingleSelectionEntity();
-//        SingleSelectionEntity value001 = new SingleSelectionEntity();
-//
-//        value000.key = "0_0_0";
-//        value000.level = 3;
-//        value000.isCanJump = true;
-//        value000.itemStr = "枣庄站";
-//
-//        value001.key = "0_0_1";
-//        value001.level = 3;
-//        value001.isCanJump = false;
-//        value001.itemStr = "临沂站";
-//
-//        value00.selectList.add(value000);
-//        value00.selectList.add(value001);
 
         map.put(value.key, value);
         map.put(value0.key, value0);
         map.put(value1.key, value1);
-//        map.put(value00.key, value00);
-//        map.put(value01.key, value01);
-//        map.put(value02.key, value02);
-//        map.put(value000.key, value000);
-//        map.put(value001.key, value001);
     }
 
-    public static SingleSelectionEntity getSingleSelctionEntity(String key) {
+    public static SingleSelectionModel getSingleSelctionEntity(String key) {
 
-        SingleSelectionEntity singleSelctionEntity = map.get(key);
+        SingleSelectionModel singleSelctionEntity = map.get(key);
 
         if (singleSelctionEntity == null) {
-            singleSelctionEntity = new SingleSelectionEntity();
+            singleSelctionEntity = new SingleSelectionModel();
         }
 
         return singleSelctionEntity;

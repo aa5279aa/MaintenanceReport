@@ -1,4 +1,4 @@
-package com.lxl.valvedemo.entity;
+package com.lxl.valvedemo.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.lxl.valvedemo;
+package com.lxl.valvedemo.page;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +11,14 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lxl.valvedemo.BaseActivity;
+import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.DataConfig;
-import com.lxl.valvedemo.entity.SingleSelectionEntity;
+import com.lxl.valvedemo.model.SingleSelectionModel;
 
 public class SelectActivity extends BaseActivity {
 	Context context;
-	SingleSelectionEntity singleSelctionEntity;
+	SingleSelectionModel singleSelctionEntity;
 
 	private RadioGroup radioGroup;
 	private TextView answerText;
@@ -41,7 +43,7 @@ public class SelectActivity extends BaseActivity {
 	private void initView() {
 		answerText.setText(singleSelctionEntity.anwserStr);
 		for (int i = 0; i < singleSelctionEntity.selectList.size(); i++) {
-			SingleSelectionEntity sonSingleSelctionEntity = singleSelctionEntity.selectList.get(i);
+			SingleSelectionModel sonSingleSelctionEntity = singleSelctionEntity.selectList.get(i);
 			RadioButton button = new RadioButton(context);
 			button.setId(i);
 			button.setText(sonSingleSelctionEntity.itemStr);
@@ -56,7 +58,7 @@ public class SelectActivity extends BaseActivity {
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
 				int checkedRadioButtonId = group.getCheckedRadioButtonId();
 				RadioButton button = (RadioButton) group.getChildAt(checkedRadioButtonId);
-				SingleSelectionEntity sonSingleSelctionEntity = (SingleSelectionEntity) button.getTag();
+				SingleSelectionModel sonSingleSelctionEntity = (SingleSelectionModel) button.getTag();
 				if(sonSingleSelctionEntity.isCanSelect){
 					gotoSelectActivity(sonSingleSelctionEntity);
 				}else if(sonSingleSelctionEntity.isCanJump){
@@ -83,7 +85,7 @@ public class SelectActivity extends BaseActivity {
 		singleSelctionEntity = DataConfig.getSingleSelctionEntity(key);
 	}
 
-	private void gotoSelectActivity(SingleSelectionEntity sonSingleSelctionEntity) {
+	private void gotoSelectActivity(SingleSelectionModel sonSingleSelctionEntity) {
 		
 		Intent intent=new Intent();
 		intent.setClass(context, SelectActivity.class);
@@ -91,7 +93,7 @@ public class SelectActivity extends BaseActivity {
 		startActivity(intent);
 	}
 
-	private void gotoReportActivity(SingleSelectionEntity sonSingleSelctionEntity) {
+	private void gotoReportActivity(SingleSelectionModel sonSingleSelctionEntity) {
 		Intent intent=new Intent();
 		intent.setClass(context, ReportActivity.class);
 		intent.putExtra("key", sonSingleSelctionEntity.key);
