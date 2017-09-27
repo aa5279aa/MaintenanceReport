@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/hotel_city_item_title_line"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/report_fill_index"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/report_fill_equipment_name"
+            style="@style/text_14_000000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="设备名称" />
+
+        <EditText
+            android:id="@+id/report_fill_equipment_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请填写设备名称" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/report_fill_specifications_name"
+            style="@style/text_14_000000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="规格型号" />
+
+        <EditText
+            android:id="@+id/report_fill_specifications_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请填写规格型号" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/report_fill_number_name"
+            style="@style/text_14_000000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="设备编号" />
+
+        <EditText
+            android:id="@+id/report_fill_number_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="请填设备编号" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/report_fill_situation_name"
+            style="@style/text_14_000000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="检查与维护保养情况" />
+
+        <EditText
+            android:id="@+id/report_fill_situation_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请填写保养情况"
+            android:minHeight="50dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/report_fill_desc_name"
+            style="@style/text_14_000000"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="备注" />
+
+        <EditText
+            android:id="@+id/report_fill_desc_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="请填写备注"
+            android:minHeight="50dp" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#ffffff" />
+</LinearLayout>

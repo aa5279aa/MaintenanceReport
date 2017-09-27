@@ -32,7 +32,6 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DataConfig.init();
 
         TextView findViewById = (TextView) findViewById(R.id.text_title);
 //        findViewById.setText(String.valueOf(getResources().getDisplayMetrics().density));

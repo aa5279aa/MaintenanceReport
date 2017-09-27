@@ -32,7 +32,7 @@ public class BaseActivity extends Activity {
 		});
 		titleText.setText(getClass().getSimpleName().replace("Activity", ""));
 	}
-	
+
 	private void sendKeyBackEvent() {
 		KeyEvent keyEvent = new KeyEvent(KeyEvent.ACTION_DOWN,
 				KeyEvent.KEYCODE_BACK);

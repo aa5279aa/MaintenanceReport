@@ -15,7 +15,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:name="com.lxl.valvedemo.page.StockRegisterActivity"
+            android:name="com.lxl.valvedemo.page.SelectActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar">
@@ -31,10 +31,15 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
         <activity
-            android:name=".page.SelectActivity"
-            android:label="@string/title_activity_main"
+            android:name=".page.ReportRecordActivity"
+            android:label="@string/title_activity_select"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
+        <!--<activity-->
+            <!--android:name=".page.SelectActivity"-->
+            <!--android:label="@string/title_activity_main"-->
+            <!--android:screenOrientation="portrait"-->
+            <!--android:theme="@android:style/Theme.NoTitleBar"></activity>-->
     </application>
 
 </manifest>

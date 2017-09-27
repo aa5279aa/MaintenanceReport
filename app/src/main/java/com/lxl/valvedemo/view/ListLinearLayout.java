@@ -11,14 +11,14 @@ import com.lxl.valvedemo.page.ReportActivity;
  * Created by xiangleiliu on 2017/8/27.
  */
 public class ListLinearLayout extends LinearLayout {
-    private ReportActivity.SelectionAdapter adapter;
+    private SelectionAdapter adapter;
 
     public ListLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         setOrientation(LinearLayout.VERTICAL);
     }
 
-    public void setAdapter(ReportActivity.SelectionAdapter adapter) {
+    public void setAdapter(SelectionAdapter adapter) {
         this.adapter = adapter;
     }
 

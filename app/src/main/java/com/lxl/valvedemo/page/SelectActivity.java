@@ -93,8 +93,8 @@ public class SelectActivity extends BaseActivity {
 
     private void gotoReportActivity(SingleSelectionModel sonSingleSelctionEntity) {
         Intent intent = new Intent();
-        intent.setClass(context, ReportActivity.class);
-        intent.putExtra("key", sonSingleSelctionEntity.itemStr);
+        intent.setClass(context, ReportRecordActivity.class);
+        intent.putExtra(ReportRecordActivity.SelectModel, sonSingleSelctionEntity);
         startActivity(intent);
     }
 

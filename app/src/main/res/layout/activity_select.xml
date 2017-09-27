@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <include
-        layout="@layout/title"
+        layout="@layout/title_view"
         android:layout_width="match_parent"
         android:layout_height="50dp" />
 

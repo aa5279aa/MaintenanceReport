@@ -1,49 +1,43 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:focusable="true"
-    android:focusableInTouchMode="true"
-    android:orientation="vertical">
+    android:focusableInTouchMode="true">
 
-    <include
-        layout="@layout/title"
+    <com.lxl.valvedemo.view.StockTitleView
+        android:id="@+id/text_title"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        app:stock_title_text_msg="填写页"
+        app:stock_title_text_style="@style/text_20_ffffff" />
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/bottomlayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="#d2d2d2"
+        android:gravity="right"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/bottomlayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="#d2d2d2"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/submit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="提交" />
-        </LinearLayout>
-
-        <ScrollView
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/bottomlayout">
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="提交" />
+    </LinearLayout>
 
-            <com.lxl.valvedemo.view.ListLinearLayout
-                android:id="@+id/listview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </ScrollView>
-    </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomlayout"
+        android:layout_below="@id/text_title" />
 
-</LinearLayout>
+</RelativeLayout>
