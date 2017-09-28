@@ -40,6 +40,7 @@ public class TableConfig {
             e.printStackTrace();
         }
         mSelectionModel.level = 0;
+        mSelectionModel.path = "execl";
         for (String line : lineList) {
             addLine2ModelList(line, mSelectionModel);
         }
@@ -68,6 +69,7 @@ public class TableConfig {
             plateModel.itemStr = plate;
             plateModel.level = 1;
             plateModel.parentModel = selectionModel;
+            plateModel.path = selectionModel.path + File.separator + plateModel.itemStr;
             selectionModel.selectList.add(plateModel);
         }
         SingleSelectionModel majorModel = findFromModel(plateModel.selectList, major);
@@ -76,6 +78,7 @@ public class TableConfig {
             majorModel.itemStr = major;
             majorModel.level = 2;
             majorModel.parentModel = plateModel;
+            majorModel.path = majorModel.parentModel.path + File.separator + majorModel.itemStr;
             plateModel.selectList.add(majorModel);
         }
         SingleSelectionModel formModel = findFromModel(majorModel.selectList, form);
@@ -84,9 +87,9 @@ public class TableConfig {
             formModel.itemStr = form;
             formModel.level = 3;
             formModel.isCanJump = true;
-            formModel.anwserStr = "anwserStr";//对应的表格名称
             formModel.parentModel = majorModel;
             formModel.parseType = parseType;
+            formModel.path = formModel.parentModel.path + File.separator + formModel.itemStr;
             majorModel.selectList.add(formModel);
         }
     }

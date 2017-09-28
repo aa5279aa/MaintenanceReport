@@ -9,7 +9,7 @@ public class SingleSelectionModel implements Serializable {
     public String selectId;//
     public int level = 0;
     public String itemStr;
-    public String anwserStr;
+    public String path;
     public boolean isCanSelect = true;
     public boolean isCanJump = false;
     public List<SingleSelectionModel> selectList = new ArrayList<SingleSelectionModel>();

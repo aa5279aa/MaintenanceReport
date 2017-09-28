@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -15,11 +14,18 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.config.TableConfig;
-import com.lxl.valvedemo.model.viewmodel.ReportSelectionItemEntity;
+import com.lxl.valvedemo.inter.BuildResultInter;
+import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.ReportSelectionSubItemEntity;
+import com.lxl.valvedemo.model.viewmodel.ReportSelectionItemEntity;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
+import com.lxl.valvedemo.page.fragment.BaseBuildFragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType1Fragment;
+import com.lxl.valvedemo.service.BuildService;
+import com.lxl.valvedemo.util.DateUtil;
+import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.PoiHelper;
 import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.view.SelectionAdapter;
@@ -41,9 +47,8 @@ public class ReportRecordActivity extends FragmentActivity {
     SelectionAdapter adapter;
     SingleSelectionModel mSelectModel;
 
-    Fragment type1;
-    Fragment type2;
-
+    BaseBuildFragment buildFragment;
+    Handler mHander = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +87,9 @@ public class ReportRecordActivity extends FragmentActivity {
 
     private void bindData() {
         if ("1".equals(mSelectModel.parseType)) {
-            ReportRecordType1Fragment recordType1Fragment = new ReportRecordType1Fragment();
+            buildFragment = new ReportRecordType1Fragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, recordType1Fragment);
+            fragmentTransaction.replace(R.id.fragment_container, buildFragment);
             fragmentTransaction.commit();
         }
         titleText.setTitle(mSelectModel.itemStr);
@@ -92,8 +97,41 @@ public class ReportRecordActivity extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                // 提交并且生成最后的结果
                 Toast.makeText(mContext, "结果已提交，正在生成excel表", Toast.LENGTH_SHORT).show();
+                final ReportBuildModel buildModel = buildFragment.getBuildModel();
+                buildModel.tableName = mSelectModel.itemStr;
+                buildModel.dateStr = DateUtil.getCurrentTime();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+//                            InputStream open = getAssets().open(mSelectModel.path + ReportBuildConfig.Suffix);
+                            File file = new File(ReportBuildConfig.reportBuildPath + File.separator + buildModel.tableName + "_" + buildModel.dateStr + ReportBuildConfig.Suffix);
+                            if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_ONE) {
+                                IOHelper.checkParent(file);
+                                BuildService.getInstance().buildReportTypeOne(file, buildModel.maintainReportModel, new BuildResultInter() {
+                                    @Override
+                                    public void buildSucess(String pathStr) {
+                                        showResult("execl生成成功，位置：" + pathStr);
+                                    }
+
+                                    @Override
+                                    public void buildFail(String caseStr) {
+                                        showResult(caseStr);
+                                    }
+                                });
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+
+                //生成execl
+                // 提交并且生成最后的结果
+
 //                final String station, final String owner, final String checker, final String data
 //                String station = ((TextView) findViewById(R.id.station)).getText().toString();
 //                String owner = ((TextView) findViewById(R.id.owner)).getText().toString();
@@ -109,12 +147,22 @@ public class ReportRecordActivity extends FragmentActivity {
         });
     }
 
+    private void showResult(final String str) {
+        mHander.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(mContext, str, Toast.LENGTH_LONG)
+                        .show();
+            }
+        });
+    }
+
     private void showFillTable(String parseType) {
 
     }
 
     private void readExecl(String path, String parseType) {
-        
+
     }
 
 

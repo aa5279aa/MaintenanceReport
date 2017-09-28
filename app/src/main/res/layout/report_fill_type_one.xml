@@ -15,7 +15,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include layout="@layout/report_header_type1" />
+            <include
+                android:id="@+id/report_header_type1"
+                layout="@layout/report_header_type1" />
 
             <LinearLayout
                 android:id="@+id/report_fill_contanier"

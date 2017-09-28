@@ -16,12 +16,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="right|center_vertical"
-            android:text="场站：" />
+            android:text="作业区：" />
 
         <EditText
-            android:id="@+id/station"
+            android:id="@+id/report_header_type1_workarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="作业区信息"
             android:layout_weight="1" />
 
 
@@ -39,12 +40,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="right|center_vertical"
-            android:text="场站负责人：" />
+            android:text="场站：" />
 
         <EditText
-            android:id="@+id/owner"
+            android:id="@+id/report_header_type1_station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="厂区信息"
             android:layout_weight="1" />
 
     </LinearLayout>
@@ -64,9 +66,10 @@
             android:text="检查人：" />
 
         <EditText
-            android:id="@+id/checker"
+            android:id="@+id/report_header_type1_checker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="检查人信息"
             android:layout_weight="1" />
 
     </LinearLayout>
@@ -86,7 +89,7 @@
             android:text="日期：" />
 
         <EditText
-            android:id="@+id/date"
+            android:id="@+id/report_header_type1_date"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

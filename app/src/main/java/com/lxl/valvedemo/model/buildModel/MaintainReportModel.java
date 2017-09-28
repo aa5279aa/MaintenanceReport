@@ -5,23 +5,24 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/9/27 0027.
- * 保养填表
+ * 设备检查与维护保养记录 填表
  * type=1
+ * 维修队板块-机械设备专业-阀门维护保养记录
+ *
  */
 
 public class MaintainReportModel {
-    public String tableName;
-    public String workAreaName = "作业区";
+    final public String workAreaName = "作业区";
     public String workAreaText = "";
 
-    public String stationName = "场站";
+    final public String stationName = "场站";
     public String stationText = "";
 
-    public String maintainName = "维护保养人员";
-    public String maintainText = "";
+    final public String checkerName = "维护保养人员";
+    public String checkerText = "";
 
-    public String dateName = "日期";
+    final public String dateName = "日期";
     public String dateText = "";
 
-    public List<MaintainReportItemModel> maintainList = new ArrayList<>();
+    public List<MaintainReportItemModel> maintainList = new ArrayList<>();//
 }
