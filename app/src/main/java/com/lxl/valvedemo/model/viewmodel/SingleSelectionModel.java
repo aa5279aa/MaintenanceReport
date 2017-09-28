@@ -1,4 +1,4 @@
-package com.lxl.valvedemo.model;
+package com.lxl.valvedemo.model.viewmodel;
 
 import java.io.Serializable;
 import java.util.ArrayList;

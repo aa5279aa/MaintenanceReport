@@ -1,14 +1,5 @@
 package com.lxl.valvedemo.config;
 
-import com.lxl.valvedemo.model.ReportSelectionItemEntity;
-import com.lxl.valvedemo.model.ReportSelectionSubItemEntity;
-import com.lxl.valvedemo.model.SingleSelectionModel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class DataConfig {
 
 //    static Map<String, SingleSelectionModel> map = new HashMap<String, SingleSelectionModel>();

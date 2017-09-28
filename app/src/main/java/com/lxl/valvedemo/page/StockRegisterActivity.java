@@ -91,7 +91,6 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
         }
     }
 
-    //跳转到短信验证码，验证码在下一个界面发送
     private void handleGoToNext(String user) {
         if (!(mUserList.size() == 0 || mUserList.contains(user))) {
             return;

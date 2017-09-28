@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.lxl.valvedemo.BaseActivity;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.TableConfig;
-import com.lxl.valvedemo.model.SingleSelectionModel;
+import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 
 public class SelectActivity extends BaseActivity {
     Context context;

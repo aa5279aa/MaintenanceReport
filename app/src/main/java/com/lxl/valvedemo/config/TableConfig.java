@@ -2,7 +2,7 @@ package com.lxl.valvedemo.config;
 
 import android.content.Context;
 
-import com.lxl.valvedemo.model.SingleSelectionModel;
+import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.StringUtil;
 

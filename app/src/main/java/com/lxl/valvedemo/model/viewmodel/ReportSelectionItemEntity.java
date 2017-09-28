@@ -1,4 +1,6 @@
-package com.lxl.valvedemo.model;
+package com.lxl.valvedemo.model.viewmodel;
+
+import com.lxl.valvedemo.model.buildModel.ReportSelectionSubItemEntity;
 
 import java.util.ArrayList;
 import java.util.List;

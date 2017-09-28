@@ -1,4 +1,4 @@
-package com.lxl.valvedemo.model;
+package com.lxl.valvedemo.model.buildModel;
 
 /**
  * Created by Administrator on 2017/9/27 0027.

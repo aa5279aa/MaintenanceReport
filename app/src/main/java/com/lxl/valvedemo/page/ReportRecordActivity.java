@@ -1,8 +1,6 @@
 package com.lxl.valvedemo.page;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -14,20 +12,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lxl.valvedemo.MainActivity;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.TableConfig;
-import com.lxl.valvedemo.model.ReportSelectionItemEntity;
-import com.lxl.valvedemo.model.ReportSelectionSubItemEntity;
-import com.lxl.valvedemo.model.SingleSelectionModel;
+import com.lxl.valvedemo.model.viewmodel.ReportSelectionItemEntity;
+import com.lxl.valvedemo.model.buildModel.ReportSelectionSubItemEntity;
+import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 import com.lxl.valvedemo.page.fragment.ReportRecordType1Fragment;
 import com.lxl.valvedemo.util.PoiHelper;
 import com.lxl.valvedemo.util.StringUtil;
-import com.lxl.valvedemo.view.ListLinearLayout;
 import com.lxl.valvedemo.view.SelectionAdapter;
 import com.lxl.valvedemo.view.StockTitleView;
 
@@ -99,9 +93,8 @@ public class ReportRecordActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 // 提交并且生成最后的结果
-                Toast.makeText(mContext, "结果已提交，正在生成excel表", Toast.LENGTH_SHORT)
-                        .show();
-////                final String station, final String owner, final String checker, final String data
+                Toast.makeText(mContext, "结果已提交，正在生成excel表", Toast.LENGTH_SHORT).show();
+//                final String station, final String owner, final String checker, final String data
 //                String station = ((TextView) findViewById(R.id.station)).getText().toString();
 //                String owner = ((TextView) findViewById(R.id.owner)).getText().toString();
 //                String checker = ((TextView) findViewById(R.id.checker)).getText().toString();
@@ -121,7 +114,7 @@ public class ReportRecordActivity extends FragmentActivity {
     }
 
     private void readExecl(String path, String parseType) {
-
+        
     }
 
 

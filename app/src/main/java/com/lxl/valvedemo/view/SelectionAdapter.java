@@ -10,8 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lxl.valvedemo.R;
-import com.lxl.valvedemo.model.ReportSelectionItemEntity;
-import com.lxl.valvedemo.model.ReportSelectionSubItemEntity;
+import com.lxl.valvedemo.model.viewmodel.ReportSelectionItemEntity;
+import com.lxl.valvedemo.model.buildModel.ReportSelectionSubItemEntity;
 
 import java.util.List;
 
