@@ -1,8 +1,8 @@
 package com.lxl.valvedemo.page;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
@@ -13,20 +13,25 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.config.TableConfig;
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.ReportSelectionSubItemEntity;
-import com.lxl.valvedemo.model.viewmodel.ReportSelectionItemEntity;
+import com.lxl.valvedemo.model.viewmodel.LocationRecordModel;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 import com.lxl.valvedemo.page.fragment.BaseBuildFragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType1Fragment;
+import com.lxl.valvedemo.page.fragment.ReportRecordType2Fragment;
+import com.lxl.valvedemo.page.fragment.ReportRecordType3Fragment;
 import com.lxl.valvedemo.service.BuildTyeOneService;
+import com.lxl.valvedemo.service.BuildTyeTwoService;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
-import com.lxl.valvedemo.util.PoiHelper;
 import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.view.SelectionAdapter;
 import com.lxl.valvedemo.view.StockTitleView;
@@ -50,6 +55,10 @@ public class ReportRecordActivity extends FragmentActivity {
     BaseBuildFragment buildFragment;
     Handler mHander = new Handler();
 
+    LocationClient mClient;
+    BDAbstractLocationListener listener;
+    List<LocationRecordModel> recordList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +67,30 @@ public class ReportRecordActivity extends FragmentActivity {
         initView();
         initData();
         bindData();
+        startLocationService();
+    }
+
+    private void startLocationService() {
+        mClient = new LocationClient(getApplicationContext());
+        listener = new BDAbstractLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation bdLocation) {
+                Log.i("lxltest", "location,lat:" + bdLocation.getLatitude() + ",long:" + bdLocation.getLongitude() + ",address:" + bdLocation.getAddrStr());
+                LocationRecordModel recordModel = new LocationRecordModel();
+                recordModel.latitude = bdLocation.getLatitude();
+                recordModel.longitude = bdLocation.getLongitude();
+                recordModel.addressText = bdLocation.getAddrStr();
+                recordModel.cityText = bdLocation.getCity();
+                recordList.add(recordModel);
+            }
+        };
+        mClient.registerLocationListener(listener);
+        LocationClientOption option = new LocationClientOption();
+//        option.setOpenAutoNotifyMode(10, 0, LocationClientOption.LOC_SENSITIVITY_HIGHT);
+        option.setScanSpan(10 * 1000);
+        option.setIsNeedAddress(true);
+        mClient.setLocOption(option);
+        mClient.start();
     }
 
     private void initView() {
@@ -80,25 +113,30 @@ public class ReportRecordActivity extends FragmentActivity {
         if (StringUtil.emptyOrNull(path)) {
             return;
         }
-        //使用对应的规则去解析execl
-        readExecl(path, mSelectModel.parseType);
     }
-
 
     private void bindData() {
         if ("1".equals(mSelectModel.parseType)) {
             buildFragment = new ReportRecordType1Fragment();
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, buildFragment);
-            fragmentTransaction.commit();
+        } else if ("2".equals(mSelectModel.parseType)) {
+            buildFragment = new ReportRecordType2Fragment();
+        } else if ("3".equals(mSelectModel.parseType)) {
+            buildFragment = new ReportRecordType3Fragment();
         }
+        buildFragment.setExecl(mSelectModel.path);
+        if (buildFragment == null) {
+            return;
+        }
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, buildFragment);
+        fragmentTransaction.commit();
         titleText.setTitle(mSelectModel.itemStr);
         mSubmit.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 Toast.makeText(mContext, "结果已提交，正在生成excel表", Toast.LENGTH_SHORT).show();
-                final ReportBuildModel buildModel = buildFragment.getBuildModel();
+                final ReportBuildModel buildModel = buildFragment.buildBuildModel();
                 buildModel.tableName = mSelectModel.itemStr;
                 buildModel.dateStr = DateUtil.getCurrentTime();
                 new Thread(new Runnable() {
@@ -106,14 +144,35 @@ public class ReportRecordActivity extends FragmentActivity {
                     public void run() {
 
                         try {
-//                            InputStream open = getAssets().open(mSelectModel.path + ReportBuildConfig.Suffix);
-                            File file = new File(ReportBuildConfig.reportBuildPath + File.separator + buildModel.tableName + "_" + buildModel.dateStr + ReportBuildConfig.Suffix);
+                            List<String> strList = locationRcord2List(recordList);
+                            String s = IOHelper.listToStr(strList);
+                            String path = ReportBuildConfig.reportBuildPath + File.separator + buildModel.tableName + "_" + buildModel.dateStr;
+                            File outFile = new File(path + ReportBuildConfig.Location_Suffix);
+                            IOHelper.writerStrByCodeToFile(outFile, s);
+                            File file = new File(path + ReportBuildConfig.Execl_Suffix);
                             if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_ONE) {
                                 IOHelper.checkParent(file);
                                 new BuildTyeOneService().buildReportTypeOne(file, buildModel.maintainReportModel, new BuildResultInter() {
                                     @Override
                                     public void buildSucess(String pathStr) {
                                         showResult("execl生成成功，位置：" + pathStr);
+                                        //退回到大首页
+                                        back2Home();
+                                    }
+
+                                    @Override
+                                    public void buildFail(String caseStr) {
+                                        showResult(caseStr);
+                                    }
+                                });
+                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_TWO) {
+                                IOHelper.checkParent(file);
+                                new BuildTyeTwoService().writeReportTypeTwo(file, buildModel.inspectionReportModel, new BuildResultInter() {
+                                    @Override
+                                    public void buildSucess(String pathStr) {
+                                        showResult("execl生成成功，位置：" + pathStr);
+                                        //退回到大首页
+                                        back2Home();
                                     }
 
                                     @Override
@@ -127,22 +186,6 @@ public class ReportRecordActivity extends FragmentActivity {
                         }
                     }
                 }).start();
-
-
-                //生成execl
-                // 提交并且生成最后的结果
-
-//                final String station, final String owner, final String checker, final String data
-//                String station = ((TextView) findViewById(R.id.station)).getText().toString();
-//                String owner = ((TextView) findViewById(R.id.owner)).getText().toString();
-//                String checker = ((TextView) findViewById(R.id.checker)).getText().toString();
-//                String date = ((TextView) findViewById(R.id.date)).getText().toString();
-//                // 开启一个线程
-//                createReport(adapter, station, owner, checker, date);
-//                Intent intent = new Intent();
-//                intent.setClass(mContext, MainActivity.class);
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                startActivity(intent);
             }
         });
     }
@@ -157,78 +200,19 @@ public class ReportRecordActivity extends FragmentActivity {
         });
     }
 
-    private void showFillTable(String parseType) {
-
+    public List<String> locationRcord2List(List<LocationRecordModel> recordList) {
+        List<String> strList = new ArrayList<>();
+        for (LocationRecordModel locationRecordModel : recordList) {
+            strList.add("时间：" + locationRecordModel.dataText + " 地点： " + locationRecordModel.addressText + " 经度：" + locationRecordModel.latitude + " 纬度：" + locationRecordModel.longitude);
+        }
+        return strList;
     }
 
-    private void readExecl(String path, String parseType) {
 
-    }
-
-
-    private void createReport(final SelectionAdapter adapter, final String station, final String owner, final String checker, final String data) {
-        new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                List<ReportSelectionItemEntity> list = new ArrayList<ReportSelectionItemEntity>();
-                for (int i = 0; i < adapter.getCount(); i++) {
-                    list.add(adapter.getItem(i));
-                }
-                List<String[]> all = new ArrayList<String[]>();
-                all.add(new String[]{"维修队计量专业季度维护保养检查表"});
-                all.add(new String[]{"场站：" + station});
-                all.add(new String[]{"序号", "项目", "检查内容", "检查结果", "备注"});
-                int index = 0;
-                for (ReportSelectionItemEntity item : list) {
-                    for (ReportSelectionSubItemEntity subItem : item.reportSelectionList) {
-                        String[] line = new String[5];
-                        line[0] = String.valueOf(index++);
-                        line[1] = item.itemTitle;
-                        line[2] = subItem.mCheckContent;
-                        line[3] = subItem.mCheckResult;
-                        line[4] = subItem.mDesc;
-                        all.add(line);
-                    }
-                }
-                all.add(new String[]{" "});
-                all.add(new String[]{" "});
-                all.add(new String[]{"场站负责人" + owner, "检查人" + checker, "日期" + data});
-
-                String[][] strs = new String[all.size()][5];
-                for (int i = 0; i < all.size(); i++) {
-                    String[] line = all.get(i);
-                    if (line.length == 1) {
-                        strs[i][3] = line[0];
-                    } else {
-                        for (int k = 0; k < line.length; k++) {
-                            strs[i][k] = line[k];
-                        }
-                    }
-                }
-
-                File externalStorageDirectory = Environment
-                        .getExternalStorageDirectory();
-                final String path = externalStorageDirectory.getPath()
-                        + File.separator + station + "_" + data + ".xls";
-//				String paths = Environment.getExternalStorageDirectory()
-//						.getPath() + "//ctrip_crash_test//crash_log//xx.xls";
-                final String result = PoiHelper.poiWrite(strs, path);
-                new Handler(getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if ("success".equals(result)) {
-                            Toast.makeText(mContext, "execl生成成功，位置：" + path, Toast.LENGTH_LONG)
-                                    .show();
-                        } else {
-                            Toast.makeText(mContext, result, Toast.LENGTH_LONG)
-                                    .show();
-                        }
-
-                    }
-                });
-            }
-        }).start();
+    public void back2Home() {
+        Intent intent = new Intent();
+        intent.setClass(this, OperationActivity.class);
+        startActivity(intent);
     }
 
 }

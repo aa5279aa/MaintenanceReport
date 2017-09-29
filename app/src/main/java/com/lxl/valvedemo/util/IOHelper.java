@@ -211,6 +211,11 @@ public class IOHelper {
         }
     }
 
+    public static void writerStrByCodeToFile(File file, String str) {
+        writerStrByCodeToFile(file, "UTF-8", false, str);
+    }
+
+
     public static void writerStrByCodeToFile(File file, String outcode,
                                              boolean type, String str) {
         BufferedWriter writer = null;

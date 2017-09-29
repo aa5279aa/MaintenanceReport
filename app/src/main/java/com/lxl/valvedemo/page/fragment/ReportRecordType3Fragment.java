@@ -10,15 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lxl.valvedemo.R;
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
+import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
 import com.lxl.valvedemo.util.DateUtil;
 
 /**
  * Created by Administrator on 2017/9/27 0027.
  */
 
-public class ReportRecordType1Fragment extends BaseBuildFragment {
+public class ReportRecordType3Fragment extends BaseBuildFragment {
 
     LinearLayout mReportHeaderContainer;
     EditText mReportHeaderWorkArea;
@@ -70,7 +70,7 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
 
     public ReportBuildModel getBuildModel() {
         mReportBuildModel = new ReportBuildModel();
-        mReportBuildModel.buildType = ReportBuildModel.BUILD_TYPE_ONE;
+        mReportBuildModel.buildType = ReportBuildModel.BUILD_TYPE_THREE;
         return mReportBuildModel;
     }
 
@@ -82,7 +82,7 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
         String station = mReportHeaderStation.getText().toString();
         String checker = mReportHeaderChecker.getText().toString();
         String data = mReportHeaderDate.getText().toString();
-
+        model.buildType = ReportBuildModel.BUILD_TYPE_ONE;
 
         model.maintainReportModel.workAreaText = workArea;
         model.maintainReportModel.stationText = station;
@@ -115,4 +115,5 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
         }
         return model;
     }
+
 }

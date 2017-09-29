@@ -5,8 +5,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.lxl.valvedemo.page.ReportActivity;
-
 /**
  * Created by xiangleiliu on 2017/8/27.
  */

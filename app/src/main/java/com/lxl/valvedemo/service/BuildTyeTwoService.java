@@ -1,6 +1,9 @@
 package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
+import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportModel;
+import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportSubTypeModel;
+import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportTypeModel;
 import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportModel;
 import com.lxl.valvedemo.util.StyleUtil;
@@ -9,11 +12,17 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by xiangleiliu on 2017/9/28.
@@ -24,7 +33,92 @@ public class BuildTyeTwoService {
 
     }
 
-    public void buildReportTypeOne(File outFile, MaintainReportModel maintainReportModel, BuildResultInter inter) throws IOException {
+    public InspectionReportModel readReportTypeTwo(InputStream in) throws IOException {
+        InspectionReportModel inspectionReportModel = new InspectionReportModel();
+        HSSFWorkbook wb = new HSSFWorkbook(in);
+        HSSFSheet sheet1 = wb.getSheet("Sheet1");
+        HSSFRow row = sheet1.getRow(0);
+        HSSFCell cell = row.getCell(0);
+        //title
+        String tableTitle = cell.getStringCellValue();
+        inspectionReportModel.tableName = tableTitle;
+
+        List<InspectionReportTypeModel> firstColumList = getTypeModelList(sheet1);
+        for (InspectionReportTypeModel typeModel : firstColumList) {
+            List<InspectionReportSubTypeModel> subTypeModelList = getSubTypeModelList(sheet1, typeModel);
+            typeModel.subTypeModelList.addAll(subTypeModelList);
+            for (InspectionReportSubTypeModel subTypeModel : subTypeModelList) {
+                getSubTypeModelValue(sheet1, subTypeModel);
+            }
+        }
+        inspectionReportModel.typeModelList.addAll(firstColumList);
+        return inspectionReportModel;
+    }
+
+
+    private List<InspectionReportTypeModel> getTypeModelList(Sheet sheet) {
+        List<InspectionReportTypeModel> reportTypeModelList = new ArrayList<>();
+        int sheetMergeCount = sheet.getNumMergedRegions();
+        for (int i = 0; i < sheetMergeCount; i++) {
+            CellRangeAddress range = sheet.getMergedRegion(i);
+            int firstColumn = range.getFirstColumn();
+            int lastColumn = range.getLastColumn();
+            if (firstColumn != 0 || lastColumn != 0) {
+                continue;
+            }
+            int firstRow = range.getFirstRow();
+            int lastRow = range.getLastRow();
+            Cell cell = sheet.getRow(firstRow).getCell(0);
+            String typeName = cell.getStringCellValue();
+            InspectionReportTypeModel typeModel = new InspectionReportTypeModel();
+            typeModel.firstRow = firstRow;
+            typeModel.lastRow = lastRow;
+            typeModel.typeName = typeName;
+            reportTypeModelList.add(typeModel);
+        }
+        return reportTypeModelList;
+    }
+
+    private List<InspectionReportSubTypeModel> getSubTypeModelList(Sheet sheet, InspectionReportTypeModel typeModel) {
+        List<InspectionReportSubTypeModel> reportSubTypeModelList = new ArrayList<>();
+        int sheetMergeCount = sheet.getNumMergedRegions();
+        for (int i = 0; i < sheetMergeCount; i++) {
+            CellRangeAddress range = sheet.getMergedRegion(i);
+            int firstColumn = range.getFirstColumn();
+            int lastColumn = range.getLastColumn();
+            if (firstColumn != 2 || lastColumn != 2) {
+                continue;
+            }
+            int firstRow = range.getFirstRow();
+            int lastRow = range.getLastRow();
+            if (!(firstRow >= typeModel.firstRow && lastRow <= typeModel.lastRow)) {
+                continue;
+            }
+
+            Cell cell = sheet.getRow(firstRow).getCell(2);
+            String subTypeName = cell.getStringCellValue();
+            InspectionReportSubTypeModel reportSubTypeModel = new InspectionReportSubTypeModel();
+            reportSubTypeModel.firstRow = firstRow;
+            reportSubTypeModel.lastRow = lastRow;
+            reportSubTypeModel.subTypeName = subTypeName;
+            reportSubTypeModelList.add(reportSubTypeModel);
+        }
+        return reportSubTypeModelList;
+    }
+
+    private void getSubTypeModelValue(Sheet sheet1, InspectionReportSubTypeModel subTypeModel) {
+        int firstRow = subTypeModel.firstRow;
+        int lastRow = subTypeModel.lastRow;
+        for (int i = firstRow; i <= lastRow; i++) {
+            Row row = sheet1.getRow(i);
+            Cell cell = row.getCell(3);
+            InspectionReportSubTypeModel.InspectionReportCellModel cellModel = new InspectionReportSubTypeModel.InspectionReportCellModel();
+            cellModel.requireDesc = cell.getStringCellValue();
+            subTypeModel.cellModelList.add(cellModel);
+        }
+    }
+
+    public void writeReportTypeTwo(File outFile, InspectionReportModel inspectionReportModel, BuildResultInter inter) throws IOException {
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
@@ -32,7 +126,7 @@ public class BuildTyeTwoService {
         //title
         HSSFRow titleRow = sheet.createRow(0);
         HSSFCell titleCell = titleRow.createCell(0);
-        titleCell.setCellValue(maintainReportModel.tableTile);
+        titleCell.setCellValue(inspectionReportModel.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
 
@@ -40,56 +134,76 @@ public class BuildTyeTwoService {
         HSSFRow areaRow = sheet.createRow(1);
         HSSFCell areaCell = areaRow.createCell(0);
         HSSFCell stationCell = areaRow.createCell(4);
-        stationCell.setCellValue(maintainReportModel.stationName + ":" + maintainReportModel.stationText);
-        areaCell.setCellValue(maintainReportModel.workAreaName + ":" + maintainReportModel.workAreaText);
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 3));
+        areaCell.setCellValue(inspectionReportModel.workAreaName + ":" + inspectionReportModel.workAreaText);
+        stationCell.setCellValue(inspectionReportModel.stationName + ":" + inspectionReportModel.stationText);
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 2));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
 
-        if (maintainReportModel.maintainList.size() == 0) {
+        if (inspectionReportModel.typeModelList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);
             wb.write(fileOut);
             fileOut.close();
             return;
         }
-        for (int i = -1; i < maintainReportModel.maintainList.size(); i++) {
+        for (int i = -1; i < inspectionReportModel.typeModelList.size(); i++) {
+            String typeCellStr = "类别/专业";
             String positionCellStr = "序号";
-            String equipmentNameCellStr = "设备名称";
-            String specificationsCellStr = "规格型号";
-            String equipmentIdCellStr = "设备编号";
-            String maintainInfoCellStr = "检查与维护保养情况";
-            String maintainDescCellStr = "备注";
-            if (i >= 0) {
-                MaintainReportItemModel maintainReportItemModel = maintainReportModel.maintainList.get(i);
-                positionCellStr = String.valueOf(i + 1);
-                equipmentNameCellStr = maintainReportItemModel.equipmentName;
-                specificationsCellStr = maintainReportItemModel.specificationsName;
-                equipmentIdCellStr = maintainReportItemModel.equipmentId;
-                maintainInfoCellStr = maintainReportItemModel.maintainInfo;
-                maintainDescCellStr = maintainReportItemModel.maintainDesc;
+            String equipmentTypeCellStr = "设备类别";
+            String requireCellStr = "现场标准/要求";
+            String checkrecord = "设备编号";
+            String checkdesc = "检查与维护保养情况";
+            if (i == -1) {
+                HSSFRow headerRow = sheet.createRow(i + 3);
+                HSSFCell typeCellCell = headerRow.createCell(0);
+                HSSFCell positionCellCell = headerRow.createCell(1);
+                HSSFCell equipmentTypeCell = headerRow.createCell(2);
+                HSSFCell requireCell = headerRow.createCell(3);
+                HSSFCell checkrecordCell = headerRow.createCell(4);
+                HSSFCell checkdescCell = headerRow.createCell(5);
+                typeCellCell.setCellValue(typeCellStr);
+                positionCellCell.setCellValue(positionCellStr);
+                equipmentTypeCell.setCellValue(equipmentTypeCellStr);
+                requireCell.setCellValue(requireCellStr);
+                checkrecordCell.setCellValue(checkrecord);
+                checkdescCell.setCellValue(checkdesc);
+                continue;
             }
-            HSSFRow headerRow = sheet.createRow(i + 3);
-            HSSFCell positionCell = headerRow.createCell(0);
-            HSSFCell equipmentNameCell = headerRow.createCell(1);
-            HSSFCell specificationsCell = headerRow.createCell(2);
-            HSSFCell equipmentIdCell = headerRow.createCell(3);
-            HSSFCell maintainInfoCell = headerRow.createCell(4);
-            HSSFCell maintainDescCell = headerRow.createCell(5);
-            positionCell.setCellValue(positionCellStr);
-            equipmentNameCell.setCellValue(equipmentNameCellStr);
-            specificationsCell.setCellValue(specificationsCellStr);
-            equipmentIdCell.setCellValue(equipmentIdCellStr);
-            maintainInfoCell.setCellValue(maintainInfoCellStr);
-            maintainDescCell.setCellValue(maintainDescCellStr);
+            InspectionReportTypeModel typeModel = inspectionReportModel.typeModelList.get(i);
+            typeCellStr = typeModel.typeName;
+            for (int j = 0; j < typeModel.subTypeModelList.size(); j++) {
+                InspectionReportSubTypeModel subTypeModel = typeModel.subTypeModelList.get(j);
+                equipmentTypeCellStr = subTypeModel.subTypeName;
+                for (int k = 0; k < typeModel.subTypeModelList.size(); k++) {
+                    InspectionReportSubTypeModel.InspectionReportCellModel cellModel = subTypeModel.cellModelList.get(k);
+                    HSSFRow headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                    HSSFCell typeCell = headerRow.createCell(0);
+                    HSSFCell positionCellCell = headerRow.createCell(1);
+                    HSSFCell equipmentTypeCell = headerRow.createCell(2);
+                    HSSFCell requireCell = headerRow.createCell(3);
+                    HSSFCell checkrecordCell = headerRow.createCell(4);
+                    HSSFCell checkdescCell = headerRow.createCell(5);
+
+                    typeCell.setCellValue(typeCellStr);
+                    positionCellCell.setCellValue(sheet.getLastRowNum() - 2);
+                    equipmentTypeCell.setCellValue(equipmentTypeCellStr);
+                    requireCell.setCellValue(cellModel.requireDesc);
+                    checkrecordCell.setCellValue(cellModel.checkRecord);
+                    checkdescCell.setCellValue(cellModel.checkDesc);
+                }
+                sheet.addMergedRegion(new CellRangeAddress(subTypeModel.firstRow, subTypeModel.lastRow, 2, 2));
+            }
+            //合并单元格
+            sheet.addMergedRegion(new CellRangeAddress(typeModel.firstRow, typeModel.lastRow, 0, 0));
         }
 
         //维护保养人员  + 日期
         int nextRow = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRow);
-        HSSFCell checkerCell = bottomRow.createCell(0);
+        HSSFCell checkerCell = bottomRow.createCell(1);
         HSSFCell dataCell = bottomRow.createCell(4);
-        checkerCell.setCellValue(maintainReportModel.checkerText);
-        dataCell.setCellValue(maintainReportModel.dateText);
-        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 3));
+        checkerCell.setCellValue(inspectionReportModel.checkerText);
+        dataCell.setCellValue(inspectionReportModel.dateText);
+        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 1, 3));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 4, 5));
 
         FileOutputStream fileOut = new FileOutputStream(outFile);

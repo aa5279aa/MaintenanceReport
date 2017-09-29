@@ -14,8 +14,8 @@ public class InspectionReportModel {
     public String workAreaText = "";
     public final String stationName = "场站";
     public String stationText = "";
-    public final String chcckerName = "检查人";
-    public String chcckerText = "";
+    public final String checkerName = "检查人";
+    public String checkerText = "";
     public final String dateName = "日期";
     public String dateText = "";
     public List<InspectionReportTypeModel> typeModelList = new ArrayList<>();

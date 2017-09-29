@@ -9,7 +9,7 @@ import java.util.List;
 
 public class InspectionReportTypeModel {
     public String typeName = "仪表自动化设备设施";
+    public int firstRow = 0;
+    public int lastRow = 0;
     public List<InspectionReportSubTypeModel> subTypeModelList = new ArrayList<>();
-    public int firstColumn = 0;
-    public int lastColumn = 0;
 }

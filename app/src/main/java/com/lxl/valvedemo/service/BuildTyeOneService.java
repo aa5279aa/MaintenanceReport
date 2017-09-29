@@ -42,6 +42,8 @@ public class BuildTyeOneService {
         HSSFCell stationCell = areaRow.createCell(4);
         stationCell.setCellValue(maintainReportModel.stationName + ":" + maintainReportModel.stationText);
         areaCell.setCellValue(maintainReportModel.workAreaName + ":" + maintainReportModel.workAreaText);
+        stationCell.setCellStyle(StyleUtil.createDescStyle(wb));
+        areaCell.setCellStyle(StyleUtil.createDescStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 3));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
 
@@ -87,8 +89,8 @@ public class BuildTyeOneService {
         HSSFRow bottomRow = sheet.createRow(nextRow);
         HSSFCell checkerCell = bottomRow.createCell(0);
         HSSFCell dataCell = bottomRow.createCell(4);
-        checkerCell.setCellValue(maintainReportModel.checkerText);
-        dataCell.setCellValue(maintainReportModel.dateText);
+        checkerCell.setCellValue("维护保养人员：" + maintainReportModel.checkerText);
+        dataCell.setCellValue("日期：" + maintainReportModel.dateText);
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 3));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 4, 5));
 

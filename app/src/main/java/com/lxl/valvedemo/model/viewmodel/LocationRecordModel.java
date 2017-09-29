@@ -5,9 +5,11 @@ package com.lxl.valvedemo.model.viewmodel;
  */
 public class LocationRecordModel {
 
-    public double longitude = 5.56;
-    public double latitude = 5.56;
-    public String locationName = "";//位置名称
+    public double longitude = 0.0;
+    public double latitude = 0.0;
+    public String addressText = "";//位置名称
+    public String cityText = "";//城市名称
+    public String dataText = "";//位置名称
 
     public int x;
     public int y;

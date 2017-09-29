@@ -5,12 +5,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.location.Address;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.lxl.valvedemo.BaseActivity;
 import com.lxl.valvedemo.MainActivity;
 import com.lxl.valvedemo.R;
@@ -24,6 +30,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 废弃
+ */
+@Deprecated
 public class ReportActivity extends BaseActivity {
 
     protected TextView titleText;
@@ -31,6 +41,9 @@ public class ReportActivity extends BaseActivity {
     public ListLinearLayout mList;
     public Button mSubmit;
     SelectionAdapter adapter;
+
+    LocationClient mClient;
+    BDAbstractLocationListener listener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +56,38 @@ public class ReportActivity extends BaseActivity {
         initView();
         initData();
         setParentContentView();
+        startLocationService();
+    }
+
+    private void startLocationService() {
+        mClient = new LocationClient(getApplicationContext());
+        listener = new BDAbstractLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation bdLocation) {
+                Log.i("lxltest", "location,lat:" + bdLocation.getLatitude() + ",long:" + bdLocation.getLongitude() + ",address:" + bdLocation.getAddrStr());
+            }
+        };
+        mClient.registerLocationListener(listener);
+        LocationClientOption option = new LocationClientOption();
+        option.setOpenAutoNotifyMode(10, 0, LocationClientOption.LOC_SENSITIVITY_HIGHT);
+        mClient.setLocOption(option);
+        mClient.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).start();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mClient == null || listener == null) {
+            return;
+        }
+        mClient.unRegisterLocationListener(listener);
     }
 
     private void initView() {

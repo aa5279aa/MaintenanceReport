@@ -60,8 +60,12 @@ public class TableConfig {
         String major = split[1];
         String form = split[2];
         String parseType = "1";
-        if (split.length == 4) {
+        String tableTitle = "table名称";
+        if (split.length >= 4) {
             parseType = split[3];
+        }
+        if (split.length >= 5) {
+            tableTitle = split[4];
         }
         SingleSelectionModel plateModel = findFromModel(selectionModel.selectList, plate);
         if (plateModel == null) {
@@ -89,6 +93,7 @@ public class TableConfig {
             formModel.isCanJump = true;
             formModel.parentModel = majorModel;
             formModel.parseType = parseType;
+            formModel.tableTitle = tableTitle;
             formModel.path = formModel.parentModel.path + File.separator + formModel.itemStr;
             majorModel.selectList.add(formModel);
         }

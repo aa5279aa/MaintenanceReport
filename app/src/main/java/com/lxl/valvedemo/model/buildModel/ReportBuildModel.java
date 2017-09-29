@@ -1,5 +1,6 @@
 package com.lxl.valvedemo.model.buildModel;
 
+import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportModel;
 
 /**
@@ -15,5 +16,6 @@ public class ReportBuildModel {
     public String tableName = "";
     public String dateStr = "";
     public MaintainReportModel maintainReportModel = new MaintainReportModel();
+    public InspectionReportModel inspectionReportModel = new InspectionReportModel();
 
 }

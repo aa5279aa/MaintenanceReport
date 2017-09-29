@@ -15,4 +15,5 @@ public class SingleSelectionModel implements Serializable {
     public List<SingleSelectionModel> selectList = new ArrayList<SingleSelectionModel>();
     public SingleSelectionModel parentModel;
     public String parseType = "";
+    public String tableTitle = "";
 }
