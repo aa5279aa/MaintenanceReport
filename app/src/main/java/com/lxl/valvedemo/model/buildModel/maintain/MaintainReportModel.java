@@ -1,4 +1,6 @@
-package com.lxl.valvedemo.model.buildModel;
+package com.lxl.valvedemo.model.buildModel.maintain;
+
+import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.List;
  */
 
 public class MaintainReportModel {
+    public String tableTile = "设备检查与维护保养记录";
+
     final public String workAreaName = "作业区";
     public String workAreaText = "";
 

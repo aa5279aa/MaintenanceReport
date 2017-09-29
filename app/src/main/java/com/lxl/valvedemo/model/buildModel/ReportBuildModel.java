@@ -1,5 +1,7 @@
 package com.lxl.valvedemo.model.buildModel;
 
+import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportModel;
+
 /**
  * Created by xiangleiliu on 2017/9/28.
  */

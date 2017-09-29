@@ -23,7 +23,7 @@ import com.lxl.valvedemo.model.viewmodel.ReportSelectionItemEntity;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 import com.lxl.valvedemo.page.fragment.BaseBuildFragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType1Fragment;
-import com.lxl.valvedemo.service.BuildService;
+import com.lxl.valvedemo.service.BuildTyeOneService;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.PoiHelper;
@@ -110,7 +110,7 @@ public class ReportRecordActivity extends FragmentActivity {
                             File file = new File(ReportBuildConfig.reportBuildPath + File.separator + buildModel.tableName + "_" + buildModel.dateStr + ReportBuildConfig.Suffix);
                             if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_ONE) {
                                 IOHelper.checkParent(file);
-                                BuildService.getInstance().buildReportTypeOne(file, buildModel.maintainReportModel, new BuildResultInter() {
+                                new BuildTyeOneService().buildReportTypeOne(file, buildModel.maintainReportModel, new BuildResultInter() {
                                     @Override
                                     public void buildSucess(String pathStr) {
                                         showResult("execl生成成功，位置：" + pathStr);
