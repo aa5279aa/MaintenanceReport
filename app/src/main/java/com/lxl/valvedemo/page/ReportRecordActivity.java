@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -27,13 +26,11 @@ import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 import com.lxl.valvedemo.page.fragment.BaseBuildFragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType1Fragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType2Fragment;
-import com.lxl.valvedemo.page.fragment.ReportRecordType3Fragment;
 import com.lxl.valvedemo.service.BuildTyeOneService;
 import com.lxl.valvedemo.service.BuildTyeTwoService;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.StringUtil;
-import com.lxl.valvedemo.view.SelectionAdapter;
 import com.lxl.valvedemo.view.StockTitleView;
 
 import java.io.File;
@@ -48,8 +45,6 @@ public class ReportRecordActivity extends FragmentActivity {
     private StockTitleView titleText;
     private Context mContext;
     private Button mSubmit;
-    private FrameLayout mFragmentContainer;
-    SelectionAdapter adapter;
     SingleSelectionModel mSelectModel;
 
     BaseBuildFragment buildFragment;
@@ -95,7 +90,6 @@ public class ReportRecordActivity extends FragmentActivity {
 
     private void initView() {
         titleText = (StockTitleView) findViewById(R.id.text_title);
-        mFragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         mSubmit = (Button) findViewById(R.id.submit);
     }
 
@@ -120,8 +114,10 @@ public class ReportRecordActivity extends FragmentActivity {
             buildFragment = new ReportRecordType1Fragment();
         } else if ("2".equals(mSelectModel.parseType)) {
             buildFragment = new ReportRecordType2Fragment();
-        } else if ("3".equals(mSelectModel.parseType)) {
-            buildFragment = new ReportRecordType3Fragment();
+        } else {
+            //不支持
+            Toast.makeText(mContext, "该类型不支持，页面关闭。", Toast.LENGTH_SHORT).show();
+            finish();
         }
         buildFragment.setExecl(mSelectModel.path);
         if (buildFragment == null) {

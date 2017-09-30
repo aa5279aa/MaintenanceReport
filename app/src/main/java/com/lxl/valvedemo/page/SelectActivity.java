@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +21,7 @@ public class SelectActivity extends BaseActivity {
     public final static String SELECT_MODEL = "SELECT_MODEL";
     SingleSelectionModel singleSelctionEntity;
 
-    private RadioGroup radioGroup;
+    private LinearLayout selectGroup;
     private TextView keyText;
 
     @Override
@@ -37,7 +37,7 @@ public class SelectActivity extends BaseActivity {
     }
 
     private void getElement() {
-        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        selectGroup = (LinearLayout) findViewById(R.id.radio_group);
         keyText = (TextView) findViewById(R.id.key_text);
     }
 
@@ -45,32 +45,26 @@ public class SelectActivity extends BaseActivity {
         keyText.setText("xxxxxx");
         for (int i = 0; i < singleSelctionEntity.selectList.size(); i++) {
             SingleSelectionModel sonSingleSelctionEntity = singleSelctionEntity.selectList.get(i);
-            RadioButton button = new RadioButton(context);
+            Button button = new Button(context);
             button.setId(i);
             button.setText(sonSingleSelctionEntity.itemStr);
             button.setTextColor(Color.BLACK);
             button.setTag(sonSingleSelctionEntity);
-            radioGroup.addView(button);
-        }
-
-        radioGroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                int checkedRadioButtonId = group.getCheckedRadioButtonId();
-                RadioButton button = (RadioButton) group.getChildAt(checkedRadioButtonId);
-                SingleSelectionModel sonSingleSelctionEntity = (SingleSelectionModel) button.getTag();
-                if (sonSingleSelctionEntity.isCanJump) {
-                    gotoReportActivity(sonSingleSelctionEntity);
-                } else if (sonSingleSelctionEntity.isCanSelect) {
-                    gotoSelectActivity(sonSingleSelctionEntity);
-                } else {
-                    Toast.makeText(context, "没有对应的选项", Toast.LENGTH_SHORT).show();
+            selectGroup.addView(button);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    SingleSelectionModel sonSingleSelctionEntity = (SingleSelectionModel) v.getTag();
+                    if (sonSingleSelctionEntity.isCanJump) {
+                        gotoReportActivity(sonSingleSelctionEntity);
+                    } else if (sonSingleSelctionEntity.isCanSelect) {
+                        gotoSelectActivity(sonSingleSelctionEntity);
+                    } else {
+                        Toast.makeText(context, "没有对应的选项", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-            }
-        });
-
+            });
+        }
     }
 
     private void initData() {
