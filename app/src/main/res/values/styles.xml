@@ -8,6 +8,21 @@
         <item name="android:textColor">#ffffffff</item>
     </style>
 
+    <style name="ThemeHolo" parent="android:Theme">
+        <item name="android:windowBackground">@color/background_dialog</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@style/Window.DialogAnimation</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Window.DialogAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/common_fade_in</item>
+        <item name="android:windowExitAnimation">@anim/common_fade_out</item>
+    </style>
+
     <style name="RoundButtonStyle" parent="@style/ButtonStyle">
         <item name="android:textSize">18.0sp</item>
         <item name="android:textColor">#ffffffff</item>

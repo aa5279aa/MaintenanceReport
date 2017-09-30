@@ -1,0 +1,31 @@
+发布包
+d:\androidzs>keytool -exportcert -list -v -alias leilei -keystore leilei.keystore
+输入密钥库口令:
+别名: leilei
+创建日期: 2017-5-19
+条目类型: PrivateKeyEntry
+证书链长度: 1
+证书[1]:
+所有者: CN=lei, OU=lei, O=lei, L=lei, ST=lei, C=lei
+发布者: CN=lei, OU=lei, O=lei, L=lei, ST=lei, C=lei
+序列号: 3121db79
+有效期开始日期: Fri May 19 18:29:25 CST 2017, 截止日期: Tue May 13 18:29:25 CST 2042
+证书指纹:
+         MD5: F7:82:97:59:65:5B:C8:5A:1F:AB:78:76:42:E6:1E:B2
+         SHA1: AC:15:41:6C:BA:01:4E:00:A3:D0:DE:47:A5:B2:96:D5:2C:A2:DC:83
+         SHA256: B8:3E:59:1A:08:AD:CC:51:77:A8:D3:2B:92:E7:E1:61:9F:99:D3:C9:3C:FB:8B:6C:E5:CD:E3:35:C8:21:D2:22
+         签名算法名称: SHA256withRSA
+         版本: 3
+
+扩展:
+
+#1: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 2D 7A 6D 38 86 26 9E 13   DC C4 81 D3 FA AE 95 47  -zm8.&.........G
+0010: 67 F3 6E A3                                        g.n.
+]
+]
+
+
+

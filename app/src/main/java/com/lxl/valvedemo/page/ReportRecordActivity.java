@@ -31,6 +31,7 @@ import com.lxl.valvedemo.service.BuildTyeTwoService;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.StringUtil;
+import com.lxl.valvedemo.view.HotelCustomDialog;
 import com.lxl.valvedemo.view.StockTitleView;
 
 import java.io.File;
@@ -115,9 +116,23 @@ public class ReportRecordActivity extends FragmentActivity {
         } else if ("2".equals(mSelectModel.parseType)) {
             buildFragment = new ReportRecordType2Fragment();
         } else {
-            //不支持
-            Toast.makeText(mContext, "该类型不支持，页面关闭。", Toast.LENGTH_SHORT).show();
-            finish();
+            HotelCustomDialog dialog = new HotelCustomDialog();
+            dialog.setContent("该类型不支持，点击关闭当前界面。", "确定", null);
+            dialog.setDialogBtnClick(new HotelCustomDialog.HotelDialogBtnClickListener() {
+                @Override
+                public void leftBtnClick(HotelCustomDialog dialog) {
+                    dialog.dismiss();
+                    finish();
+                }
+
+                @Override
+                public void rightBtnClick(HotelCustomDialog dialog) {
+                    dialog.dismiss();
+                    finish();
+                }
+            });
+            dialog.show(getSupportFragmentManager(), "close");
+            return;
         }
         buildFragment.setExecl(mSelectModel.path);
         if (buildFragment == null) {

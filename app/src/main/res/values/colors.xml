@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources><color name="hotel_coupon_nopress">#52bce8</color>
     <color name="stock_main_color">#214E82</color>
+    <color name="background_dialog">#99000000</color>
+    <color name="carrental_dark2">#d7d7d7</color>
+    <color name="transparent">#00000000</color>
 
 	<color name="hotel_coupon_press">#3983a2</color>
 	<color name="hotel_inquire_after6_color">#b2b2b2</color>
