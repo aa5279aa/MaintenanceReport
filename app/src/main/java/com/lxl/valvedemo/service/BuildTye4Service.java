@@ -3,6 +3,8 @@ package com.lxl.valvedemo.service;
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
+import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
+import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -14,6 +16,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by xiangleiliu on 2017/9/28.
@@ -24,7 +27,7 @@ public class BuildTye4Service {
 
     }
 
-    public void buildReportTypeOne(File outFile, MaintainReportModel maintainReportModel, BuildResultInter inter) throws IOException {
+    public void buildReportTypeFour(File outFile, MaintainReportModel maintainReportModel, BuildResultInter inter) throws IOException {
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
@@ -102,4 +105,8 @@ public class BuildTye4Service {
     }
 
 
+    public AlertReportModel readReportTypeFour(InputStream open) {
+        AlertReportModel reportModel = new AlertReportModel();
+        return reportModel;
+    }
 }

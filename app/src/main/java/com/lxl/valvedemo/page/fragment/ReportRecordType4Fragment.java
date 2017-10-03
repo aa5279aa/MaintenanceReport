@@ -13,8 +13,8 @@ import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
-import com.lxl.valvedemo.service.BuildTye3Service;
+import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
+import com.lxl.valvedemo.service.BuildTye4Service;
 import com.lxl.valvedemo.util.DateUtil;
 
 import java.io.InputStream;
@@ -23,10 +23,10 @@ import java.io.InputStream;
  * Created by Administrator on 2017/9/27 0027.
  */
 
-public class ReportRecordType3Fragment extends BaseBuildFragment {
+public class ReportRecordType4Fragment extends BaseBuildFragment {
 
     LinearLayout mReportHeaderContainer;
-    EditText mReportHeaderWorkArea;
+    EditText mStandard;
     EditText mReportHeaderStation;
     EditText mReportHeaderChecker;
     EditText mReportHeaderDate;
@@ -34,33 +34,33 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
 
     LinearLayout mReportFillContainer;
 
-    BuildTye3Service tyeThreeService = new BuildTye3Service();
+    BuildTye4Service type4Service = new BuildTye4Service();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.report_fill_type_3, container, false);
+        return inflater.inflate(R.layout.report_fill_type_4, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        bindDataType1(view);
+        bindDataType4(view);
     }
 
     private void initView(View view) {
         mReportHeaderContainer = (LinearLayout) view.findViewById(R.id.report_header_type1);
-        mReportHeaderWorkArea = (EditText) view.findViewById(R.id.report_header_type1_workarea);//厂区
-        mReportHeaderStation = (EditText) view.findViewById(R.id.report_header_type1_station);
-        mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_type1_checker);
-        mReportHeaderDate = (EditText) view.findViewById(R.id.report_header_type1_date);
+        mStandard = (EditText) view.findViewById(R.id.standard);//厂区
+        mReportHeaderStation = (EditText) view.findViewById(R.id.station);
+        mReportHeaderChecker = (EditText) view.findViewById(R.id.checker);
+        mReportHeaderDate = (EditText) view.findViewById(R.id.check_data);
         mReportFillContainer = (LinearLayout) view.findViewById(R.id.report_fill_contanier);
         mFillAdd = (TextView) view.findViewById(R.id.report_fill_add);
     }
 
 
-    private void bindDataType1(View view) {
+    private void bindDataType4(View view) {
         mReportHeaderDate.setText(DateUtil.getCurrentDate());
         mFillAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,19 +72,21 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
     }
 
     private void addNode2Container(LinearLayout fillContainer) {
-        View inflate = View.inflate(getContext(), R.layout.report_fill_type_1_additem, null);
+        View inflate = View.inflate(getContext(), R.layout.report_fill_type_4_additem, null);
+        TextView positionView = (TextView) inflate.findViewById(R.id.index);
+        positionView.setText("序号：" + String.valueOf(mReportFillContainer.getChildCount() + 1));
         fillContainer.addView(inflate);
     }
 
     @Override
     public ReportBuildModel getBuildModel() {
         mReportBuildModel = new ReportBuildModel();
-        mReportBuildModel.buildType = ReportBuildModel.BUILD_TYPE_THREE;
+        mReportBuildModel.buildType = ReportBuildModel.BUILD_TYPE_FOUR;
         //读取execl
         try {
             InputStream open = getActivity().getAssets().open(mPath + ReportBuildConfig.Execl_Suffix);
-            MaintainReportByAreaModel maintainReportByAreaModel = tyeThreeService.readReportTypeThree(open);
-            mReportBuildModel.maintainReportByArea = maintainReportByAreaModel;
+            AlertReportModel alertReportModel = type4Service.readReportTypeFour(open);
+            mReportBuildModel.alertReportModel = alertReportModel;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,41 +96,34 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
     @Override
     public ReportBuildModel buildBuildModel() {
         ReportBuildModel model = mReportBuildModel;
+        AlertReportModel alertReportModel = model.alertReportModel;
         //获取值
-        String workArea = mReportHeaderWorkArea.getText().toString();
+        String standard = mStandard.getText().toString();
         String station = mReportHeaderStation.getText().toString();
         String checker = mReportHeaderChecker.getText().toString();
         String data = mReportHeaderDate.getText().toString();
-        model.buildType = ReportBuildModel.BUILD_TYPE_ONE;
 
-        model.maintainReportModel.workAreaText = workArea;
-        model.maintainReportModel.stationText = station;
-        model.maintainReportModel.checkerText = checker;
-        model.maintainReportModel.dateText = data;
+        alertReportModel.checkDateText = data;
+        alertReportModel.checkerText = checker;
+        alertReportModel.stationText = station;
+        alertReportModel.standardText = standard;
 
         int childCount = mReportFillContainer.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View childAt = mReportFillContainer.getChildAt(i);
-            EditText equipmentEdit = (EditText) childAt.findViewById(R.id.report_fill_equipment_edit);
-            EditText specificationsEdit = (EditText) childAt.findViewById(R.id.report_fill_specifications_edit);
-            EditText numberEdit = (EditText) childAt.findViewById(R.id.report_fill_number_edit);
-            EditText situationEdit = (EditText) childAt.findViewById(R.id.report_fill_situation_edit);
-            EditText descEdit = (EditText) childAt.findViewById(R.id.report_fill_desc_edit);
+            EditText installLocaton = (EditText) childAt.findViewById(R.id.report_fill_install_location);
+            EditText showValueEdit = (EditText) childAt.findViewById(R.id.report_fill_show_value);
+//            TextView indexEdit = (TextView) childAt.findViewById(R.id.index);
 
-            String equipmentStr = equipmentEdit.getText().toString();
-            String specificationsStr = specificationsEdit.getText().toString();
-            String numberStr = numberEdit.getText().toString();
-            String situationStr = situationEdit.getText().toString();
-            String descStr = descEdit.getText().toString();
+            String installLocationStr = installLocaton.getText().toString();
+            String showValueStr = showValueEdit.getText().toString();
+//            String indexStr = indexEdit.getText().toString();
 
-            MaintainReportItemModel itemModel = new MaintainReportItemModel();
-            itemModel.position = i;
-            itemModel.equipmentName = equipmentStr;
-            itemModel.specificationsName = specificationsStr;
-            itemModel.equipmentId = numberStr;
-            itemModel.maintainInfo = situationStr;
-            itemModel.maintainDesc = descStr;
-            model.maintainReportModel.maintainList.add(itemModel);
+            AlertReportModel.AlertReportItemModel itemModel = new AlertReportModel.AlertReportItemModel();
+            itemModel.position = i + 1;
+            itemModel.installPosition = installLocationStr;
+            itemModel.showValue = showValueStr;
+            model.alertReportModel.reportItemModelList.add(itemModel);
         }
         return model;
     }

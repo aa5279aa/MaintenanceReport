@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.location.Address;
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
@@ -132,7 +131,7 @@ public class ReportActivity extends BaseActivity {
 
 
     private void addBottom(ListLinearLayout mList) {
-        View inflate = View.inflate(this, R.layout.report_header_type2, null);
+        View inflate = View.inflate(this, R.layout.report_fill_type_2_header, null);
         mList.addChildView(inflate);
     }
 

@@ -27,6 +27,10 @@ import com.lxl.valvedemo.page.fragment.BaseBuildFragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType1Fragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType2Fragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType3Fragment;
+import com.lxl.valvedemo.page.fragment.ReportRecordType4Fragment;
+import com.lxl.valvedemo.page.fragment.ReportRecordType5Fragment;
+import com.lxl.valvedemo.page.fragment.ReportRecordType6Fragment;
+import com.lxl.valvedemo.page.fragment.ReportRecordType7Fragment;
 import com.lxl.valvedemo.service.BuildTye1Service;
 import com.lxl.valvedemo.service.BuildTye2Service;
 import com.lxl.valvedemo.util.DateUtil;
@@ -118,6 +122,14 @@ public class ReportRecordActivity extends FragmentActivity {
             buildFragment = new ReportRecordType2Fragment();
         } else if ("3".equals(mSelectModel.parseType)) {
             buildFragment = new ReportRecordType3Fragment();
+        } else if ("4".equals(mSelectModel.parseType)) {
+            buildFragment = new ReportRecordType4Fragment();
+        } else if ("5".equals(mSelectModel.parseType)) {
+            buildFragment = new ReportRecordType5Fragment();
+        } else if ("6".equals(mSelectModel.parseType)) {
+            buildFragment = new ReportRecordType6Fragment();
+        } else if ("7".equals(mSelectModel.parseType)) {
+            buildFragment = new ReportRecordType7Fragment();
         } else {
             HotelCustomDialog dialog = new HotelCustomDialog();
             dialog.setContent("该类型不支持，点击关闭当前界面。", "确定", null);

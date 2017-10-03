@@ -39,7 +39,7 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.report_fill_type_one, container, false);
+        return inflater.inflate(R.layout.report_fill_type_1, container, false);
     }
 
     @Override
@@ -63,17 +63,17 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
         mReportHeaderDate.setText(DateUtil.getCurrentDate());
         //绑定数据
         for (InspectionReportTypeModel typeModel : mReportBuildModel.inspectionReportModel.typeModelList) {
-            View typeView = View.inflate(getContext(), R.layout.report_filltwo_type_view, null);
+            View typeView = View.inflate(getContext(), R.layout.report_fill_type_2_type_view, null);
             TextView typeTextView = (TextView) typeView.findViewById(R.id.filltwo_type_name);
             LinearLayout typeContainer = (LinearLayout) typeView.findViewById(R.id.filltwo_type_container);
             typeTextView.setText(typeModel.typeName);
             for (InspectionReportSubTypeModel subTypeModel : typeModel.subTypeModelList) {
-                View subTypeView = View.inflate(getContext(), R.layout.report_filltwo_subtype_view, null);
+                View subTypeView = View.inflate(getContext(), R.layout.report_fill_type_2_subtype_view, null);
                 TextView subTypeTextView = (TextView) subTypeView.findViewById(R.id.filltwo_subtype_name);
                 LinearLayout subTypeContainer = (LinearLayout) subTypeView.findViewById(R.id.filltwo_subtype_container);
                 subTypeTextView.setText(subTypeModel.subTypeName);
                 for (InspectionReportSubTypeModel.InspectionReportCellModel cellModel : subTypeModel.cellModelList) {
-                    View subTypeValueView = View.inflate(getContext(), R.layout.report_filltwo_subtypevvalue_view, null);
+                    View subTypeValueView = View.inflate(getContext(), R.layout.report_fill_type_2_subtypevvalue_view, null);
                     TextView subTypeTextValueTV = (TextView) subTypeValueView.findViewById(R.id.filltwo_subtypevalue_require);
                     EditText recordEdit = (EditText) subTypeValueView.findViewById(R.id.check_record_edit);
                     EditText descEdit = (EditText) subTypeValueView.findViewById(R.id.check_desc_edit);

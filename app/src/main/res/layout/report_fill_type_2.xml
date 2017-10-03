@@ -17,7 +17,7 @@
 
             <include
                 android:id="@+id/report_header_type1"
-                layout="@layout/report_header_type1" />
+                layout="@layout/report_fill_type_1_header" />
 
             <LinearLayout
                 android:id="@+id/report_fill_contanier"
@@ -25,16 +25,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
             >
-
-            <TextView
-                android:id="@+id/report_fill_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/report_button"
-                android:padding="10dp"
-                android:text="添加新节点" />
-
         </LinearLayout>
 
     </com.lxl.valvedemo.view.ListLinearLayout>

@@ -24,7 +24,7 @@ public class BuildTye5Service {
 
     }
 
-    public void buildReportTypeOne(File outFile, MaintainReportModel maintainReportModel, BuildResultInter inter) throws IOException {
+    public void buildReportType5(File outFile, MaintainReportModel maintainReportModel, BuildResultInter inter) throws IOException {
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");

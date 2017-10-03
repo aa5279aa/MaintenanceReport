@@ -4,6 +4,7 @@ import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportBySCADA;
+import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
 
 /**
  * Created by xiangleiliu on 2017/9/28.
@@ -12,7 +13,11 @@ public class ReportBuildModel {
 
     public static final int BUILD_TYPE_ONE = 1;
     public static final int BUILD_TYPE_TWO = 2;
-    public static final int BUILD_TYPE_THREE = 31;
+    public static final int BUILD_TYPE_THREE = 3;
+    public static final int BUILD_TYPE_FOUR = 4;
+    public static final int BUILD_TYPE_FIVE = 5;
+    public static final int BUILD_TYPE_SIX = 6;
+    public static final int BUILD_TYPE_SEVEN = 7;
 
     public int buildType = 1;
     public String tableName = "";
@@ -20,5 +25,5 @@ public class ReportBuildModel {
     public MaintainReportModel maintainReportModel = new MaintainReportModel();//type1
     public InspectionReportModel inspectionReportModel = new InspectionReportModel();//type2
     public MaintainReportByAreaModel maintainReportByArea = new MaintainReportByAreaModel();//type3
-
+    public AlertReportModel alertReportModel = new AlertReportModel();
 }
