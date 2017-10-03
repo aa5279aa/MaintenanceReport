@@ -10,9 +10,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
+import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
+import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
+import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
+import com.lxl.valvedemo.service.BuildTye3Service;
 import com.lxl.valvedemo.util.DateUtil;
+
+import java.io.InputStream;
 
 /**
  * Created by Administrator on 2017/9/27 0027.
@@ -26,12 +32,15 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
     EditText mReportHeaderChecker;
     EditText mReportHeaderDate;
     TextView mFillAdd;
+
     LinearLayout mReportFillContainer;
+
+    BuildTye3Service tyeThreeService = new BuildTye3Service();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.report_fill_type_one, container, false);
+        return inflater.inflate(R.layout.report_fill_type_three, container, false);
     }
 
     @Override
@@ -68,9 +77,18 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
         fillContainer.addView(inflate);
     }
 
+    @Override
     public ReportBuildModel getBuildModel() {
         mReportBuildModel = new ReportBuildModel();
         mReportBuildModel.buildType = ReportBuildModel.BUILD_TYPE_THREE;
+        //读取execl
+        try {
+            InputStream open = getActivity().getAssets().open(mPath + ReportBuildConfig.Execl_Suffix);
+            MaintainReportByAreaModel maintainReportByAreaModel = tyeThreeService.readReportTypeThree(open);
+            mReportBuildModel.maintainReportByArea = maintainReportByAreaModel;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return mReportBuildModel;
     }
 

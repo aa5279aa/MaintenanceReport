@@ -1,8 +1,8 @@
 package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportModel;
+import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
+import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -18,9 +18,9 @@ import java.io.IOException;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTyeThreeService {
+public class BuildTye7Service {
 
-    public BuildTyeThreeService() {
+    public BuildTye7Service() {
 
     }
 

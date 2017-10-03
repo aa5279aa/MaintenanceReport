@@ -1,6 +1,4 @@
-package com.lxl.valvedemo.model.buildModel.maintain;
-
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
+package com.lxl.valvedemo.model.buildModel.type1;
 
 import java.util.ArrayList;
 import java.util.List;

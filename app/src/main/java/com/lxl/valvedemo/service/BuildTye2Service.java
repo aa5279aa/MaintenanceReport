@@ -1,11 +1,9 @@
 package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
-import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportModel;
-import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportSubTypeModel;
-import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportTypeModel;
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportModel;
+import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
+import com.lxl.valvedemo.model.buildModel.type2.InspectionReportSubTypeModel;
+import com.lxl.valvedemo.model.buildModel.type2.InspectionReportTypeModel;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -27,9 +25,9 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTyeTwoService {
+public class BuildTye2Service {
 
-    public BuildTyeTwoService() {
+    public BuildTye2Service() {
 
     }
 

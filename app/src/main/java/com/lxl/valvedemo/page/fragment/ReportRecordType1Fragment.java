@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lxl.valvedemo.R;
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
+import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.util.DateUtil;
 

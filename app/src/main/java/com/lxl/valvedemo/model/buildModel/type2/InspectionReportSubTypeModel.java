@@ -1,4 +1,4 @@
-package com.lxl.valvedemo.model.buildModel.inspection;
+package com.lxl.valvedemo.model.buildModel.type2;
 
 import java.util.ArrayList;
 import java.util.List;

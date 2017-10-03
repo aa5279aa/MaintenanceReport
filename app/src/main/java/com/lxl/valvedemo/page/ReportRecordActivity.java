@@ -26,8 +26,9 @@ import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 import com.lxl.valvedemo.page.fragment.BaseBuildFragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType1Fragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType2Fragment;
-import com.lxl.valvedemo.service.BuildTyeOneService;
-import com.lxl.valvedemo.service.BuildTyeTwoService;
+import com.lxl.valvedemo.page.fragment.ReportRecordType3Fragment;
+import com.lxl.valvedemo.service.BuildTye1Service;
+import com.lxl.valvedemo.service.BuildTye2Service;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.StringUtil;
@@ -115,6 +116,8 @@ public class ReportRecordActivity extends FragmentActivity {
             buildFragment = new ReportRecordType1Fragment();
         } else if ("2".equals(mSelectModel.parseType)) {
             buildFragment = new ReportRecordType2Fragment();
+        } else if ("3".equals(mSelectModel.parseType)) {
+            buildFragment = new ReportRecordType3Fragment();
         } else {
             HotelCustomDialog dialog = new HotelCustomDialog();
             dialog.setContent("该类型不支持，点击关闭当前界面。", "确定", null);
@@ -163,7 +166,7 @@ public class ReportRecordActivity extends FragmentActivity {
                             File file = new File(path + ReportBuildConfig.Execl_Suffix);
                             if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_ONE) {
                                 IOHelper.checkParent(file);
-                                new BuildTyeOneService().buildReportTypeOne(file, buildModel.maintainReportModel, new BuildResultInter() {
+                                new BuildTye1Service().buildReportTypeOne(file, buildModel.maintainReportModel, new BuildResultInter() {
                                     @Override
                                     public void buildSucess(String pathStr) {
                                         showResult("execl生成成功，位置：" + pathStr);
@@ -178,7 +181,7 @@ public class ReportRecordActivity extends FragmentActivity {
                                 });
                             } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_TWO) {
                                 IOHelper.checkParent(file);
-                                new BuildTyeTwoService().writeReportTypeTwo(file, buildModel.inspectionReportModel, new BuildResultInter() {
+                                new BuildTye2Service().writeReportTypeTwo(file, buildModel.inspectionReportModel, new BuildResultInter() {
                                     @Override
                                     public void buildSucess(String pathStr) {
                                         showResult("execl生成成功，位置：" + pathStr);

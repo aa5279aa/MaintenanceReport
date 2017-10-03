@@ -1,9 +1,5 @@
 package com.lxl.valvedemo.config;
 
-import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportSubTypeModel;
-import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportTypeModel;
-
 public class DataConfig {
 
     public static void initMeterReport() {

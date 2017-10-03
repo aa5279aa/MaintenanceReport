@@ -12,13 +12,11 @@ import android.widget.TextView;
 
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.ReportBuildConfig;
-import com.lxl.valvedemo.config.TableConfig;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportModel;
-import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportSubTypeModel;
-import com.lxl.valvedemo.model.buildModel.inspection.InspectionReportTypeModel;
-import com.lxl.valvedemo.model.buildModel.maintain.MaintainReportItemModel;
-import com.lxl.valvedemo.service.BuildTyeTwoService;
+import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
+import com.lxl.valvedemo.model.buildModel.type2.InspectionReportSubTypeModel;
+import com.lxl.valvedemo.model.buildModel.type2.InspectionReportTypeModel;
+import com.lxl.valvedemo.service.BuildTye2Service;
 import com.lxl.valvedemo.util.DateUtil;
 
 import java.io.InputStream;
@@ -36,7 +34,7 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
     EditText mReportHeaderDate;
 
     LinearLayout mReportFillContanier;
-    BuildTyeTwoService tyeTwoService = new BuildTyeTwoService();
+    BuildTye2Service tyeTwoService = new BuildTye2Service();
 
     @Nullable
     @Override
