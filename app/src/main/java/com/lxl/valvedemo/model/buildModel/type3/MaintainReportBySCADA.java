@@ -9,10 +9,14 @@ import java.util.List;
 
 public class MaintainReportBySCADA {
     public String scadaTitle = "SCADA系统";
-    public String titleDesc = "";
+    public String titleDesc = "";//CPU机架
     public String item1Title = "";
     public String item2Title = "";
     public String item3Title = "";
     public String item4Title = "";
-    List<MaintainReportBySubSCADA> subSCADAList = new ArrayList<>();
+    public int firstRow = 0;
+    public int lastRow = 0;
+    public List<MaintainReportSubByBase> subList = new ArrayList<>();
+
+
 }

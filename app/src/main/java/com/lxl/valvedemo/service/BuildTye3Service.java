@@ -1,18 +1,21 @@
 package com.lxl.valvedemo.service;
 
+import android.util.Log;
+
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
-import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
+import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByCPU;
+import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByESD;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportBySCADA;
+import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByNormal;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
@@ -20,6 +23,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by xiangleiliu on 2017/9/28.
@@ -112,59 +119,204 @@ public class BuildTye3Service {
         MaintainReportByAreaModel mainAreaModel = new MaintainReportByAreaModel();
         HSSFWorkbook wb = new HSSFWorkbook(open);
         HSSFSheet sheet1 = wb.getSheet("Sheet1");
-        setEquipmentValue(mainAreaModel, sheet1);
+//        setEquipmentValue(mainAreaModel, sheet1);
         setSCADAValue(mainAreaModel, sheet1);
         return mainAreaModel;
     }
 
-    public void setEquipmentValue(MaintainReportByAreaModel mainAreaModel, HSSFSheet sheet1) {
-        //仪表设备
-        HSSFRow row4 = sheet1.getRow(4);
-        mainAreaModel.meterPressureName = row4.getCell(0).getStringCellValue();
-        mainAreaModel.meterPressureDesc = row4.getCell(1).getStringCellValue();
-
-        HSSFRow row5 = sheet1.getRow(5);
-        mainAreaModel.meterTemperatureName = row5.getCell(0).getStringCellValue();
-        mainAreaModel.meterTemperatureDesc = row5.getCell(1).getStringCellValue();
-
-        HSSFRow row6 = sheet1.getRow(6);
-        mainAreaModel.meterPressureTransferName = row6.getCell(0).getStringCellValue();
-        mainAreaModel.meterPressureTransferDesc = row6.getCell(1).getStringCellValue();
-
-        HSSFRow row7 = sheet1.getRow(7);
-        mainAreaModel.meterTemperatureTransferName = row7.getCell(0).getStringCellValue();
-        mainAreaModel.meterTemperatureTransferDesc = row7.getCell(1).getStringCellValue();
-
-        HSSFRow row8 = sheet1.getRow(8);
-        mainAreaModel.meterIndicatorLightName = row8.getCell(0).getStringCellValue();
-        mainAreaModel.meterIndicatorLightDesc = row8.getCell(1).getStringCellValue();
-    }
-
     public void setSCADAValue(MaintainReportByAreaModel mainAreaModel, HSSFSheet sheet1) {
-        Row allRow = null;
-        int startRow = 0;
-        do {
-            allRow = findNextAllRow(sheet1, startRow);
+        List<Integer[]> allCloumRowNumList = findAllNextAllRow(mainAreaModel.tableName, sheet1);
+        //仪表设备   SCADA系统   消防系统
+        for (Integer[] rowNum : allCloumRowNumList) {
             MaintainReportBySCADA scada = new MaintainReportBySCADA();
-            setSubSCADAValue(scada, sheet1);
+            setSubSCADAValue(mainAreaModel, scada, sheet1, rowNum[0], rowNum[1]);
             mainAreaModel.scadaList.add(scada);
-            startRow = 5;
-        } while (allRow != null);
-
+        }
+        Log.i("lxltest", "size:" + allCloumRowNumList.size());
     }
 
-    public void setSubSCADAValue(MaintainReportBySCADA scada, HSSFSheet sheet1) {
+    public void setSubSCADAValue(MaintainReportByAreaModel mainAreaModel, MaintainReportBySCADA scada, HSSFSheet sheet, int startRowNum, int endRowNum) {
+        scada.scadaTitle = sheet.getRow(startRowNum).getCell(0).getStringCellValue();//仪表设备
+        startRowNum++;
+        while (true) {
+            HSSFRow row = sheet.getRow(startRowNum);
+            HSSFCell cell = row.getCell(0);//CPU机架 or 远程机架
+            String stringCellValue = cell.getStringCellValue();
+            int position = 0;
+            if (stringCellValue.equals("CPU机架")) {
+                MaintainReportSubByCPU reportSubByCPU = new MaintainReportSubByCPU(position++);
+                scada.subList.add(reportSubByCPU);
+                reportSubByCPU.cpuTitle = "记录以下指示灯状态";
+                if (mainAreaModel.tableName.contains("冀宁线")) {
+                    reportSubByCPU.cpuColumName1 = "A机架";
+                    reportSubByCPU.cpuColumName2 = "B机架";
+                } else {
+                    reportSubByCPU.cpuColumName1 = "PLC-A";
+                    reportSubByCPU.cpuColumName2 = "PLC-B";
+                    reportSubByCPU.cpuColumName3 = "ESD-A";
+                    reportSubByCPU.cpuColumName4 = "ESD-B";
+                }
+                startRowNum++;
+                HSSFRow cpuRow = sheet.getRow(startRowNum);
+                HSSFCell cpuCell = cpuRow.getCell(1);
+                int[] rowHeightByIndex = getRowHeightByIndex(sheet, cpuCell);
+                int cpuFirstRow = rowHeightByIndex[0];
+                int cpuLastRow = rowHeightByIndex[1];
+                for (int i = cpuFirstRow; i <= cpuLastRow; i++) {
+                    HSSFRow lineRow = sheet.getRow(cpuFirstRow);
+                    HSSFCell cell1 = lineRow.getCell(2);
+                    MaintainReportSubByCPU.MaintainReportByCPUItemValue cpuItemValue = new MaintainReportSubByCPU.MaintainReportByCPUItemValue();
+                    cpuItemValue.subItemName = cell1.getStringCellValue();
+                    reportSubByCPU.subItemList.add(cpuItemValue);
+                }
+            } else if (stringCellValue.equals("ESD系统（Himatrix）")) {
+                MaintainReportSubByESD maintainReportByESD = new MaintainReportSubByESD(position++);
+                scada.subList.add(maintainReportByESD);
+                maintainReportByESD.cpuColumName1 = "记录指示灯";
+                maintainReportByESD.cpuColumName2 = "F30";
+                maintainReportByESD.cpuColumName3 = "IO1";
+                maintainReportByESD.cpuColumName4 = "IO2";
+                startRowNum++;
+                HSSFRow cpuRow = sheet.getRow(startRowNum);
+                HSSFCell cpuCell = cpuRow.getCell(1);
+                int[] rowHeightByIndex = getRowHeightByIndex(sheet, cpuCell);
+                int cpuFirstRow = rowHeightByIndex[0];
+                int cpuLastRow = rowHeightByIndex[1];
+                for (int i = cpuFirstRow; i <= cpuLastRow; i++) {
+                    HSSFRow lineRow = sheet.getRow(cpuFirstRow);
+                    HSSFCell cell1 = lineRow.getCell(1);
+                    MaintainReportSubByESD.MaintainReportByESDItemValue cpuItemValue = new MaintainReportSubByESD.MaintainReportByESDItemValue();
+                    cpuItemValue.rowTitle = cell1.getStringCellValue();
+                    maintainReportByESD.esdItemValueList.add(cpuItemValue);
+                }
+            } else if (stringCellValue.equals("远程机架") && mainAreaModel.tableName.contains("平泰线")) {
+                //暂不处理
 
+            } else {
+                MaintainReportSubByNormal maintainReportSubByNormal = new MaintainReportSubByNormal(position++);
+                scada.subList.add(maintainReportSubByNormal);
+                HSSFRow cpuRow = sheet.getRow(startRowNum);
+                HSSFCell cpuCell = cpuRow.getCell(1);
+                int[] rowHeightByIndex = getRowHeightByIndex(sheet, cpuCell);
+                int cpuFirstRow = rowHeightByIndex[0];
+                int cpuLastRow = rowHeightByIndex[1];
+                maintainReportSubByNormal.subNormalTitle = cpuCell.getStringCellValue();
+                for (int i = cpuFirstRow; i <= cpuLastRow; i++) {
+                    HSSFRow lineRow = sheet.getRow(cpuFirstRow);
+                    HSSFCell cell1 = lineRow.getCell(1);
+                    MaintainReportSubByNormal.MaintainReportSubByNormalItemValue normalItemValue = new MaintainReportSubByNormal.MaintainReportSubByNormalItemValue();
+                    normalItemValue.columName = cell1.getStringCellValue();
+                    maintainReportSubByNormal.normalItemValueList.add(normalItemValue);
+                }
+            }
+
+            int[] rowHeightByIndex = getRowHeightByIndex(sheet, cell);
+            int lastRow = rowHeightByIndex[1];
+            startRowNum = lastRow + 1;
+            if (lastRow >= endRowNum) {
+                break;
+            }
+        }
+        Log.i("lxltest", "scada.subList:" + scada.subList.size());
     }
 
-    public Row findNextAllRow(Sheet sheet, int startRow) {
-        Row row = sheet.getRow(0);
+    public void setSubSubSCADAValue(MaintainReportBySCADA scada, HSSFSheet sheet, int startRowNum) {
+        int sheetMergeCount = sheet.getNumMergedRegions();
+        for (int i = 0; i < sheetMergeCount; i++) {
+            CellRangeAddress range = sheet.getMergedRegion(i);
+            int firstColumn = range.getFirstColumn();
+            int lastColumn = range.getLastColumn();
+            int firstRow = range.getFirstRow();
+            int lastRow = range.getLastRow();
+            if (firstRow == startRowNum && lastColumn == 0) {
+                scada.scadaTitle = sheet.getRow(firstRow).getCell(0).getStringCellValue();
+                scada.firstRow = firstRow;
+                scada.lastRow = lastRow;
+            }
+        }
+    }
+
+    public List<Integer[]> findAllNextAllRow(String tableName, Sheet sheet) {
+        List<Integer[]> allRowList = new ArrayList<>();
+        if (tableName.contains("冀宁线")) {
+            Integer[] integers1 = new Integer[]{3, 8};
+            Integer[] integers2 = new Integer[]{9, 54};
+            Integer[] integers3 = new Integer[]{55, 60};
+            allRowList.add(integers1);
+            allRowList.add(integers2);
+            allRowList.add(integers3);
+        } else {
+            Integer[] integers3 = new Integer[]{4, 8};
+            Integer[] integers1 = new Integer[]{10, 45};
+            Integer[] integers2 = new Integer[]{47, 51};
+            allRowList.add(integers1);
+            allRowList.add(integers2);
+            allRowList.add(integers3);
+        }
+
         //寻找合并横行所有单元格的
+//        int sheetMergeCount = sheet.getNumMergedRegions();
+//        for (int i = 0; i < sheetMergeCount; i++) {
+//            CellRangeAddress range = sheet.getMergedRegion(i);
+//            int firstColumn = range.getFirstColumn();
+//            int lastColumn = range.getLastColumn();
+//            int lastRow = range.getLastRow();
+//            int firstRow = range.getFirstRow();
+//            if (firstColumn == 0 && lastColumn == 5 && firstRow != 0) {
+//                nextAllRowList.add(firstRow);
+//            }
+//        }
+//        //去掉最大的三个
+//        Collections.sort(nextAllRowList, new Comparator<Integer>() {
+//            @Override
+//            public int compare(Integer lhs, Integer rhs) {
+//                return lhs > rhs ? 1 : -1;
+//            }
+//        });
+//        return nextAllRowList.subList(0, nextAllRowList.size() - 3);
 
-        //寻找合并竖行单元格的
-        //mainAreaModel.scadaList
-        return row;
+        return allRowList;
     }
 
+    public int[] getRowHeightByIndex(Sheet sheet, HSSFCell cell) {
+        int[] merge = new int[2];
+        merge[0] = cell.getRowIndex();
+        merge[1] = cell.getRowIndex();
+        int sheetMergeCount = sheet.getNumMergedRegions();
+        for (int i = 0; i < sheetMergeCount; i++) {
+            CellRangeAddress range = sheet.getMergedRegion(i);
+            int firstColumn = range.getFirstColumn();
+            int lastColumn = range.getLastColumn();
+            int firstRow = range.getFirstRow();
+            int lastRow = range.getLastRow();
+            int columnIndex = cell.getColumnIndex();
+            int rowIndex = cell.getRowIndex();
+            if (firstColumn == columnIndex && firstRow == rowIndex) {
+                merge[0] = firstRow;
+                merge[1] = lastRow;
+                return merge;
+            }
+        }
+        return merge;
+    }
 
+    public CellRangeAddress getMergeByIndex(Sheet sheet, HSSFCell cell) {
+        int[] merge = new int[2];
+//        merge[0] = cell.getRowIndex();
+//        merge[1] = cell.getRowIndex();
+        int sheetMergeCount = sheet.getNumMergedRegions();
+        for (int i = 0; i < sheetMergeCount; i++) {
+            CellRangeAddress range = sheet.getMergedRegion(i);
+            int firstColumn = range.getFirstColumn();
+            int lastColumn = range.getLastColumn();
+            int firstRow = range.getFirstRow();
+            int lastRow = range.getLastRow();
+            int columnIndex = cell.getColumnIndex();
+            int rowIndex = cell.getRowIndex();
+            if (firstColumn == columnIndex && firstRow == rowIndex) {
+                return range;
+            }
+        }
+        return null;
+    }
 }
