@@ -26,9 +26,9 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye2Service extends BuildTypeBaseService {
+public class BuildType2Service extends BuildTypeBaseService {
 
-    public BuildTye2Service() {
+    public BuildType2Service() {
 
     }
 

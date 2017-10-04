@@ -31,13 +31,13 @@ import com.lxl.valvedemo.page.fragment.ReportRecordType4Fragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType5Fragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType6Fragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType7Fragment;
-import com.lxl.valvedemo.service.BuildTye1Service;
-import com.lxl.valvedemo.service.BuildTye2Service;
-import com.lxl.valvedemo.service.BuildTye3Service;
-import com.lxl.valvedemo.service.BuildTye4Service;
-import com.lxl.valvedemo.service.BuildTye5Service;
-import com.lxl.valvedemo.service.BuildTye6Service;
-import com.lxl.valvedemo.service.BuildTye7Service;
+import com.lxl.valvedemo.service.BuildType1Service;
+import com.lxl.valvedemo.service.BuildType2Service;
+import com.lxl.valvedemo.service.BuildType3Service;
+import com.lxl.valvedemo.service.BuildType4Service;
+import com.lxl.valvedemo.service.BuildType5Service;
+import com.lxl.valvedemo.service.BuildType6Service;
+import com.lxl.valvedemo.service.BuildType7Service;
 import com.lxl.valvedemo.service.BuildTypeBaseService;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
@@ -185,19 +185,19 @@ public class ReportRecordActivity extends FragmentActivity {
                             outFile = new File(path + ReportBuildConfig.Execl_Suffix);
                             BuildTypeBaseService service = null;
                             if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_ONE) {
-                                service = new BuildTye1Service();
+                                service = new BuildType1Service();
                             } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_TWO) {
-                                service = new BuildTye2Service();
+                                service = new BuildType2Service();
                             } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_THREE) {
-                                service = new BuildTye3Service();
+                                service = new BuildType3Service();
                             } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_FOUR) {
-                                service = new BuildTye4Service();
+                                service = new BuildType4Service();
                             } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_FIVE) {
-                                service = new BuildTye5Service();
+                                service = new BuildType5Service();
                             } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_SIX) {
-                                service = new BuildTye6Service();
+                                service = new BuildType6Service();
                             } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_SEVEN) {
-                                service = new BuildTye7Service();
+                                service = new BuildType7Service();
                             }
                             if (service == null) {
                                 return;

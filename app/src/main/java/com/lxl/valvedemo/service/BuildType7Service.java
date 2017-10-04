@@ -19,9 +19,9 @@ import java.io.IOException;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye6Service extends BuildTypeBaseService{
+public class BuildType7Service extends BuildTypeBaseService{
 
-    public BuildTye6Service() {
+    public BuildType7Service() {
 
     }
 
@@ -105,6 +105,6 @@ public class BuildTye6Service extends BuildTypeBaseService{
 
     @Override
     public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter) throws IOException {
-        
+
     }
 }

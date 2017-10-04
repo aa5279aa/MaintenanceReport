@@ -21,9 +21,9 @@ import java.io.InputStream;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye5Service extends BuildTypeBaseService {
+public class BuildType5Service extends BuildTypeBaseService {
 
-    public BuildTye5Service() {
+    public BuildType5Service() {
 
     }
 

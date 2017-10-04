@@ -16,7 +16,7 @@ import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportSubTypeModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportTypeModel;
-import com.lxl.valvedemo.service.BuildTye2Service;
+import com.lxl.valvedemo.service.BuildType2Service;
 import com.lxl.valvedemo.util.DateUtil;
 
 import java.io.InputStream;
@@ -34,7 +34,7 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
     EditText mReportHeaderDate;
 
     LinearLayout mReportFillContanier;
-    BuildTye2Service tyeTwoService = new BuildTye2Service();
+    BuildType2Service tyeTwoService = new BuildType2Service();
 
     @Nullable
     @Override

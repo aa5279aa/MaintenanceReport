@@ -22,9 +22,9 @@ import java.io.InputStream;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye4Service extends BuildTypeBaseService {
+public class BuildType4Service extends BuildTypeBaseService {
 
-    public BuildTye4Service() {
+    public BuildType4Service() {
 
     }
 

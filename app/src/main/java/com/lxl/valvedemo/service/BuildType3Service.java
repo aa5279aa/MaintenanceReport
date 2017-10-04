@@ -32,9 +32,9 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye3Service extends BuildTypeBaseService{
+public class BuildType3Service extends BuildTypeBaseService{
 
-    public BuildTye3Service() {
+    public BuildType3Service() {
 
     }
 

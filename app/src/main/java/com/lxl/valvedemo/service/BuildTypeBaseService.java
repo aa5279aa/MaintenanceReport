@@ -3,6 +3,7 @@ package com.lxl.valvedemo.service;
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
+import com.lxl.valvedemo.model.buildModel.type6.ReportModelType6;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -10,6 +11,7 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Administrator on 2017/10/4 0004.
@@ -61,4 +63,5 @@ public abstract class BuildTypeBaseService {
         }
         return null;
     }
+
 }

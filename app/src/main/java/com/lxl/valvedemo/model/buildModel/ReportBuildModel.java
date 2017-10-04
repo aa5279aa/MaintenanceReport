@@ -30,6 +30,6 @@ public class ReportBuildModel {
     public MaintainReportByAreaModel maintainReportByArea = new MaintainReportByAreaModel();//type3
     public AlertReportModel alertReportModel = new AlertReportModel();//type4
     public ReportModelType5 reportModelType5 = new ReportModelType5();//type5
-    public ReportModelType6 alertReportMode6 = new ReportModelType6();//type6
-    public ReportModelType7 alertReportMode7 = new ReportModelType7();//type7
+    public ReportModelType6 reportModelType6 = new ReportModelType6();//type6
+    public ReportModelType7 reportModelType7 = new ReportModelType7();//type7
 }

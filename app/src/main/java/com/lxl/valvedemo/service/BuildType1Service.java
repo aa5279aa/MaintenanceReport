@@ -19,9 +19,9 @@ import java.io.IOException;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye1Service extends BuildTypeBaseService {
+public class BuildType1Service extends BuildTypeBaseService {
 
-    public BuildTye1Service() {
+    public BuildType1Service() {
 
     }
 

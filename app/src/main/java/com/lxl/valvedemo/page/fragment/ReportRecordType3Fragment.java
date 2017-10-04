@@ -14,7 +14,7 @@ import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
-import com.lxl.valvedemo.service.BuildTye3Service;
+import com.lxl.valvedemo.service.BuildType3Service;
 import com.lxl.valvedemo.util.DateUtil;
 
 import java.io.InputStream;
@@ -34,7 +34,7 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
 
     LinearLayout mReportFillContainer;
 
-    BuildTye3Service tyeThreeService = new BuildTye3Service();
+    BuildType3Service tyeThreeService = new BuildType3Service();
 
     @Nullable
     @Override

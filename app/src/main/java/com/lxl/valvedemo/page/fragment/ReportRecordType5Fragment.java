@@ -12,12 +12,8 @@ import android.widget.TextView;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
 import com.lxl.valvedemo.model.buildModel.type5.ReportModelType5;
-import com.lxl.valvedemo.service.BuildTye3Service;
-import com.lxl.valvedemo.service.BuildTye4Service;
-import com.lxl.valvedemo.service.BuildTye5Service;
+import com.lxl.valvedemo.service.BuildType5Service;
 import com.lxl.valvedemo.util.DateUtil;
 
 import java.io.InputStream;
@@ -38,7 +34,7 @@ public class ReportRecordType5Fragment extends BaseBuildFragment {
 
     LinearLayout mReportFillContainer;
 
-    BuildTye5Service typeService = new BuildTye5Service();
+    BuildType5Service typeService = new BuildType5Service();
 
     @Nullable
     @Override
