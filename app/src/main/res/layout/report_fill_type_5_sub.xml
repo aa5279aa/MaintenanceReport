@@ -2,20 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/hotel_city_item_title_line"
     android:orientation="vertical">
-
 
     <TextView
         android:id="@+id/project_name"
-        style="@style/text_14_000000"
-        android:layout_width="100dp"
+        style="@style/text_16_000000"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="项目" />
+        android:background="@color/hotel_city_item_title_line"
+        android:text="项目"
+        android:textStyle="bold" />
 
     <LinearLayout
-        android:id="@+id/check_info"
+        android:id="@+id/check_info_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />

@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="right|center_vertical"
-            android:text="场站负责：" />
+            android:text="场站负责人：" />
 
         <EditText
             android:id="@+id/ower"
@@ -61,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:gravity="right|center_vertical"
-            android:text="校对人：" />
+            android:text="检查人：" />
 
         <EditText
             android:id="@+id/checker"

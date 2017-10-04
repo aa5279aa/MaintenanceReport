@@ -17,7 +17,7 @@
 
             <include
                 android:id="@+id/report_header_type4"
-                layout="@layout/report_fill_type_4_header" />
+                layout="@layout/report_fill_type_5_header" />
 
             <LinearLayout
                 android:id="@+id/report_fill_contanier"

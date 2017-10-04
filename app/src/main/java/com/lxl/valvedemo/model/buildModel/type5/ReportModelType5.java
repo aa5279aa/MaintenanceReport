@@ -12,13 +12,13 @@ import java.util.List;
 public class ReportModelType5 {
     public String tableName = "维修队计量专业季度维护保养检查表";
 
-    public final String stationName = "场站";
+    public final String stationName = "场站：";
     public String stationText = "";
-    public final String owerName = "场站负责人";
+    public final String owerName = "场站负责人：";
     public String owerText = "";
-    public final String dateName = "日期";
+    public final String dateName = "日期：";
     public String dateText = "";
-    public final String checkerName = "检查人";
+    public final String checkerName = "检查人：";
     public String checkerText = "";
 
 

@@ -46,17 +46,41 @@ public class StyleUtil {
     }
 
     //创造基础cell样式
-    public static HSSFCellStyle createVerticalCenterStyle(HSSFWorkbook wb) {
+    public static HSSFCellStyle createVerticalCenterBStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         setBorder.setAlignment(HSSFCellStyle.VERTICAL_CENTER); // 居中
-
         HSSFFont font = wb.createFont();
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
-        font.setFontHeightInPoints((short) 24);
+        font.setFontHeightInPoints((short) 14);
         setBorder.setFont(font);
         return setBorder;
     }
 
+    /**
+     * 竖向居中
+     *
+     * @param wb
+     * @return
+     */
+    public static HSSFCellStyle createVerticalCenterStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setAlignment(HSSFCellStyle.VERTICAL_CENTER); // 居中
+        HSSFFont font = wb.createFont();
+        font.setFontHeightInPoints((short) 14);
+        setBorder.setFont(font);
+        return setBorder;
+    }
+
+    //创造基础cell样式
+    public static HSSFCellStyle createHCenterBStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
+        HSSFFont font = wb.createFont();
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        font.setFontHeightInPoints((short) 14);
+        setBorder.setFont(font);
+        return setBorder;
+    }
 
     //创造基础cell样式
     public static HSSFCellStyle createRightCenterStyle(HSSFWorkbook wb) {

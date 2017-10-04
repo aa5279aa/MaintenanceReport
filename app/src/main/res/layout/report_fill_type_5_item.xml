@@ -2,16 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/hotel_city_item_title_line"
     android:orientation="vertical">
 
 
     <TextView
         android:id="@+id/check_info"
         style="@style/text_14_000000"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:text="检查内容" />
 
     <EditText
