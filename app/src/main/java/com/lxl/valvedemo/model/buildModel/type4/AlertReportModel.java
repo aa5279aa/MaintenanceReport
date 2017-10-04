@@ -9,16 +9,18 @@ import java.util.List;
 
 public class AlertReportModel {
 
+    public String tableName = "可燃气体检测报警器校对记录";
+
     public String stationName = "输气站";
     public String stationText = "";
 
     public String standardName = " 标准气浓度（%LEL）：";
-    public String standardText = " 标准气浓度（%LEL）：";
+    public String standardText = "";
 
-    public String checkerName = "校对人";
+    public String checkerName = "校对人：";
     public String checkerText = "";
 
-    public String checkDateName = "校对日期";
+    public String checkDateName = "校对日期：";
     public String checkDateText = "";
 
 
@@ -30,7 +32,7 @@ public class AlertReportModel {
     public List<AlertReportItemModel> reportItemModelList = new ArrayList<>();
 
     public static class AlertReportItemModel {
-        public int position = 0;
+        public int index = 0;
         public String installPosition = "";
         public String showValue = "";
     }

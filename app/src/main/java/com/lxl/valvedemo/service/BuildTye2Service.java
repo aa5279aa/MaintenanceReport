@@ -1,6 +1,7 @@
 package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
+import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportSubTypeModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportTypeModel;
@@ -25,7 +26,7 @@ import java.util.List;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye2Service {
+public class BuildTye2Service extends BuildTypeBaseService {
 
     public BuildTye2Service() {
 
@@ -116,7 +117,8 @@ public class BuildTye2Service {
         }
     }
 
-    public void writeReportTypeTwo(File outFile, InspectionReportModel inspectionReportModel, BuildResultInter inter) throws IOException {
+    public void writeReport(File outFile, ReportBuildModel buildModel, BuildResultInter inter) throws IOException {
+        InspectionReportModel inspectionReportModel = buildModel.inspectionReportModel;
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");

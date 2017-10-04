@@ -1,6 +1,7 @@
 package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
+import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.util.StyleUtil;
@@ -18,7 +19,7 @@ import java.io.IOException;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye5Service {
+public class BuildTye5Service extends BuildTypeBaseService{
 
     public BuildTye5Service() {
 
@@ -102,4 +103,8 @@ public class BuildTye5Service {
     }
 
 
+    @Override
+    public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter) throws IOException {
+
+    }
 }

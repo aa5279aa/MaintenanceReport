@@ -56,4 +56,16 @@ public class StyleUtil {
         setBorder.setFont(font);
         return setBorder;
     }
+
+
+    //创造基础cell样式
+    public static HSSFCellStyle createRightCenterStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setAlignment(HSSFCellStyle.ALIGN_RIGHT); // 右
+        HSSFFont font = wb.createFont();
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        font.setFontHeightInPoints((short) 14);
+        setBorder.setFont(font);
+        return setBorder;
+    }
 }

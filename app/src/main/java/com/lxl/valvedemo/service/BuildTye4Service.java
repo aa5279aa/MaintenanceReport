@@ -1,13 +1,13 @@
 package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
-import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
+import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
+import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -21,80 +21,84 @@ import java.io.InputStream;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye4Service {
+public class BuildTye4Service extends BuildTypeBaseService {
 
     public BuildTye4Service() {
 
     }
 
-    public void buildReportTypeFour(File outFile, MaintainReportModel maintainReportModel, BuildResultInter inter) throws IOException {
+    public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter) throws IOException {
+        AlertReportModel alertReportModel = reportBuildModel.alertReportModel;
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
+        HSSFCellStyle descStyle = StyleUtil.createDescStyle(wb);
 
         //title
         HSSFRow titleRow = sheet.createRow(0);
         HSSFCell titleCell = titleRow.createCell(0);
-        titleCell.setCellValue(maintainReportModel.tableTile);
+        titleCell.setCellValue(alertReportModel.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 3));
 
         //desc
         HSSFRow areaRow = sheet.createRow(1);
-        HSSFCell areaCell = areaRow.createCell(0);
-        HSSFCell stationCell = areaRow.createCell(4);
-        stationCell.setCellValue(maintainReportModel.stationName + ":" + maintainReportModel.stationText);
-        areaCell.setCellValue(maintainReportModel.workAreaName + ":" + maintainReportModel.workAreaText);
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 3));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
+        HSSFCell areaNameCell = areaRow.createCell(0);
+        HSSFCell showValueNameCell = areaRow.createCell(1);
+        areaNameCell.setCellStyle(descStyle);
+        areaNameCell.setCellValue(alertReportModel.stationText + alertReportModel.stationName);
+        showValueNameCell.setCellStyle(StyleUtil.createRightCenterStyle(wb));
+        showValueNameCell.setCellValue(alertReportModel.standardName + alertReportModel.standardText);
 
-        if (maintainReportModel.maintainList.size() == 0) {
+//        sheet.addMergedRegion(new CellRangeAddress(areaRow.getRowNum(), areaRow.getRowNum(), 1, 2));
+
+        if (alertReportModel.reportItemModelList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);
             wb.write(fileOut);
             fileOut.close();
             return;
         }
-        for (int i = -1; i < maintainReportModel.maintainList.size(); i++) {
-            String positionCellStr = "序号";
-            String equipmentNameCellStr = "设备名称";
-            String specificationsCellStr = "规格型号";
-            String equipmentIdCellStr = "设备编号";
-            String maintainInfoCellStr = "检查与维护保养情况";
-            String maintainDescCellStr = "备注";
+        for (int i = -1; i < alertReportModel.reportItemModelList.size(); i++) {
+            String indexCellStr = alertReportModel.positionName;
+            String installStr = alertReportModel.installPositionName;
+            String showValueStr = alertReportModel.showValueName;
             if (i >= 0) {
-                MaintainReportItemModel maintainReportItemModel = maintainReportModel.maintainList.get(i);
-                positionCellStr = String.valueOf(i + 1);
-                equipmentNameCellStr = maintainReportItemModel.equipmentName;
-                specificationsCellStr = maintainReportItemModel.specificationsName;
-                equipmentIdCellStr = maintainReportItemModel.equipmentId;
-                maintainInfoCellStr = maintainReportItemModel.maintainInfo;
-                maintainDescCellStr = maintainReportItemModel.maintainDesc;
+                AlertReportModel.AlertReportItemModel alertReportItemModel = alertReportModel.reportItemModelList.get(i);
+                indexCellStr = String.valueOf(alertReportItemModel.index);
+                installStr = alertReportItemModel.installPosition;
+                showValueStr = alertReportItemModel.showValue;
             }
             HSSFRow headerRow = sheet.createRow(i + 3);
-            HSSFCell positionCell = headerRow.createCell(0);
-            HSSFCell equipmentNameCell = headerRow.createCell(1);
-            HSSFCell specificationsCell = headerRow.createCell(2);
-            HSSFCell equipmentIdCell = headerRow.createCell(3);
-            HSSFCell maintainInfoCell = headerRow.createCell(4);
-            HSSFCell maintainDescCell = headerRow.createCell(5);
-            positionCell.setCellValue(positionCellStr);
-            equipmentNameCell.setCellValue(equipmentNameCellStr);
-            specificationsCell.setCellValue(specificationsCellStr);
-            equipmentIdCell.setCellValue(equipmentIdCellStr);
-            maintainInfoCell.setCellValue(maintainInfoCellStr);
-            maintainDescCell.setCellValue(maintainDescCellStr);
+            HSSFCell indexCell = headerRow.createCell(0);
+            HSSFCell installCell = headerRow.createCell(1);
+            HSSFCell showValueCell = headerRow.createCell(2);
+            indexCell.setCellStyle(descStyle);
+            installCell.setCellStyle(descStyle);
+            showValueCell.setCellStyle(descStyle);
+
+            indexCell.setCellValue(indexCellStr);
+            installCell.setCellValue(installStr);
+            showValueCell.setCellValue(showValueStr);
         }
 
         //维护保养人员  + 日期
         int nextRow = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRow);
-        HSSFCell checkerCell = bottomRow.createCell(0);
-        HSSFCell dataCell = bottomRow.createCell(4);
-        checkerCell.setCellValue(maintainReportModel.checkerText);
-        dataCell.setCellValue(maintainReportModel.dateText);
-        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 3));
-        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 4, 5));
+        HSSFCell cell = bottomRow.createCell(0);
+        cell.setCellValue("注：1、允许示值误差±5%LEL；2、请将存在问题的报警器数量统计后上报安全科。");
+        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 2));
 
+        nextRow = sheet.getLastRowNum() + 1;
+        bottomRow = sheet.createRow(nextRow);
+        HSSFCell checkCell = bottomRow.createCell(0);
+        checkCell.setCellStyle(descStyle);
+        checkCell.setCellValue(alertReportModel.checkerName + alertReportModel.checkerText);
+        HSSFCell dateCell = bottomRow.createCell(2);
+        dateCell.setCellStyle(descStyle);
+        String s = DateUtil.formatDateTime2String(alertReportModel.checkDateText);
+        dateCell.setCellValue(alertReportModel.checkDateName + s);
+
+        sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
         fileOut.close();

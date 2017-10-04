@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
 import com.lxl.valvedemo.service.BuildTye4Service;
 import com.lxl.valvedemo.util.DateUtil;
@@ -113,14 +112,10 @@ public class ReportRecordType4Fragment extends BaseBuildFragment {
             View childAt = mReportFillContainer.getChildAt(i);
             EditText installLocaton = (EditText) childAt.findViewById(R.id.report_fill_install_location);
             EditText showValueEdit = (EditText) childAt.findViewById(R.id.report_fill_show_value);
-//            TextView indexEdit = (TextView) childAt.findViewById(R.id.index);
-
             String installLocationStr = installLocaton.getText().toString();
             String showValueStr = showValueEdit.getText().toString();
-//            String indexStr = indexEdit.getText().toString();
-
             AlertReportModel.AlertReportItemModel itemModel = new AlertReportModel.AlertReportItemModel();
-            itemModel.position = i + 1;
+            itemModel.index = i + 1;
             itemModel.installPosition = installLocationStr;
             itemModel.showValue = showValueStr;
             model.alertReportModel.reportItemModelList.add(itemModel);

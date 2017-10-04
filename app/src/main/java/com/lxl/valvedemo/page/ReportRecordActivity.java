@@ -33,6 +33,12 @@ import com.lxl.valvedemo.page.fragment.ReportRecordType6Fragment;
 import com.lxl.valvedemo.page.fragment.ReportRecordType7Fragment;
 import com.lxl.valvedemo.service.BuildTye1Service;
 import com.lxl.valvedemo.service.BuildTye2Service;
+import com.lxl.valvedemo.service.BuildTye3Service;
+import com.lxl.valvedemo.service.BuildTye4Service;
+import com.lxl.valvedemo.service.BuildTye5Service;
+import com.lxl.valvedemo.service.BuildTye6Service;
+import com.lxl.valvedemo.service.BuildTye7Service;
+import com.lxl.valvedemo.service.BuildTypeBaseService;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.StringUtil;
@@ -174,39 +180,41 @@ public class ReportRecordActivity extends FragmentActivity {
                             String s = IOHelper.listToStr(strList);
                             String path = ReportBuildConfig.reportBuildPath + File.separator + buildModel.tableName + "_" + buildModel.dateStr;
                             File outFile = new File(path + ReportBuildConfig.Location_Suffix);
+                            IOHelper.checkParent(outFile);
                             IOHelper.writerStrByCodeToFile(outFile, s);
-                            File file = new File(path + ReportBuildConfig.Execl_Suffix);
+                            outFile = new File(path + ReportBuildConfig.Execl_Suffix);
+                            BuildTypeBaseService service = null;
                             if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_ONE) {
-                                IOHelper.checkParent(file);
-                                new BuildTye1Service().buildReportTypeOne(file, buildModel.maintainReportModel, new BuildResultInter() {
-                                    @Override
-                                    public void buildSucess(String pathStr) {
-                                        showResult("execl生成成功，位置：" + pathStr);
-                                        //退回到大首页
-                                        back2Home();
-                                    }
-
-                                    @Override
-                                    public void buildFail(String caseStr) {
-                                        showResult(caseStr);
-                                    }
-                                });
+                                service = new BuildTye1Service();
                             } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_TWO) {
-                                IOHelper.checkParent(file);
-                                new BuildTye2Service().writeReportTypeTwo(file, buildModel.inspectionReportModel, new BuildResultInter() {
-                                    @Override
-                                    public void buildSucess(String pathStr) {
-                                        showResult("execl生成成功，位置：" + pathStr);
-                                        //退回到大首页
-                                        back2Home();
-                                    }
-
-                                    @Override
-                                    public void buildFail(String caseStr) {
-                                        showResult(caseStr);
-                                    }
-                                });
+                                service = new BuildTye2Service();
+                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_THREE) {
+                                service = new BuildTye3Service();
+                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_FOUR) {
+                                service = new BuildTye4Service();
+                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_FIVE) {
+                                service = new BuildTye5Service();
+                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_SIX) {
+                                service = new BuildTye6Service();
+                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_SEVEN) {
+                                service = new BuildTye7Service();
                             }
+                            if (service == null) {
+                                return;
+                            }
+                            service.writeReport(outFile, buildModel, new BuildResultInter() {
+                                @Override
+                                public void buildSucess(String pathStr) {
+                                    showResult("execl生成成功，位置：" + pathStr);
+                                    //退回到大首页
+                                    back2Home();
+                                }
+
+                                @Override
+                                public void buildFail(String caseStr) {
+                                    showResult(caseStr);
+                                }
+                            });
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

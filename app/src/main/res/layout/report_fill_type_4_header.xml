@@ -68,7 +68,9 @@
             android:id="@+id/checker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="请输入校对人"
+            />
 
     </LinearLayout>
 

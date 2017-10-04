@@ -1,6 +1,7 @@
 package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
+import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.util.StyleUtil;
@@ -18,13 +19,14 @@ import java.io.IOException;
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildTye1Service {
+public class BuildTye1Service extends BuildTypeBaseService {
 
     public BuildTye1Service() {
 
     }
 
-    public void buildReportTypeOne(File outFile, MaintainReportModel maintainReportModel, BuildResultInter inter) throws IOException {
+    public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter) throws IOException {
+        MaintainReportModel maintainReportModel = reportBuildModel.maintainReportModel;
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
