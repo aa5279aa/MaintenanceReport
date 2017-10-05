@@ -26,6 +26,68 @@
                 android:orientation="vertical" />
             >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_16_000000_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/hotel_city_item_title_line"
+                    android:gravity="center_horizontal"
+                    android:text="维护结论" />
+
+                <EditText
+                    android:id="@+id/maintain_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入维护结论："
+                    android:minHeight="100dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_16_000000_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/hotel_city_item_title_line"
+                    android:gravity="center_horizontal"
+                    android:text="其他事项：" />
+
+                <EditText
+                    android:id="@+id/maintain_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入其他事项"
+                    android:minHeight="100dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/text_16_000000_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/hotel_city_item_title_line"
+                    android:gravity="center_horizontal"
+                    android:text="场站确认结论：" />
+
+                <EditText
+                    android:id="@+id/station_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入场站确认结论"
+                    android:minHeight="100dp" />
+            </LinearLayout>
         </LinearLayout>
 
     </com.lxl.valvedemo.view.ListLinearLayout>

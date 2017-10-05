@@ -41,7 +41,7 @@ BuildType3Service extends BuildTypeBaseService {
 
     public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter) throws IOException {
         MaintainReportByAreaModel maintainReportByArea = reportBuildModel.maintainReportByArea;
-
+        String tableName = maintainReportByArea.tableName;
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
@@ -73,6 +73,7 @@ BuildType3Service extends BuildTypeBaseService {
         HSSFCell cell5 = headerRow.createCell(5);
         cell0.setCellValue("检查项目");
         cell1.setCellValue("检查内容");
+        cell1.setCellStyle(StyleUtil.createHCenterStyle(wb));
         cell5.setCellValue("检查结论（如有故障详细记录故障状态）");
         sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 4));
 
@@ -89,18 +90,69 @@ BuildType3Service extends BuildTypeBaseService {
             row = sheet.createRow(rowNum);
             HSSFCell cell = row.createCell(0);
             cell.setCellValue(reportBySCADA.scadaTitle);
+            cell.setCellStyle(StyleUtil.createHCenterStyle(wb));
             sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
             for (int j = 0; j < reportBySCADA.subList.size(); j++) {
                 MaintainReportSubByBase subByBase = reportBySCADA.subList.get(j);
                 if (subByBase instanceof MaintainReportSubByCPU) {
                     MaintainReportSubByCPU subByCPU = (MaintainReportSubByCPU) subByBase;
-
-                    //title
-
+                    int cpuStartRowNum = sheet.getLastRowNum() + 1;
+                    for (int k = 0; k < subByCPU.cpuSubList.size(); k++) {
+                        MaintainReportSubByCPU.MaintainReportByCPUSubValue cpuSubValue = subByCPU.cpuSubList.get(k);
+                        for (int m = 0; m < cpuSubValue.cpuItemValueList.size(); m++) {
+                            MaintainReportSubByCPU.MaintainReportByCPUItemValue maintainReportByCPUItemValue = cpuSubValue.cpuItemValueList.get(m);
+                            rowNum = sheet.getLastRowNum() + 1;
+                            row = sheet.createRow(rowNum);
+                            //title
+                            HSSFCell subCell1 = row.createCell(1);
+                            HSSFCell subCell2 = row.createCell(2);
+                            HSSFCell subCell3 = row.createCell(3);
+                            HSSFCell subCell4 = row.createCell(4);
+                            if (!tableName.contains("冀宁")) {
+                                HSSFCell subCell5 = row.createCell(5);
+                                HSSFCell subCell6 = row.createCell(6);
+                                subCell5.setCellValue(maintainReportByCPUItemValue.subItemValueText3);
+                                subCell6.setCellValue(maintainReportByCPUItemValue.subItemValueText4);
+                            }
+                            subCell1.setCellValue(cpuSubValue.cpuSubName);
+                            subCell2.setCellValue(maintainReportByCPUItemValue.subItemName);
+                            subCell3.setCellValue(maintainReportByCPUItemValue.subItemValueText1);
+                            subCell4.setCellValue(maintainReportByCPUItemValue.subItemValueText2);
+                        }
+                    }
+                    //设置名称并合并单元格
+                    HSSFCell subTitleCell = sheet.getRow(cpuStartRowNum).createCell(0);
+                    subTitleCell.setCellValue(subByCPU.cpuTitle);
+                    subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
+                    sheet.addMergedRegion(new CellRangeAddress(cpuStartRowNum, sheet.getLastRowNum(), 0, 0));
 
                 } else if (subByBase instanceof MaintainReportSubByESD) {
                     MaintainReportSubByESD subByESD = (MaintainReportSubByESD) subByBase;
-
+                    int esdStartRowNum = sheet.getLastRowNum() + 1;
+                    for (int n = -1; n < subByESD.esdItemValueList.size(); n++) {
+                        HSSFRow esdHeaderRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                        HSSFCell esd1Celll = esdHeaderRow.createCell(1);
+                        HSSFCell esd1Cell2 = esdHeaderRow.createCell(2);
+                        HSSFCell esd1Cell3 = esdHeaderRow.createCell(3);
+                        HSSFCell esd1Cell4 = esdHeaderRow.createCell(4);
+                        if (n < 0) {
+                            esd1Celll.setCellValue(subByESD.cpuColumName1);
+                            esd1Cell2.setCellValue(subByESD.cpuColumName2);
+                            esd1Cell3.setCellValue(subByESD.cpuColumName3);
+                            esd1Cell4.setCellValue(subByESD.cpuColumName4);
+                        } else {
+                            MaintainReportSubByESD.MaintainReportByESDItemValue esdItemValue = subByESD.esdItemValueList.get(n);
+                            esd1Celll.setCellValue(esdItemValue.rowTitle);
+                            esd1Cell2.setCellValue(esdItemValue.rowText1);
+                            esd1Cell3.setCellValue(esdItemValue.rowText2);
+                            esd1Cell4.setCellValue(esdItemValue.rowText3);
+                        }
+                    }
+                    //设置名称并合并单元格
+                    HSSFCell subTitleCell = sheet.getRow(esdStartRowNum).createCell(0);
+                    subTitleCell.setCellValue(subByESD.esdTitle);
+                    subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
+                    sheet.addMergedRegion(new CellRangeAddress(esdStartRowNum, sheet.getLastRowNum(), 0, 0));
                 } else {
                     MaintainReportSubByNormal subByNormal = (MaintainReportSubByNormal) subByBase;
                     for (int k = 0; k < subByNormal.normalItemValueList.size(); k++) {
@@ -109,26 +161,56 @@ BuildType3Service extends BuildTypeBaseService {
                         row = sheet.createRow(rowNum);
                         HSSFCell subCell0 = row.createCell(0);
                         HSSFCell subCell1 = row.createCell(1);
-                        HSSFCell subCell4 = row.createCell(4);
+                        HSSFCell subCell5 = row.createCell(5);
+                        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 1, 4));
 
                         subCell0.setCellValue(subByNormal.subNormalTitle);
                         subCell1.setCellValue(normalItemValue.columDesc);
-                        subCell4.setCellValue(normalItemValue.columText);
+                        subCell5.setCellValue(normalItemValue.columText);
                     }
                 }
             }
 
         }
 
-        //维护保养人员  + 日期
-        int nextRow = sheet.getLastRowNum() + 1;
-        HSSFRow bottomRow = sheet.createRow(nextRow);
-        HSSFCell checkerCell = bottomRow.createCell(0);
-        HSSFCell dataCell = bottomRow.createCell(4);
-        checkerCell.setCellValue(maintainReportModel.checkerText);
-        dataCell.setCellValue(maintainReportModel.dateText);
-        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 3));
-        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 4, 5));
+        //维护结论
+        int nextRowNum = sheet.getLastRowNum() + 1;
+        HSSFRow nextRow = sheet.createRow(nextRowNum);
+        HSSFCell nextCell = nextRow.createCell(0);
+        sheet.addMergedRegion(new CellRangeAddress(nextRowNum, nextRowNum, 0, 5));
+        nextRow.setHeight((short) (2000));
+        nextCell.setCellValue(maintainReportByArea.maintainDescName + maintainReportByArea.maintainDescText);
+        nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
+
+        nextRowNum = sheet.getLastRowNum() + 1;
+        nextRow = sheet.createRow(nextRowNum);
+        nextCell = nextRow.createCell(0);
+        nextRow.setHeight((short) (2000));
+        sheet.addMergedRegion(new CellRangeAddress(nextRowNum, nextRowNum, 0, 5));
+        nextCell.setCellValue(maintainReportByArea.maintainOtherName + maintainReportByArea.maintainOtherText);
+        nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
+
+        nextRowNum = sheet.getLastRowNum() + 1;
+        nextRow = sheet.createRow(nextRowNum);
+        nextCell = nextRow.createCell(0);
+        nextRow.setHeight((short) (2000));
+        sheet.addMergedRegion(new CellRangeAddress(nextRowNum, nextRowNum, 0, 5));
+        nextCell.setCellValue(maintainReportByArea.stationConfirmName + maintainReportByArea.stationConfirmText);
+        nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
+
+        nextRowNum = sheet.getLastRowNum() + 1;
+        HSSFRow nextRow11 = sheet.createRow(nextRowNum);
+        HSSFCell nextCell11 = nextRow11.createCell(3);
+        HSSFCell nextCell12 = nextRow11.createCell(5);
+        nextCell11.setCellValue("确认人：");
+        nextCell12.setCellValue("确认日期：");
+
+        nextRowNum = sheet.getLastRowNum() + 1;
+        HSSFRow bottomRow = sheet.createRow(nextRowNum);
+        HSSFCell bottomCell0 = bottomRow.createCell(0);
+        HSSFCell bottomCell4 = bottomRow.createCell(4);
+        bottomCell0.setCellValue(maintainReportByArea.productName + maintainReportByArea.productText);
+        bottomCell4.setCellValue(maintainReportByArea.checkerName + maintainReportByArea.checkerText);
 
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
@@ -206,6 +288,7 @@ BuildType3Service extends BuildTypeBaseService {
             } else if (stringCellValue.equals("ESD系统（Himatrix）")) {
                 MaintainReportSubByESD maintainReportByESD = new MaintainReportSubByESD(position++);
                 scada.subList.add(maintainReportByESD);
+                maintainReportByESD.esdTitle = stringCellValue;
                 maintainReportByESD.cpuColumName1 = "记录指示灯";
                 maintainReportByESD.cpuColumName2 = "F30";
                 maintainReportByESD.cpuColumName3 = "IO1";
@@ -311,8 +394,4 @@ BuildType3Service extends BuildTypeBaseService {
         return allRowList;
     }
 
-    @Override
-    public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter) throws IOException {
-
-    }
 }

@@ -3,7 +3,6 @@ package com.lxl.valvedemo.model.buildModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
-import com.lxl.valvedemo.model.buildModel.type3.MaintainReportBySCADA;
 import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
 import com.lxl.valvedemo.model.buildModel.type5.ReportModelType5;
 import com.lxl.valvedemo.model.buildModel.type6.ReportModelType6;

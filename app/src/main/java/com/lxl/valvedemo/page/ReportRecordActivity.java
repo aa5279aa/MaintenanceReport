@@ -178,7 +178,7 @@ public class ReportRecordActivity extends FragmentActivity {
                         try {
                             List<String> strList = locationRcord2List(recordList);
                             String s = IOHelper.listToStr(strList);
-                            String path = ReportBuildConfig.reportBuildPath + File.separator + buildModel.tableName + "_" + buildModel.dateStr;
+                            final String path = ReportBuildConfig.reportBuildPath + File.separator + buildModel.tableName + "_" + buildModel.dateStr;
                             File outFile = new File(path + ReportBuildConfig.Location_Suffix);
                             IOHelper.checkParent(outFile);
                             IOHelper.writerStrByCodeToFile(outFile, s);
@@ -207,9 +207,13 @@ public class ReportRecordActivity extends FragmentActivity {
                                 public void buildSucess(String pathStr) {
                                     showResult("execl生成成功，位置：" + pathStr + "\n即将跳转轨迹路径界面");
 //                                    //退回到大首页
-                                    gotoTrajectoryPage();
+                                    new Handler(getMainLooper()).postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            gotoTrajectoryPage(path);
 
-
+                                        }
+                                    }, 2000);
                                 }
 
                                 @Override
@@ -245,11 +249,11 @@ public class ReportRecordActivity extends FragmentActivity {
     }
 
 
-    public void gotoTrajectoryPage() {
+    public void gotoTrajectoryPage(String path) {
         Intent intent = new Intent();
         intent.setClass(this, TrajectoryShowActivity.class);
         intent.putExtra(TrajectoryShowActivity.RECORD, recordList);
-        intent.putExtra(SelectModel, mSelectModel);
+        intent.putExtra(TrajectoryShowActivity.PATH, path);
         startActivity(intent);
     }
 

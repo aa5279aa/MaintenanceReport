@@ -3,6 +3,7 @@ package com.lxl.valvedemo.util;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.CellStyle;
 
 /**
  * Created by xiangleiliu on 2017/9/28.
@@ -74,10 +75,17 @@ public class StyleUtil {
      */
     public static HSSFCellStyle createVerticalCenterStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
-        setBorder.setAlignment(HSSFCellStyle.VERTICAL_CENTER); // 居中
-        HSSFFont font = wb.createFont();
-        font.setFontHeightInPoints((short) 14);
-        setBorder.setFont(font);
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        return setBorder;
+    }
+
+    /**
+     * @param wb
+     * @return
+     */
+    public static HSSFCellStyle createVerticalTopStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_TOP);//垂直居中
         return setBorder;
     }
 
@@ -89,6 +97,13 @@ public class StyleUtil {
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
         font.setFontHeightInPoints((short) 14);
         setBorder.setFont(font);
+        return setBorder;
+    }
+
+    //创造基础cell样式
+    public static HSSFCellStyle createHCenterStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
         return setBorder;
     }
 
@@ -106,7 +121,7 @@ public class StyleUtil {
     //竖向展示
     public static HSSFCellStyle createVerticalShowStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
-        setBorder.setRotation((short)255);
+        setBorder.setRotation((short) 255);
         return setBorder;
     }
 

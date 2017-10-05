@@ -38,8 +38,9 @@ import java.util.List;
 public class TrajectoryShowActivity extends Activity implements View.OnClickListener {
 
     public final static String RECORD = "RECORD";
+    public final static String PATH = "PATH";
     ArrayList<LocationRecordModel> recordList = new ArrayList<>();
-    SingleSelectionModel mSelectModel;
+    String mPath;
 
     StockTitleView titleView;
     DrawLineView drawView;
@@ -61,8 +62,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         bindData();
         initListener();
 
-        final File file = new File(ReportBuildConfig.reportBuildPath + File.separator + "test.png");
-
+        final File file = new File(mPath + ReportBuildConfig.PNG_Suffix);
         mHander.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -94,7 +94,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
 
     private void initData() {
         ArrayList<LocationRecordModel> list = (ArrayList<LocationRecordModel>) getIntent().getSerializableExtra(RECORD);
-        mSelectModel = (SingleSelectionModel) getIntent().getSerializableExtra(ReportRecordActivity.SelectModel);
+        mPath = getIntent().getStringExtra(PATH);
         if (list == null) {
             recordList.addAll(DataConfig.getRecordList());
         } else {
@@ -129,12 +129,12 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
             /**
              * 1经度100公里
              * 1000米的半径范围
-             * 经度变化极限为0.01
+             * 经度变化极限为0.005
              * 屏幕按照1000像素计算
-             * 1000/2/0.01
+             * 1000/2/0.005
              */
-            int diffX = (int) (diffLat * 50000);
-            int diffY = (int) (diffLong * 50000);
+            int diffX = (int) (diffLat * 100000);
+            int diffY = (int) (diffLong * 100000);
 
             recordModel.x = lastRecordModel.x + diffX;
             recordModel.y = lastRecordModel.y + diffY;

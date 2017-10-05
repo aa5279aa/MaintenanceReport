@@ -8,6 +8,7 @@ import java.util.List;
  */
 
 public class MaintainReportSubByESD extends MaintainReportSubByBase {
+    public String esdTitle = "";
     public String cpuColumName1 = "";//记录指示灯
     public String cpuColumName2 = "";//F30
     public String cpuColumName3 = "";//IO1

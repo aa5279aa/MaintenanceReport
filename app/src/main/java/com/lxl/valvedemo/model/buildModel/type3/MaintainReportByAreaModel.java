@@ -30,11 +30,11 @@ public class MaintainReportByAreaModel {
     public final String colum3Name = "检查结论（如有故障详细记录故障状态）";
 
     public String maintainDescName = "维护结论：";
-    public String maintainDescText = "";
+    public String maintainDescText = "维护";
     public String maintainOtherName = "其他事项：";
-    public String maintainOtherText = "";
+    public String maintainOtherText = "其他";
     public String stationConfirmName = "场站确认结论：";
-    public String stationConfirmText = "";
+    public String stationConfirmText = "场站";
 
     public List<MaintainReportBySCADA> scadaList = new ArrayList<>();
 }

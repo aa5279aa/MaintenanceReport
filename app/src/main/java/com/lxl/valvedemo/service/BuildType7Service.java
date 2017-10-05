@@ -123,12 +123,11 @@ public class BuildType7Service extends BuildTypeBaseService {
 
             //备注
             HSSFRow bottomRow = sheet.createRow(sheet.getLastRowNum() + 1);
-            bottomRow.setHeight((short) 50);
+            bottomRow.setHeight((short) (2000));
             HSSFCell descNameCell = bottomRow.createCell(0);
             HSSFCell descTextCell = bottomRow.createCell(1);
             descNameCell.setCellValue(reportModelType7.descName);
             descTextCell.setCellValue(reportModelType7.descText);
-            descNameCell.setCellStyle(StyleUtil.createVerticalShowStyle(wb));
             sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 1, 3));
 
             bottomRow = sheet.createRow(sheet.getLastRowNum() + 2);
