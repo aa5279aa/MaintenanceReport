@@ -19,7 +19,7 @@
             android:text="作业区：" />
 
         <EditText
-            android:id="@+id/report_header_type1_workarea"
+            android:id="@+id/report_header_workarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="作业区信息"
@@ -43,7 +43,7 @@
             android:text="场站：" />
 
         <EditText
-            android:id="@+id/report_header_type1_station"
+            android:id="@+id/report_header_station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="厂区信息"
@@ -66,7 +66,7 @@
             android:text="检查人：" />
 
         <EditText
-            android:id="@+id/report_header_type1_checker"
+            android:id="@+id/report_header_checker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="检查人信息"
@@ -89,7 +89,7 @@
             android:text="日期：" />
 
         <EditText
-            android:id="@+id/report_header_type1_date"
+            android:id="@+id/report_header_date"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

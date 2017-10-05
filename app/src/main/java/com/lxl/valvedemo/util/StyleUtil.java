@@ -31,6 +31,16 @@ public class StyleUtil {
         return setBorder;
     }
 
+    //创造自动换行样式
+    public static HSSFCellStyle createWrapTextStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setWrapText(true);
+        HSSFFont font = wb.createFont();
+        font.setFontHeightInPoints((short) 12);
+        setBorder.setFont(font);
+        return setBorder;
+    }
+
     //创造基础cell样式
     public static HSSFCellStyle createNormalStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
@@ -92,4 +102,13 @@ public class StyleUtil {
         setBorder.setFont(font);
         return setBorder;
     }
+
+    //竖向展示
+    public static HSSFCellStyle createVerticalShowStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setRotation((short)255);
+        return setBorder;
+    }
+
+
 }

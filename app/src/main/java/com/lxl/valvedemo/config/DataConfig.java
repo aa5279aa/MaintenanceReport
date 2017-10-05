@@ -1,5 +1,8 @@
 package com.lxl.valvedemo.config;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class DataConfig {
 
     public static void initMeterReport() {
@@ -27,7 +30,18 @@ public class DataConfig {
 //                温度变送器
 //
 //
+    }
 
+    public static boolean isType7Start(String str) {
+        String[] strs = new String[]{"一", "二", "三", "四", "五", "六", "七", "八", "九", "十"};
+        List<String> strings = Arrays.asList(strs);
+        return strings.contains(str);
+    }
+
+    public static boolean isType7SubStart(String str) {
+        String[] strs = new String[]{"1.1", "1.2", "1.3", "8.1", "8.2"};
+        List<String> strings = Arrays.asList(strs);
+        return strings.contains(str);
     }
 
 }

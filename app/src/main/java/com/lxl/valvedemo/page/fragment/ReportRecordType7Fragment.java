@@ -13,11 +13,12 @@ import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
-import com.lxl.valvedemo.service.BuildType3Service;
+import com.lxl.valvedemo.model.buildModel.type7.ReportModelType7;
+import com.lxl.valvedemo.service.BuildType7Service;
 import com.lxl.valvedemo.util.DateUtil;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/9/27 0027.
@@ -30,51 +31,100 @@ public class ReportRecordType7Fragment extends BaseBuildFragment {
     EditText mReportHeaderStation;
     EditText mReportHeaderChecker;
     EditText mReportHeaderDate;
-    TextView mFillAdd;
+
+    EditText mDescEdit;
 
     LinearLayout mReportFillContainer;
 
-    BuildType3Service tyeThreeService = new BuildType3Service();
+    BuildType7Service typeService = new BuildType7Service();
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.report_fill_type_3, container, false);
+        return inflater.inflate(R.layout.report_fill_type_7, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        bindDataType1(view);
+        bindDataType(view);
     }
 
     private void initView(View view) {
         mReportHeaderContainer = (LinearLayout) view.findViewById(R.id.report_header_type1);
-        mReportHeaderWorkArea = (EditText) view.findViewById(R.id.report_header_type1_workarea);//厂区
-        mReportHeaderStation = (EditText) view.findViewById(R.id.report_header_type1_station);
-        mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_type1_checker);
-        mReportHeaderDate = (EditText) view.findViewById(R.id.report_header_type1_date);
+        mReportHeaderWorkArea = (EditText) view.findViewById(R.id.report_header_workarea);//厂区
+        mReportHeaderStation = (EditText) view.findViewById(R.id.report_header_station);
+        mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_checker);
+        mReportHeaderDate = (EditText) view.findViewById(R.id.report_header_date);
         mReportFillContainer = (LinearLayout) view.findViewById(R.id.report_fill_contanier);
-        mFillAdd = (TextView) view.findViewById(R.id.report_fill_add);
+        mDescEdit = (EditText) view.findViewById(R.id.desc_edit);
     }
 
 
-    private void bindDataType1(View view) {
+    private void bindDataType(View view) {
         mReportHeaderDate.setText(DateUtil.getCurrentDate());
-        mFillAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addNode2Container(mReportFillContainer);
-            }
-        });
-        addNode2Container(mReportFillContainer);
+        ReportModelType7 reportModelType7 = mReportBuildModel.reportModelType7;
+        for (ReportModelType7.ReportModelType7SubModel subModel : reportModelType7.reportItemModelList) {
+            View inflate = View.inflate(getContext(), R.layout.report_fill_type_7_sub, null);
+            mReportFillContainer.addView(inflate);
+            bindDataSubType(inflate, subModel);
+        }
+
     }
 
-    private void addNode2Container(LinearLayout fillContainer) {
-        View inflate = View.inflate(getContext(), R.layout.report_fill_type_1_additem, null);
-        fillContainer.addView(inflate);
+    private void bindDataSubType(View fillContainer, ReportModelType7.ReportModelType7SubModel subModel) {
+        TextView title = (TextView) fillContainer.findViewById(R.id.title);
+        LinearLayout subContainer = (LinearLayout) fillContainer.findViewById(R.id.sub_container);
+        title.setText(subModel.indexStr + subModel.projectText);
+        if (subModel.subItemModelList.size() > 0) {
+            for (ReportModelType7.ReportModelType7SubItemModel subItemModel : subModel.subItemModelList) {
+                View inflate = View.inflate(getContext(), R.layout.report_fill_type_7_sub_item, null);
+                TextView subCheckText = (TextView) inflate.findViewById(R.id.sub_check_text);
+                subCheckText.setText(subItemModel.checkInfo);
+                subContainer.addView(inflate);
+            }
+        } else {
+            List<ReportModelType7.ReportModelType7SubSubModel> checkInfoSubList = subModel.checkInfoSubList;
+            for (int i = 0; i < checkInfoSubList.size(); i++) {
+                ReportModelType7.ReportModelType7SubSubModel subSubModel = checkInfoSubList.get(i);
+                View inflate = View.inflate(getContext(), R.layout.report_fill_type_7_item, null);
+                TextView subTitle = (TextView) inflate.findViewById(R.id.sub_title);
+                LinearLayout checkContainer1 = (LinearLayout) inflate.findViewById(R.id.sub_check_container1);
+                LinearLayout checkContainer2 = (LinearLayout) inflate.findViewById(R.id.sub_check_container2);
+                LinearLayout checkContainer3 = (LinearLayout) inflate.findViewById(R.id.sub_check_container3);
+                ReportModelType7.ReportModelType7SubItemModel subSubModel0 = null;
+                ReportModelType7.ReportModelType7SubItemModel subSubModel1 = null;
+                ReportModelType7.ReportModelType7SubItemModel subSubModel2 = null;
+                if (subSubModel.checkInfoSubList.size() > 0) {
+                    subSubModel0 = subSubModel.checkInfoSubList.get(0);
+                }
+                if (subSubModel.checkInfoSubList.size() > 1) {
+                    subSubModel1 = subSubModel.checkInfoSubList.get(1);
+                }
+                if (subSubModel.checkInfoSubList.size() > 2) {
+                    subSubModel2 = subSubModel.checkInfoSubList.get(2);
+                }
+                subTitle.setText(subSubModel.indexStr + subSubModel.projectText);
+                bindType7Item(checkContainer1, subSubModel0);
+                bindType7Item(checkContainer2, subSubModel1);
+                bindType7Item(checkContainer3, subSubModel2);
+                subContainer.addView(inflate);
+            }
+        }
     }
+
+    private void bindType7Item(LinearLayout checkContainer, ReportModelType7.ReportModelType7SubItemModel subSubModel) {
+        if (subSubModel == null) {
+            checkContainer.setVisibility(View.GONE);
+            return;
+        }
+        checkContainer.setVisibility(View.VISIBLE);
+        TextView checkText = (TextView) checkContainer.findViewById(R.id.sub_check_text);
+        EditText checkEdit = (EditText) checkContainer.findViewById(R.id.sub_check_edit);
+        checkText.setText(subSubModel.checkInfo);
+    }
+
 
     @Override
     public ReportBuildModel getBuildModel() {
@@ -83,8 +133,8 @@ public class ReportRecordType7Fragment extends BaseBuildFragment {
         //读取execl
         try {
             InputStream open = getActivity().getAssets().open(mPath + ReportBuildConfig.Execl_Suffix);
-            MaintainReportByAreaModel maintainReportByAreaModel = tyeThreeService.readReportTypeThree(open);
-            mReportBuildModel.maintainReportByArea = maintainReportByAreaModel;
+            ReportModelType7 reportModelType7 = typeService.readReportType(open);
+            mReportBuildModel.reportModelType7 = reportModelType7;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,42 +144,56 @@ public class ReportRecordType7Fragment extends BaseBuildFragment {
     @Override
     public ReportBuildModel buildBuildModel() {
         ReportBuildModel model = mReportBuildModel;
+        ReportModelType7 reportModelType7 = model.reportModelType7;
         //获取值
         String workArea = mReportHeaderWorkArea.getText().toString();
         String station = mReportHeaderStation.getText().toString();
         String checker = mReportHeaderChecker.getText().toString();
         String data = mReportHeaderDate.getText().toString();
-        model.buildType = ReportBuildModel.BUILD_TYPE_ONE;
+        model.buildType = ReportBuildModel.BUILD_TYPE_SEVEN;
 
-        model.maintainReportModel.workAreaText = workArea;
-        model.maintainReportModel.stationText = station;
-        model.maintainReportModel.checkerText = checker;
-        model.maintainReportModel.dateText = data;
+        reportModelType7.workAreaText = workArea;
+        reportModelType7.stationText = station;
+        reportModelType7.checkText = checker;
+        reportModelType7.dateText = data;
 
         int childCount = mReportFillContainer.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View childAt = mReportFillContainer.getChildAt(i);
-            EditText equipmentEdit = (EditText) childAt.findViewById(R.id.report_fill_equipment_edit);
-            EditText specificationsEdit = (EditText) childAt.findViewById(R.id.report_fill_specifications_edit);
-            EditText numberEdit = (EditText) childAt.findViewById(R.id.report_fill_number_edit);
-            EditText situationEdit = (EditText) childAt.findViewById(R.id.report_fill_situation_edit);
-            EditText descEdit = (EditText) childAt.findViewById(R.id.report_fill_desc_edit);
-
-            String equipmentStr = equipmentEdit.getText().toString();
-            String specificationsStr = specificationsEdit.getText().toString();
-            String numberStr = numberEdit.getText().toString();
-            String situationStr = situationEdit.getText().toString();
-            String descStr = descEdit.getText().toString();
-
-            MaintainReportItemModel itemModel = new MaintainReportItemModel();
-            itemModel.position = i;
-            itemModel.equipmentName = equipmentStr;
-            itemModel.specificationsName = specificationsStr;
-            itemModel.equipmentId = numberStr;
-            itemModel.maintainInfo = situationStr;
-            itemModel.maintainDesc = descStr;
-            model.maintainReportModel.maintainList.add(itemModel);
+            TextView title = (TextView) childAt.findViewById(R.id.title);
+            LinearLayout subContainer = (LinearLayout) childAt.findViewById(R.id.sub_container);
+            ReportModelType7.ReportModelType7SubModel subModel = reportModelType7.reportItemModelList.get(i);//济柴燃气发电机组
+            for (int j = 0; j < subContainer.getChildCount(); j++) {
+                View childAt1 = subContainer.getChildAt(j);
+                int id = childAt1.getId();
+                if (id == R.id.report_fill_type_7_item) {
+                    ReportModelType7.ReportModelType7SubSubModel subSubModel = subModel.checkInfoSubList.get(j);//发动机
+                    for (int k = 0; k < subSubModel.checkInfoSubList.size(); k++) {
+                        ReportModelType7.ReportModelType7SubItemModel reportModelType7SubItemModel = subSubModel.checkInfoSubList.get(k);
+                        LinearLayout subCheck_container;
+                        if (k == 0) {
+                            subCheck_container = (LinearLayout) childAt1.findViewById(R.id.sub_check_container1);
+                        } else if (k == 1) {
+                            subCheck_container = (LinearLayout) childAt1.findViewById(R.id.sub_check_container2);
+                        } else {
+                            subCheck_container = (LinearLayout) childAt1.findViewById(R.id.sub_check_container3);
+                        }
+                        TextView subCheckText = (TextView) subCheck_container.findViewById(R.id.sub_check_text);
+                        EditText subCheckEdit = (EditText) subCheck_container.findViewById(R.id.sub_check_edit);
+                        reportModelType7SubItemModel.checkInfo = subCheckText.getText().toString();
+                        reportModelType7SubItemModel.checkDescText = subCheckEdit.getText().toString();
+                    }
+                } else {
+                    LinearLayout container = (LinearLayout) childAt1;
+                    TextView subCheckText = (TextView) container.findViewById(R.id.sub_check_text);
+                    EditText subCheckEdit = (EditText) container.findViewById(R.id.sub_check_edit);
+                    ReportModelType7.ReportModelType7SubItemModel reportModelType7SubItemModel = subModel.subItemModelList.get(j);
+                    reportModelType7SubItemModel.checkInfo = subCheckText.getText().toString();
+                    reportModelType7SubItemModel.checkDescText = subCheckEdit.getText().toString();
+                }
+            }
         }
+        reportModelType7.descText = mDescEdit.getText().toString();
         return model;
     }
 

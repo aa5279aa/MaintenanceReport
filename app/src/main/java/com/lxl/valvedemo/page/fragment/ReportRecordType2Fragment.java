@@ -51,10 +51,10 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
 
     private void initView(View view) {
         mReportHeaderContainer = (LinearLayout) view.findViewById(R.id.report_header_type1);
-        mReportHeaderWorkArea = (EditText) view.findViewById(R.id.report_header_type1_workarea);//厂区
-        mReportHeaderStation = (EditText) view.findViewById(R.id.report_header_type1_station);
-        mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_type1_checker);
-        mReportHeaderDate = (EditText) view.findViewById(R.id.report_header_type1_date);
+        mReportHeaderWorkArea = (EditText) view.findViewById(R.id.report_header_workarea);//厂区
+        mReportHeaderStation = (EditText) view.findViewById(R.id.report_header_station);
+        mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_checker);
+        mReportHeaderDate = (EditText) view.findViewById(R.id.report_header_date);
         mReportFillContanier = (LinearLayout) view.findViewById(R.id.report_fill_contanier);
     }
 
