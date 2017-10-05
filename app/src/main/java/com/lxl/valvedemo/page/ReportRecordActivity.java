@@ -64,7 +64,7 @@ public class ReportRecordActivity extends FragmentActivity {
 
     LocationClient mClient;
     BDAbstractLocationListener listener;
-    List<LocationRecordModel> recordList = new ArrayList<>();
+    ArrayList<LocationRecordModel> recordList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -205,9 +205,11 @@ public class ReportRecordActivity extends FragmentActivity {
                             service.writeReport(outFile, buildModel, new BuildResultInter() {
                                 @Override
                                 public void buildSucess(String pathStr) {
-                                    showResult("execl生成成功，位置：" + pathStr);
-                                    //退回到大首页
-                                    back2Home();
+                                    showResult("execl生成成功，位置：" + pathStr + "\n即将跳转轨迹路径界面");
+//                                    //退回到大首页
+                                    gotoTrajectoryPage();
+
+
                                 }
 
                                 @Override
@@ -243,9 +245,11 @@ public class ReportRecordActivity extends FragmentActivity {
     }
 
 
-    public void back2Home() {
+    public void gotoTrajectoryPage() {
         Intent intent = new Intent();
-        intent.setClass(this, OperationActivity.class);
+        intent.setClass(this, TrajectoryShowActivity.class);
+        intent.putExtra(TrajectoryShowActivity.RECORD, recordList);
+        intent.putExtra(SelectModel, mSelectModel);
         startActivity(intent);
     }
 

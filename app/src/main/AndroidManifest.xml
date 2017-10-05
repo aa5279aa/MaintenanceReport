@@ -57,6 +57,11 @@
             android:label="@string/title_activity_select"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
+        <activity
+            android:name=".page.TrajectoryShowActivity"
+            android:label="@string/title_activity_select"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
         <!--<activity-->
         <!--android:name=".page.SelectActivity"-->
         <!--android:label="@string/title_activity_main"-->
@@ -70,7 +75,8 @@
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="nhYzLZtYBkVWR1pF123Kpsq8xvyQB8FY" />       //key:开发者申请的Key
+            android:value="nhYzLZtYBkVWR1pF123Kpsq8xvyQB8FY" />
+        //key:开发者申请的Key
     </application>
 
 </manifest>

@@ -1,5 +1,8 @@
 package com.lxl.valvedemo.config;
 
+import com.lxl.valvedemo.model.viewmodel.LocationRecordModel;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -42,6 +45,16 @@ public class DataConfig {
         String[] strs = new String[]{"1.1", "1.2", "1.3", "8.1", "8.2"};
         List<String> strings = Arrays.asList(strs);
         return strings.contains(str);
+    }
+
+    public static List<LocationRecordModel> getRecordList() {
+        List<LocationRecordModel> list = new ArrayList<>();
+        list.add(new LocationRecordModel(35.4227345984,119.5337199627));
+        list.add(new LocationRecordModel(35.4237445984,119.5337199627));
+        list.add(new LocationRecordModel(35.4247545984,119.5337199627));
+        list.add(new LocationRecordModel(35.4257645984,119.5337199627));
+        list.add(new LocationRecordModel(35.4267745984,119.5337199627));
+        return list;
     }
 
 }

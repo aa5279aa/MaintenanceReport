@@ -1,9 +1,11 @@
 package com.lxl.valvedemo.model.viewmodel;
 
+import java.io.Serializable;
+
 /**
  * Created by xiangleiliu on 2017/9/29.
  */
-public class LocationRecordModel {
+public class LocationRecordModel implements Serializable {
 
     public double longitude = 0.0;
     public double latitude = 0.0;
@@ -13,5 +15,15 @@ public class LocationRecordModel {
 
     public int x;
     public int y;
+
+    public LocationRecordModel() {
+
+    }
+
+    public LocationRecordModel(double longitude, double latitude) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+    }
+
 
 }
