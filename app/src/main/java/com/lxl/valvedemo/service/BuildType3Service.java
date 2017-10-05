@@ -7,6 +7,7 @@ import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
+import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByBase;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByCPU;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByESD;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportBySCADA;
@@ -25,20 +26,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * Created by xiangleiliu on 2017/9/28.
  */
-public class BuildType3Service extends BuildTypeBaseService{
+public class
+
+BuildType3Service extends BuildTypeBaseService {
 
     public BuildType3Service() {
 
     }
 
-    public void buildReportTypeThree(File outFile, MaintainReportModel maintainReportModel, BuildResultInter inter) throws IOException {
+    public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter) throws IOException {
+        MaintainReportByAreaModel maintainReportByArea = reportBuildModel.maintainReportByArea;
+
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
@@ -46,54 +49,75 @@ public class BuildType3Service extends BuildTypeBaseService{
         //title
         HSSFRow titleRow = sheet.createRow(0);
         HSSFCell titleCell = titleRow.createCell(0);
-        titleCell.setCellValue(maintainReportModel.tableTile);
+        titleCell.setCellValue(maintainReportByArea.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
 
         //desc
         HSSFRow areaRow = sheet.createRow(1);
-        HSSFCell areaCell = areaRow.createCell(0);
-        HSSFCell stationCell = areaRow.createCell(4);
-        stationCell.setCellValue(maintainReportModel.stationName + ":" + maintainReportModel.stationText);
-        areaCell.setCellValue(maintainReportModel.workAreaName + ":" + maintainReportModel.workAreaText);
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 3));
+        HSSFCell stationNameCell = areaRow.createCell(0);
+        HSSFCell stationTextCell = areaRow.createCell(1);
+        HSSFCell dateNameCell = areaRow.createCell(3);
+        HSSFCell dateTextCell = areaRow.createCell(4);
+        stationNameCell.setCellValue(maintainReportByArea.stationName);
+        stationTextCell.setCellValue(maintainReportByArea.stationText);
+        dateNameCell.setCellValue(maintainReportByArea.dateName);
+        dateTextCell.setCellValue(maintainReportByArea.dateText);
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 1, 2));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
 
-        if (maintainReportModel.maintainList.size() == 0) {
+        //desc
+        HSSFRow headerRow = sheet.createRow(2);
+        HSSFCell cell0 = headerRow.createCell(0);
+        HSSFCell cell1 = headerRow.createCell(1);
+        HSSFCell cell5 = headerRow.createCell(5);
+        cell0.setCellValue("检查项目");
+        cell1.setCellValue("检查内容");
+        cell5.setCellValue("检查结论（如有故障详细记录故障状态）");
+        sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 4));
+
+        if (maintainReportByArea.scadaList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);
             wb.write(fileOut);
             fileOut.close();
             return;
         }
-        for (int i = -1; i < maintainReportModel.maintainList.size(); i++) {
-            String positionCellStr = "序号";
-            String equipmentNameCellStr = "设备名称";
-            String specificationsCellStr = "规格型号";
-            String equipmentIdCellStr = "设备编号";
-            String maintainInfoCellStr = "检查与维护保养情况";
-            String maintainDescCellStr = "备注";
-            if (i >= 0) {
-                MaintainReportItemModel maintainReportItemModel = maintainReportModel.maintainList.get(i);
-                positionCellStr = String.valueOf(i + 1);
-                equipmentNameCellStr = maintainReportItemModel.equipmentName;
-                specificationsCellStr = maintainReportItemModel.specificationsName;
-                equipmentIdCellStr = maintainReportItemModel.equipmentId;
-                maintainInfoCellStr = maintainReportItemModel.maintainInfo;
-                maintainDescCellStr = maintainReportItemModel.maintainDesc;
+        HSSFRow row;
+        for (int i = 0; i < maintainReportByArea.scadaList.size(); i++) {
+            MaintainReportBySCADA reportBySCADA = maintainReportByArea.scadaList.get(i);
+            int rowNum = sheet.getLastRowNum() + 1;
+            row = sheet.createRow(rowNum);
+            HSSFCell cell = row.createCell(0);
+            cell.setCellValue(reportBySCADA.scadaTitle);
+            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
+            for (int j = 0; j < reportBySCADA.subList.size(); j++) {
+                MaintainReportSubByBase subByBase = reportBySCADA.subList.get(j);
+                if (subByBase instanceof MaintainReportSubByCPU) {
+                    MaintainReportSubByCPU subByCPU = (MaintainReportSubByCPU) subByBase;
+
+                    //title
+
+
+                } else if (subByBase instanceof MaintainReportSubByESD) {
+                    MaintainReportSubByESD subByESD = (MaintainReportSubByESD) subByBase;
+
+                } else {
+                    MaintainReportSubByNormal subByNormal = (MaintainReportSubByNormal) subByBase;
+                    for (int k = 0; k < subByNormal.normalItemValueList.size(); k++) {
+                        MaintainReportSubByNormal.MaintainReportSubByNormalItemValue normalItemValue = subByNormal.normalItemValueList.get(k);
+                        rowNum = sheet.getLastRowNum() + 1;
+                        row = sheet.createRow(rowNum);
+                        HSSFCell subCell0 = row.createCell(0);
+                        HSSFCell subCell1 = row.createCell(1);
+                        HSSFCell subCell4 = row.createCell(4);
+
+                        subCell0.setCellValue(subByNormal.subNormalTitle);
+                        subCell1.setCellValue(normalItemValue.columDesc);
+                        subCell4.setCellValue(normalItemValue.columText);
+                    }
+                }
             }
-            HSSFRow headerRow = sheet.createRow(i + 3);
-            HSSFCell positionCell = headerRow.createCell(0);
-            HSSFCell equipmentNameCell = headerRow.createCell(1);
-            HSSFCell specificationsCell = headerRow.createCell(2);
-            HSSFCell equipmentIdCell = headerRow.createCell(3);
-            HSSFCell maintainInfoCell = headerRow.createCell(4);
-            HSSFCell maintainDescCell = headerRow.createCell(5);
-            positionCell.setCellValue(positionCellStr);
-            equipmentNameCell.setCellValue(equipmentNameCellStr);
-            specificationsCell.setCellValue(specificationsCellStr);
-            equipmentIdCell.setCellValue(equipmentIdCellStr);
-            maintainInfoCell.setCellValue(maintainInfoCellStr);
-            maintainDescCell.setCellValue(maintainDescCellStr);
+
         }
 
         //维护保养人员  + 日期
@@ -116,11 +140,10 @@ public class BuildType3Service extends BuildTypeBaseService{
     }
 
 
-    public MaintainReportByAreaModel readReportTypeThree(InputStream open) throws IOException {
+    public MaintainReportByAreaModel readReportType(InputStream open) throws IOException {
         MaintainReportByAreaModel mainAreaModel = new MaintainReportByAreaModel();
         HSSFWorkbook wb = new HSSFWorkbook(open);
         HSSFSheet sheet1 = wb.getSheet("Sheet1");
-//        setEquipmentValue(mainAreaModel, sheet1);
         setSCADAValue(mainAreaModel, sheet1);
         return mainAreaModel;
     }
@@ -147,28 +170,38 @@ public class BuildType3Service extends BuildTypeBaseService{
             if (stringCellValue.equals("CPU机架")) {
                 MaintainReportSubByCPU reportSubByCPU = new MaintainReportSubByCPU(position++);
                 scada.subList.add(reportSubByCPU);
-                reportSubByCPU.cpuTitle = "记录以下指示灯状态";
+                reportSubByCPU.cpuTitle = stringCellValue;
                 if (mainAreaModel.tableName.contains("冀宁线")) {
                     reportSubByCPU.cpuColumName1 = "A机架";
                     reportSubByCPU.cpuColumName2 = "B机架";
+                    reportSubByCPU.cpuColumName0 = "B机架";
                 } else {
                     reportSubByCPU.cpuColumName1 = "PLC-A";
                     reportSubByCPU.cpuColumName2 = "PLC-B";
                     reportSubByCPU.cpuColumName3 = "ESD-A";
                     reportSubByCPU.cpuColumName4 = "ESD-B";
+                    reportSubByCPU.cpuColumName0 = "B机架";
                 }
-                startRowNum++;
-                HSSFRow cpuRow = sheet.getRow(startRowNum);
-                HSSFCell cpuCell = cpuRow.getCell(1);
-                int[] rowHeightByIndex = getRowHeightByIndex(sheet, cpuCell);
-                int cpuFirstRow = rowHeightByIndex[0];
-                int cpuLastRow = rowHeightByIndex[1];
-                for (int i = cpuFirstRow; i <= cpuLastRow; i++) {
-                    HSSFRow lineRow = sheet.getRow(cpuFirstRow);
-                    HSSFCell cell1 = lineRow.getCell(2);
-                    MaintainReportSubByCPU.MaintainReportByCPUItemValue cpuItemValue = new MaintainReportSubByCPU.MaintainReportByCPUItemValue();
-                    cpuItemValue.subItemName = cell1.getStringCellValue();
-                    reportSubByCPU.subItemList.add(cpuItemValue);
+                int[] rowHeightByIndex1 = getRowHeightByIndex(sheet, cell);//cpu机架的高度
+                int k = rowHeightByIndex1[0];
+                k++;//忽略第一行
+                while (k <= rowHeightByIndex1[1]) {
+                    HSSFRow cpuSubRow = sheet.getRow(k);
+                    HSSFCell cpuSubCell = cpuSubRow.getCell(1);
+                    int[] rowHeightByIndex = getRowHeightByIndex(sheet, cpuSubCell);
+                    int cpuFirstRow = rowHeightByIndex[0];
+                    int cpuLastRow = rowHeightByIndex[1];//CPU模块的高度
+                    MaintainReportSubByCPU.MaintainReportByCPUSubValue cpuSubValue = new MaintainReportSubByCPU.MaintainReportByCPUSubValue();
+                    cpuSubValue.cpuSubName = cpuSubCell.getStringCellValue();
+                    reportSubByCPU.cpuSubList.add(cpuSubValue);
+                    for (int i = cpuFirstRow; i <= cpuLastRow; i++) {
+                        HSSFRow lineRow = sheet.getRow(i);
+                        HSSFCell cell1 = lineRow.getCell(2);
+                        MaintainReportSubByCPU.MaintainReportByCPUItemValue cpuItemValue = new MaintainReportSubByCPU.MaintainReportByCPUItemValue();
+                        cpuItemValue.subItemName = cell1.getStringCellValue();
+                        cpuSubValue.cpuItemValueList.add(cpuItemValue);
+                    }
+                    k = rowHeightByIndex[1] + 1;
                 }
             } else if (stringCellValue.equals("ESD系统（Himatrix）")) {
                 MaintainReportSubByESD maintainReportByESD = new MaintainReportSubByESD(position++);
@@ -177,14 +210,13 @@ public class BuildType3Service extends BuildTypeBaseService{
                 maintainReportByESD.cpuColumName2 = "F30";
                 maintainReportByESD.cpuColumName3 = "IO1";
                 maintainReportByESD.cpuColumName4 = "IO2";
-                startRowNum++;
                 HSSFRow cpuRow = sheet.getRow(startRowNum);
-                HSSFCell cpuCell = cpuRow.getCell(1);
+                HSSFCell cpuCell = cpuRow.getCell(0);
                 int[] rowHeightByIndex = getRowHeightByIndex(sheet, cpuCell);
-                int cpuFirstRow = rowHeightByIndex[0];
+                int cpuFirstRow = rowHeightByIndex[0] + 1;
                 int cpuLastRow = rowHeightByIndex[1];
                 for (int i = cpuFirstRow; i <= cpuLastRow; i++) {
-                    HSSFRow lineRow = sheet.getRow(cpuFirstRow);
+                    HSSFRow lineRow = sheet.getRow(i);
                     HSSFCell cell1 = lineRow.getCell(1);
                     MaintainReportSubByESD.MaintainReportByESDItemValue cpuItemValue = new MaintainReportSubByESD.MaintainReportByESDItemValue();
                     cpuItemValue.rowTitle = cell1.getStringCellValue();
@@ -196,17 +228,17 @@ public class BuildType3Service extends BuildTypeBaseService{
             } else {
                 MaintainReportSubByNormal maintainReportSubByNormal = new MaintainReportSubByNormal(position++);
                 scada.subList.add(maintainReportSubByNormal);
-                HSSFRow cpuRow = sheet.getRow(startRowNum);
-                HSSFCell cpuCell = cpuRow.getCell(1);
-                int[] rowHeightByIndex = getRowHeightByIndex(sheet, cpuCell);
+                HSSFRow normalRow = sheet.getRow(startRowNum);
+                HSSFCell normalCell = normalRow.getCell(0);
+                int[] rowHeightByIndex = getRowHeightByIndex(sheet, normalCell);
                 int cpuFirstRow = rowHeightByIndex[0];
                 int cpuLastRow = rowHeightByIndex[1];
-                maintainReportSubByNormal.subNormalTitle = cpuCell.getStringCellValue();
+                maintainReportSubByNormal.subNormalTitle = normalCell.getStringCellValue();
                 for (int i = cpuFirstRow; i <= cpuLastRow; i++) {
-                    HSSFRow lineRow = sheet.getRow(cpuFirstRow);
+                    HSSFRow lineRow = sheet.getRow(i);
                     HSSFCell cell1 = lineRow.getCell(1);
                     MaintainReportSubByNormal.MaintainReportSubByNormalItemValue normalItemValue = new MaintainReportSubByNormal.MaintainReportSubByNormalItemValue();
-                    normalItemValue.columName = cell1.getStringCellValue();
+                    normalItemValue.columDesc = cell1.getStringCellValue();
                     maintainReportSubByNormal.normalItemValueList.add(normalItemValue);
                 }
             }

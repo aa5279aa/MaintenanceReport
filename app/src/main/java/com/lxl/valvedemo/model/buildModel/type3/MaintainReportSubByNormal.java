@@ -16,7 +16,7 @@ public class MaintainReportSubByNormal extends MaintainReportSubByBase {
     }
 
     public static class MaintainReportSubByNormalItemValue {
-        public String columName = "";
+        public String columDesc = "";
         public String columText = "";
     }
 
