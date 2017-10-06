@@ -102,6 +102,11 @@ public class BuildType4Service extends BuildTypeBaseService {
         dateCell.setCellValue(alertReportModel.checkDateName + s);
 
         sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
+
+        sheet.setColumnWidth(0, StyleUtil.getColumnWidth(25));
+        sheet.setColumnWidth(1, StyleUtil.getColumnWidth(52));
+        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(40));
+
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
         fileOut.close();

@@ -12,6 +12,7 @@ public class InspectionReportSubTypeModel {
     public List<InspectionReportCellModel> cellModelList = new ArrayList<>();
     public int firstRow = 0;
     public int lastRow = 0;
+    public boolean isNotCreate = false;//是否是不生成的
 
 
     public static class InspectionReportCellModel {

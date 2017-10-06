@@ -97,6 +97,13 @@ public class BuildType1Service extends BuildTypeBaseService {
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 3));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 4, 5));
 
+        sheet.setColumnWidth(0, StyleUtil.getColumnWidth(4.2));
+        sheet.setColumnWidth(1, StyleUtil.getColumnWidth(13));
+        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(13));
+        sheet.setColumnWidth(3, StyleUtil.getColumnWidth(13));
+        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(35.4));
+        sheet.setColumnWidth(5, StyleUtil.getColumnWidth(8.3));
+
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
         fileOut.close();

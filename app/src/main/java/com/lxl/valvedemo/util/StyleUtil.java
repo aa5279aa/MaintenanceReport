@@ -128,8 +128,8 @@ public class StyleUtil {
         return (int) (256 * width + 184);
     }
 
-    public static int getRowHeight(int width) {
-        return 256 * width + 184;
+    public static short getRowHeight(short height) {
+        return (short) (20 * height);
     }
 
 }

@@ -123,7 +123,7 @@ public class BuildType7Service extends BuildTypeBaseService {
 
             //备注
             HSSFRow bottomRow = sheet.createRow(sheet.getLastRowNum() + 1);
-            bottomRow.setHeight((short) (2000));
+            bottomRow.setHeight(StyleUtil.getRowHeight((short) 106));
             HSSFCell descNameCell = bottomRow.createCell(0);
             HSSFCell descTextCell = bottomRow.createCell(1);
             descNameCell.setCellValue(reportModelType7.descName);
@@ -139,7 +139,10 @@ public class BuildType7Service extends BuildTypeBaseService {
             dateCell.setCellStyle(StyleUtil.createDescStyle(wb));
             sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
 
-            sheet.setColumnWidth(1, StyleUtil.getColumnWidth(60));
+            sheet.setColumnWidth(0, StyleUtil.getColumnWidth(3));
+            sheet.setColumnWidth(1, StyleUtil.getColumnWidth(35));
+            sheet.setColumnWidth(2, StyleUtil.getColumnWidth(13.3));
+            sheet.setColumnWidth(3, StyleUtil.getColumnWidth(26.9));
 
             FileOutputStream fileOut = new FileOutputStream(outFile);
             wb.write(fileOut);

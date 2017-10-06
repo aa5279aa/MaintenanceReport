@@ -18,6 +18,7 @@ import com.lxl.valvedemo.model.buildModel.type2.InspectionReportSubTypeModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportTypeModel;
 import com.lxl.valvedemo.service.BuildType2Service;
 import com.lxl.valvedemo.util.DateUtil;
+import com.lxl.valvedemo.util.StringUtil;
 
 import java.io.InputStream;
 
@@ -75,8 +76,8 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
                 for (InspectionReportSubTypeModel.InspectionReportCellModel cellModel : subTypeModel.cellModelList) {
                     View subTypeValueView = View.inflate(getContext(), R.layout.report_fill_type_2_subtypevvalue_view, null);
                     TextView subTypeTextValueTV = (TextView) subTypeValueView.findViewById(R.id.filltwo_subtypevalue_require);
-                    EditText recordEdit = (EditText) subTypeValueView.findViewById(R.id.check_record_edit);
-                    EditText descEdit = (EditText) subTypeValueView.findViewById(R.id.check_desc_edit);
+//                    EditText recordEdit = (EditText) subTypeValueView.findViewById(R.id.check_record_edit);
+//                    EditText descEdit = (EditText) subTypeValueView.findViewById(R.id.check_desc_edit);
                     subTypeTextValueTV.setText(cellModel.requireDesc);
                     subTypeContainer.addView(subTypeValueView);
                 }
@@ -113,6 +114,7 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
         model.inspectionReportModel.checkerText = checker;
         model.inspectionReportModel.dateText = data;
 
+        //如果值为空则不展示
         for (int i = 0; i < mReportFillContanier.getChildCount(); i++) {
             InspectionReportTypeModel typeModel = model.inspectionReportModel.typeModelList.get(i);
             LinearLayout typeView = (LinearLayout) mReportFillContanier.getChildAt(i);
@@ -127,6 +129,7 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
                 }
                 TextView subTypeName = (TextView) subTypeView.findViewById(R.id.filltwo_subtype_name);
                 LinearLayout subTypeContainer = (LinearLayout) subTypeView.findViewById(R.id.filltwo_subtype_container);
+                boolean recordIsNull = true;
                 for (int k = 0; k < subTypeContainer.getChildCount(); k++) {
                     View subTypeValueContainer = subTypeContainer.getChildAt(k);
                     InspectionReportSubTypeModel.InspectionReportCellModel inspectionReportCellModel = reportSubTypeModel.cellModelList.get(k);
@@ -134,8 +137,12 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
                     EditText recordEdit = (EditText) subTypeValueContainer.findViewById(R.id.check_record_edit);
                     EditText descEdit = (EditText) subTypeValueContainer.findViewById(R.id.check_desc_edit);
                     inspectionReportCellModel.checkRecord = recordEdit.getText().toString();
+                    if (!StringUtil.emptyOrNull(inspectionReportCellModel.checkRecord)) {
+                        recordIsNull = false;
+                    }
                     inspectionReportCellModel.checkDesc = descEdit.getText().toString();
                 }
+                reportSubTypeModel.isNotCreate = recordIsNull;
             }
         }
         //获取值

@@ -63,7 +63,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         bindData();
         initListener();
 
-        final File file = new File(mPath + ReportBuildConfig.PNG_Suffix);
+        final File file = new File(mPath + "轨迹图" + ReportBuildConfig.PNG_Suffix);
         mHander.postDelayed(new Runnable() {
             @Override
             public void run() {

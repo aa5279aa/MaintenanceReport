@@ -197,6 +197,7 @@ public class ReportRecordActivity extends FragmentActivity {
                 }
                 final BuildTypeBaseService service = serviceInter;
                 HotelCustomEditDialog dialog = new HotelCustomEditDialog();
+                dialog.setTitle("请输入表格名称");
                 dialog.setContent("", "确定", "取消");
                 dialog.setDialogBtnEditClick(new HotelCustomEditDialog.HotelDialogBtnEditClickListener() {
                     @Override

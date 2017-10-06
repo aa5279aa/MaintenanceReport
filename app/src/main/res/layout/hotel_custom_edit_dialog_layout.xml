@@ -27,7 +27,7 @@
                 android:paddingLeft="20dip"
                 android:paddingRight="20dip"
                 android:paddingTop="20dip"
-                android:text="放大撒发"
+                android:text=""
                 android:visibility="gone" />
 
             <TextView
@@ -55,9 +55,7 @@
             android:gravity="left|center_vertical"
             android:paddingLeft="20dip"
             android:paddingRight="20dip"
-            android:text=""
-
-            />
+            android:text="" />
 
         <View
             android:layout_width="fill_parent"

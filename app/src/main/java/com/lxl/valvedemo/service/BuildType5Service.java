@@ -173,6 +173,7 @@ public class BuildType5Service extends BuildTypeBaseService {
         sheet.setColumnWidth(2, StyleUtil.getColumnWidth(74));
         sheet.setColumnWidth(3, StyleUtil.getColumnWidth(12));
         sheet.setColumnWidth(4, StyleUtil.getColumnWidth(8.3));
+
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
         fileOut.close();

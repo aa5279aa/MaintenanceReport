@@ -172,9 +172,14 @@ public class BuildType2Service extends BuildTypeBaseService {
             }
             InspectionReportTypeModel typeModel = inspectionReportModel.typeModelList.get(i);
             typeCellStr = typeModel.typeName;
+            int startRomNum = sheet.getLastRowNum() + 1;
             for (int j = 0; j < typeModel.subTypeModelList.size(); j++) {
                 InspectionReportSubTypeModel subTypeModel = typeModel.subTypeModelList.get(j);
                 equipmentTypeCellStr = subTypeModel.subTypeName;
+                if (subTypeModel.isNotCreate) {
+                    continue;
+                }
+                int startSubRomNum = sheet.getLastRowNum() + 1;
                 for (int k = 0; k < typeModel.subTypeModelList.size(); k++) {
                     InspectionReportSubTypeModel.InspectionReportCellModel cellModel = subTypeModel.cellModelList.get(k);
                     HSSFRow headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
@@ -192,10 +197,10 @@ public class BuildType2Service extends BuildTypeBaseService {
                     checkrecordCell.setCellValue(cellModel.checkRecord);
                     checkdescCell.setCellValue(cellModel.checkDesc);
                 }
-                sheet.addMergedRegion(new CellRangeAddress(subTypeModel.firstRow, subTypeModel.lastRow, 2, 2));
+                sheet.addMergedRegion(new CellRangeAddress(startSubRomNum, sheet.getLastRowNum(), 2, 2));
             }
             //合并单元格
-            sheet.addMergedRegion(new CellRangeAddress(typeModel.firstRow, typeModel.lastRow, 0, 0));
+            sheet.addMergedRegion(new CellRangeAddress(startRomNum, sheet.getLastRowNum(), 0, 0));
         }
 
         //维护保养人员  + 日期
@@ -207,6 +212,12 @@ public class BuildType2Service extends BuildTypeBaseService {
         dataCell.setCellValue(inspectionReportModel.dateText);
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 1, 3));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 4, 5));
+
+        sheet.setColumnWidth(0, StyleUtil.getColumnWidth(5));
+        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(8));
+        sheet.setColumnWidth(3, StyleUtil.getColumnWidth(52));
+        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(8));
+        sheet.setColumnWidth(5, StyleUtil.getColumnWidth(25));
 
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);

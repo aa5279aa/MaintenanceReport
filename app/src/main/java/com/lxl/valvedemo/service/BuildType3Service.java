@@ -214,6 +214,13 @@ BuildType3Service extends BuildTypeBaseService {
         bottomCell0.setCellValue(maintainReportByArea.productName + maintainReportByArea.productText);
         bottomCell4.setCellValue(maintainReportByArea.checkerName + maintainReportByArea.checkerText);
 
+        sheet.setColumnWidth(0, StyleUtil.getColumnWidth(11.3));
+        sheet.setColumnWidth(1, StyleUtil.getColumnWidth(10));
+        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(10));
+        sheet.setColumnWidth(3, StyleUtil.getColumnWidth(10));
+        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(10));
+        sheet.setColumnWidth(5, StyleUtil.getColumnWidth(33.7));
+
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
         fileOut.close();

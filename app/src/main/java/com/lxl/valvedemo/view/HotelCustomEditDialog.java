@@ -61,7 +61,7 @@ public class HotelCustomEditDialog extends DialogFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.hotel_custom_dialog_layout, null);
+        View view = inflater.inflate(R.layout.hotel_custom_edit_dialog_layout, null);
         return view;
     }
 

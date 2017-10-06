@@ -125,6 +125,10 @@ public class BuildType6Service extends BuildTypeBaseService {
         dateCell.setCellStyle(StyleUtil.createDescStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
 
+        sheet.setColumnWidth(0, StyleUtil.getColumnWidth(6.2));
+        sheet.setColumnWidth(1, StyleUtil.getColumnWidth(77));
+        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(44.4));
+
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
         fileOut.close();
