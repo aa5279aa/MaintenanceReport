@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.map.Text;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
@@ -65,6 +66,21 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
 
     private void addNode2Container(LinearLayout fillContainer) {
         View inflate = View.inflate(getContext(), R.layout.report_fill_type_1_additem, null);
+        final TextView equipmentEdit = (TextView) inflate.findViewById(R.id.report_fill_equipment_edit);
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!(v instanceof TextView)) {
+                    return;
+                }
+                String s = ((TextView) v).getText().toString();
+                equipmentEdit.setText(s);
+            }
+        };
+        inflate.findViewById(R.id.tag1).setOnClickListener(listener);
+        inflate.findViewById(R.id.tag2).setOnClickListener(listener);
+        inflate.findViewById(R.id.tag3).setOnClickListener(listener);
+        inflate.findViewById(R.id.tag4).setOnClickListener(listener);
         fillContainer.addView(inflate);
     }
 
@@ -92,7 +108,7 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
         int childCount = mReportFillContainer.getChildCount();
         for (int i = 0; i < childCount; i++) {
             View childAt = mReportFillContainer.getChildAt(i);
-            EditText equipmentEdit = (EditText) childAt.findViewById(R.id.report_fill_equipment_edit);
+            TextView equipmentEdit = (TextView) childAt.findViewById(R.id.report_fill_equipment_edit);
             EditText specificationsEdit = (EditText) childAt.findViewById(R.id.report_fill_specifications_edit);
             EditText numberEdit = (EditText) childAt.findViewById(R.id.report_fill_number_edit);
             EditText situationEdit = (EditText) childAt.findViewById(R.id.report_fill_situation_edit);

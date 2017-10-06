@@ -168,7 +168,6 @@ public class ReportRecordActivity extends FragmentActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "结果已提交，正在生成excel表", Toast.LENGTH_SHORT).show();
                 final ReportBuildModel buildModel = buildFragment.buildBuildModel();
                 //检查必填内容
                 BuildTypeBaseService serviceInter = null;
@@ -216,12 +215,12 @@ public class ReportRecordActivity extends FragmentActivity {
     }
 
     private void createTable(final ReportBuildModel buildModel, String input, final BuildTypeBaseService service) {
+        Toast.makeText(mContext, "结果已提交，正在生成excel表", Toast.LENGTH_SHORT).show();
         buildModel.tableName = input;
         buildModel.dateStr = DateUtil.getCurrentTime();
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 try {
                     List<String> strList = locationRcord2List(recordList);
                     String s = IOHelper.listToStr(strList);
