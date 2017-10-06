@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -14,25 +14,16 @@
         android:layout_alignParentTop="true"
         app:stock_title_text_msg="选择模块" />
 
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:id="@+id/radio_group"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="left"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal"
+        android:divider="@drawable/divider_vertical_bg"
+        android:dividerPadding="30dp"
         android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:showDividers="middle" />
 
-        <TextView
-            android:id="@+id/key_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <LinearLayout
-            android:id="@+id/radio_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

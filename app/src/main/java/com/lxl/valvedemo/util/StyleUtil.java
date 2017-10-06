@@ -10,13 +10,23 @@ import org.apache.poi.ss.usermodel.CellStyle;
  */
 public class StyleUtil {
 
-    //创造头部样式
-    public static HSSFCellStyle createTitleStyle(HSSFWorkbook wb) {
+    //创造头部大字体样式
+    public static HSSFCellStyle createTitleBigFontStyle(HSSFWorkbook wb) {
+        return createTitleStyle(wb, 20);
+    }
+
+    //创造头部小字体样式
+    public static HSSFCellStyle createTitleSmallFontStyle(HSSFWorkbook wb) {
+        return createTitleStyle(wb, 16);
+    }
+
+    //创造头部小字体样式
+    public static HSSFCellStyle createTitleStyle(HSSFWorkbook wb, int fontSize) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         setBorder.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
         HSSFFont font = wb.createFont();
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
-        font.setFontHeightInPoints((short) 16);
+        font.setFontHeightInPoints((short) fontSize);
         setBorder.setFont(font);
         return setBorder;
     }

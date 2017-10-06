@@ -40,8 +40,10 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
 
     public final static String RECORD = "RECORD";
     public final static String PATH = "PATH";
+    public final static String NAME = "NAME";
     ArrayList<LocationRecordModel> recordList = new ArrayList<>();
     String mPath;
+    String mName;
 
     StockTitleView titleView;
     DrawLineView drawView;
@@ -96,6 +98,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
     private void initData() {
         ArrayList<LocationRecordModel> list = (ArrayList<LocationRecordModel>) getIntent().getSerializableExtra(RECORD);
         mPath = getIntent().getStringExtra(PATH);
+        mName = getIntent().getStringExtra(NAME);
         if (list == null) {
             recordList.addAll(DataConfig.getRecordList());
         } else {
@@ -167,6 +170,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         LocationRecordModel firstModel = recordList.get(0);
         LocationRecordModel lastModel = recordList.get(recordList.size() - 1);
         StringBuilder builder = new StringBuilder();
+        builder.append(mName + "\n");
         builder.append(lastModel.addressText + "\n");
         builder.append(firstModel.latitude + ":" + firstModel.longitude + "\n");
         builder.append(firstModel.latitude + ":" + firstModel.longitude + "\n");

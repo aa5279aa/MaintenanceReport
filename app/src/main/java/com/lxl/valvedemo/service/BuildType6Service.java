@@ -42,7 +42,7 @@ public class BuildType6Service extends BuildTypeBaseService {
         HSSFRow titleRow = sheet.createRow(0);
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(reportModelType6.tableName);
-        titleCell.setCellStyle(StyleUtil.createTitleStyle(wb));
+        titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
 
         //作业区 场站

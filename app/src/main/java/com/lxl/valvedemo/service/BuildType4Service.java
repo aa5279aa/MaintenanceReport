@@ -41,7 +41,7 @@ public class BuildType4Service extends BuildTypeBaseService {
         HSSFRow titleRow = sheet.createRow(0);
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(alertReportModel.tableName);
-        titleCell.setCellStyle(StyleUtil.createTitleStyle(wb));
+        titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 3));
 
         //desc

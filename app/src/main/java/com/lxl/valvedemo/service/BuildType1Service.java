@@ -36,7 +36,7 @@ public class BuildType1Service extends BuildTypeBaseService {
         HSSFRow titleRow = sheet.createRow(0);
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(maintainReportModel.tableTile);
-        titleCell.setCellStyle(StyleUtil.createTitleStyle(wb));
+        titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
 
         //desc

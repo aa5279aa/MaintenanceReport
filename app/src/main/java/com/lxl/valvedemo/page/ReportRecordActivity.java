@@ -237,7 +237,7 @@ public class ReportRecordActivity extends FragmentActivity {
                             new Handler(getMainLooper()).postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    gotoTrajectoryPage(path);
+                                    gotoTrajectoryPage(path, buildModel.tableName);
 
                                 }
                             }, 2000);
@@ -276,11 +276,12 @@ public class ReportRecordActivity extends FragmentActivity {
     }
 
 
-    public void gotoTrajectoryPage(String path) {
+    public void gotoTrajectoryPage(String path, String tableName) {
         Intent intent = new Intent();
         intent.setClass(this, TrajectoryShowActivity.class);
         intent.putExtra(TrajectoryShowActivity.RECORD, recordList);
         intent.putExtra(TrajectoryShowActivity.PATH, path);
+        intent.putExtra(TrajectoryShowActivity.NAME, tableName);
         startActivity(intent);
     }
 

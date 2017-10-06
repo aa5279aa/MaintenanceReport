@@ -87,7 +87,7 @@ public class BuildType5Service extends BuildTypeBaseService {
         HSSFRow titleRow = sheet.createRow(0);
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(reportModelType5.tableName);
-        titleCell.setCellStyle(StyleUtil.createTitleStyle(wb));
+        titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
 
         //desc
@@ -169,6 +169,7 @@ public class BuildType5Service extends BuildTypeBaseService {
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 4));
 
         //设置列宽
+        sheet.setColumnWidth(1, StyleUtil.getColumnWidth(4.3));
         sheet.setColumnWidth(1, StyleUtil.getColumnWidth(15.8));
         sheet.setColumnWidth(2, StyleUtil.getColumnWidth(74));
         sheet.setColumnWidth(3, StyleUtil.getColumnWidth(12));

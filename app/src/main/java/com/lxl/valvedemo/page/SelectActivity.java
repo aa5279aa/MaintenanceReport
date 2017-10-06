@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.TableConfig;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
+import com.lxl.valvedemo.util.DeviceUtil;
 
 public class SelectActivity extends Activity {
     Context context;
@@ -22,7 +23,6 @@ public class SelectActivity extends Activity {
     SingleSelectionModel singleSelctionEntity;
 
     private LinearLayout selectGroup;
-    private TextView keyText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +37,20 @@ public class SelectActivity extends Activity {
 
     private void getElement() {
         selectGroup = (LinearLayout) findViewById(R.id.radio_group);
-        keyText = (TextView) findViewById(R.id.key_text);
     }
 
     private void initView() {
-        keyText.setText("xxxxxx");
         for (int i = 0; i < singleSelctionEntity.selectList.size(); i++) {
             SingleSelectionModel sonSingleSelctionEntity = singleSelctionEntity.selectList.get(i);
             Button button = new Button(context);
+            button.setBackgroundResource(R.drawable.select_button_bg);
+            int pixelFromDip = DeviceUtil.getPixelFromDip(this, 30);
+            button.setPadding(pixelFromDip, pixelFromDip, pixelFromDip, pixelFromDip);
             button.setId(i);
             button.setText(sonSingleSelctionEntity.itemStr);
             button.setTextColor(Color.BLACK);
             button.setTag(sonSingleSelctionEntity);
+            button.setTextAppearance(this, R.style.text_14_ffffff);
             selectGroup.addView(button);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
