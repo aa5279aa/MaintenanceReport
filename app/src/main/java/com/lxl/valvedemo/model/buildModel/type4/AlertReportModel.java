@@ -14,7 +14,7 @@ public class AlertReportModel {
     public String stationName = "输气站";
     public String stationText = "";
 
-    public String standardName = " 标准气浓度（%LEL）：";
+    public String standardName = "标准气浓度（%LEL）：";
     public String standardText = "";
 
     public String checkerName = "校对人：";

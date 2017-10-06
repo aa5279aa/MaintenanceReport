@@ -4,6 +4,7 @@ import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
+import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -103,6 +104,22 @@ public class BuildType1Service extends BuildTypeBaseService {
         if (inter != null) {
             inter.buildSucess(outFile.getPath());
         }
+    }
+
+    @Override
+    public String checkInfo(ReportBuildModel reportBuildModel) {
+        MaintainReportModel maintainReportModel = reportBuildModel.maintainReportModel;
+        StringBuilder builder = new StringBuilder();
+        if (StringUtil.emptyOrNull(maintainReportModel.workAreaText)) {
+            builder.append("作业区，");
+        }
+        if (StringUtil.emptyOrNull(maintainReportModel.stationText)) {
+            builder.append("补全场站，");
+        }
+        if (StringUtil.emptyOrNull(maintainReportModel.checkerText)) {
+            builder.append("补全维护保养人员，");
+        }
+        return builder.toString();
     }
 
 

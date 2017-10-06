@@ -88,8 +88,8 @@
             android:gravity="right|center_vertical"
             android:text="检查日期：" />
 
-        <EditText
-            android:id="@+id/check_data"
+        <TextView
+            android:id="@+id/report_header_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

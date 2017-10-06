@@ -19,7 +19,7 @@ import java.io.InputStream;
 
 public abstract class BuildTypeBaseService {
 
-    abstract public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter)  throws IOException;
+    abstract public void writeReport(File outFile, ReportBuildModel reportBuildModel, BuildResultInter inter) throws IOException;
 
 
     public int[] getRowHeightByIndex(Sheet sheet, HSSFCell cell) {
@@ -64,4 +64,5 @@ public abstract class BuildTypeBaseService {
         return null;
     }
 
+    public abstract String checkInfo(ReportBuildModel buildModel);
 }

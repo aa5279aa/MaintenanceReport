@@ -15,66 +15,33 @@
 
 
     <LinearLayout
-        android:id="@+id/stock_register_phone_contanier"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/stock_title_view"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="150dp"
-        android:orientation="horizontal">
-
-
-        <LinearLayout
-            android:id="@+id/stock_register_phone_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/stock_register_phone_edit"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:hint="请输入登录账号"
-                android:inputType="text"
-                android:textCursorDrawable="@drawable/stock_color_cursor"
-                android:textSize="16sp" />
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="15dp"
-                android:background="#214E82" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/stock_register_next_step"
-        style="@style/text_18_ffffff"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/stock_register_phone_contanier"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="26.0dip"
-        android:background="@drawable/stock_common_round_button_selector"
-        android:enabled="false"
-        android:gravity="center"
-        android:minHeight="40dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:text="下一步" />
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
 
-    <Space
-        android:layout_width="fill_parent"
-        android:layout_height="0.0dip"
-        android:layout_weight="1.0"
-        android:background="#245083" />
+        <ImageView
+            android:id="@+id/icon_logo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/check_logo" />
+
+        <Button
+            android:id="@+id/stock_register_next_step"
+            style="@style/text_18_ffffff"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/icon_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="26.0dip"
+            android:background="@drawable/report_button"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:text="维检修信息检索系统登录" />
+    </LinearLayout>
 
 </RelativeLayout>

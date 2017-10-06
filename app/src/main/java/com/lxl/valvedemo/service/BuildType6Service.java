@@ -193,5 +193,17 @@ public class BuildType6Service extends BuildTypeBaseService {
         return reportModelType6;
     }
 
+    public String checkInfo(ReportBuildModel buildModel) {
+        ReportModelType6 reportModelType6 = buildModel.reportModelType6;
+        StringBuilder builder = new StringBuilder();
+        if (StringUtil.emptyOrNull(reportModelType6.stationText)) {
+            builder.append("补全场站，");
+        }
+        if (StringUtil.emptyOrNull(reportModelType6.workAreaText)) {
+            builder.append("补全作业区，");
+        }
+        return builder.toString();
+    }
+
     ;
 }

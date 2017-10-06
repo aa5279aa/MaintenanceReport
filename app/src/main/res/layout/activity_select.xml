@@ -1,14 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical">
 
-    <include
-        layout="@layout/title_view"
+
+    <com.lxl.valvedemo.view.StockTitleView
+        android:id="@+id/stock_title_view"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        app:stock_title_text_msg="选择模块" />
 
     <LinearLayout
         android:layout_width="match_parent"

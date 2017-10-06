@@ -7,7 +7,7 @@
     android:focusableInTouchMode="true">
 
     <com.lxl.valvedemo.view.StockTitleView
-        android:id="@+id/text_title"
+        android:id="@+id/stock_title_view"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
@@ -38,6 +38,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomlayout"
-        android:layout_below="@id/text_title" />
+        android:layout_below="@id/stock_title_view" />
 
 </RelativeLayout>

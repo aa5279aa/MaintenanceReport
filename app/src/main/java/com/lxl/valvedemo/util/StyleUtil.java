@@ -14,10 +14,9 @@ public class StyleUtil {
     public static HSSFCellStyle createTitleStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         setBorder.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
-
         HSSFFont font = wb.createFont();
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
-        font.setFontHeightInPoints((short) 24);
+        font.setFontHeightInPoints((short) 16);
         setBorder.setFont(font);
         return setBorder;
     }
@@ -125,5 +124,12 @@ public class StyleUtil {
         return setBorder;
     }
 
+    public static int getColumnWidth(double width) {
+        return (int) (256 * width + 184);
+    }
+
+    public static int getRowHeight(int width) {
+        return 256 * width + 184;
+    }
 
 }

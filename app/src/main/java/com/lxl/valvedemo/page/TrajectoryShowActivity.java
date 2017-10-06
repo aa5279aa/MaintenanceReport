@@ -22,6 +22,7 @@ import com.lxl.valvedemo.config.DataConfig;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.viewmodel.LocationRecordModel;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
+import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.DeviceUtil;
 import com.lxl.valvedemo.view.DrawLineView;
 import com.lxl.valvedemo.view.StockTitleView;
@@ -157,9 +158,21 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         // 把一个View转换成图片
         Bitmap cachebmp = loadBitmapFromView(view);
 
-        // 添加水印
+        /**
+         * 添加
+         * 1.定位
+         * 2.起点经纬
+         * 3.重点经纬
+         */
+        LocationRecordModel firstModel = recordList.get(0);
+        LocationRecordModel lastModel = recordList.get(recordList.size() - 1);
+        StringBuilder builder = new StringBuilder();
+        builder.append(lastModel.addressText + "\n");
+        builder.append(firstModel.latitude + ":" + firstModel.longitude + "\n");
+        builder.append(firstModel.latitude + ":" + firstModel.longitude + "\n");
+        builder.append(DateUtil.getCurrentTime(DateUtil.SIMPLEFORMATTYPESTRING4));
         Bitmap bitmap = Bitmap.createBitmap(createWatermarkBitmap(cachebmp,
-                "@轨迹记录图"));
+                builder.toString()));
 
         FileOutputStream fos;
         try {
@@ -229,7 +242,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.open_file) {
-            openAssignFolder(ReportBuildConfig.reportBuildPath);
+            openAssignFolder(ReportBuildConfig.getBaseBuildPath());
         } else if (id == R.id.back_btn) {
             Intent intent = new Intent();
             intent.setClass(this, OperationActivity.class);

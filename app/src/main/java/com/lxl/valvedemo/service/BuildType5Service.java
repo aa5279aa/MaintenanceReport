@@ -2,6 +2,7 @@ package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
+import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
 import com.lxl.valvedemo.model.buildModel.type5.ReportModelType5;
 import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.util.StyleUtil;
@@ -166,6 +167,12 @@ public class BuildType5Service extends BuildTypeBaseService {
         checkerCell.setCellValue(reportModelType5.owerName + reportModelType5.owerText + "  " + reportModelType5.checkerName + reportModelType5.checkerText + "  " + reportModelType5.dateName + reportModelType5.dateText);
         checkerCell.setCellStyle(StyleUtil.createHCenterBStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 4));
+
+        //设置列宽
+        sheet.setColumnWidth(1, StyleUtil.getColumnWidth(15.8));
+        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(74));
+        sheet.setColumnWidth(3, StyleUtil.getColumnWidth(12));
+        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(8.3));
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
         fileOut.close();
@@ -173,5 +180,17 @@ public class BuildType5Service extends BuildTypeBaseService {
         if (inter != null) {
             inter.buildSucess(outFile.getPath());
         }
+    }
+
+    public String checkInfo(ReportBuildModel buildModel) {
+        ReportModelType5 reportModelType5 = buildModel.reportModelType5;
+        StringBuilder builder = new StringBuilder();
+        if (StringUtil.emptyOrNull(reportModelType5.stationText)) {
+            builder.append("补全场站，");
+        }
+        if (StringUtil.emptyOrNull(reportModelType5.checkerText)) {
+            builder.append("补全检查人，");
+        }
+        return builder.toString();
     }
 }

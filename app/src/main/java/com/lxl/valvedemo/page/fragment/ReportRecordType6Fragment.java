@@ -34,8 +34,7 @@ public class ReportRecordType6Fragment extends BaseBuildFragment {
     EditText mReportHeaderStation;
     EditText mReportHeaderChecker;
     EditText mReportHeaderConfirm;
-    EditText mReportHeaderDate;
-    TextView mFillAdd;
+    TextView mReportHeaderDate;
 
     LinearLayout mReportFillContainer;
 
@@ -60,7 +59,7 @@ public class ReportRecordType6Fragment extends BaseBuildFragment {
         mReportHeaderStation = (EditText) view.findViewById(R.id.report_header_station);
         mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_checker);
         mReportHeaderConfirm = (EditText) view.findViewById(R.id.report_header_confirm);
-        mReportHeaderDate = (EditText) view.findViewById(R.id.report_header_date);
+        mReportHeaderDate = (TextView) view.findViewById(R.id.report_header_date);
 
 
         mReportFillContainer = (LinearLayout) view.findViewById(R.id.report_fill_contanier);

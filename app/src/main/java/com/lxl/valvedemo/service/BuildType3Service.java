@@ -6,12 +6,14 @@ import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
+import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByBase;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByCPU;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByESD;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportBySCADA;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByNormal;
+import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -392,6 +394,18 @@ BuildType3Service extends BuildTypeBaseService {
 //        return nextAllRowList.subList(0, nextAllRowList.size() - 3);
 
         return allRowList;
+    }
+
+    public String checkInfo(ReportBuildModel buildModel) {
+        MaintainReportByAreaModel maintainReportByArea = buildModel.maintainReportByArea;
+        StringBuilder builder = new StringBuilder();
+        if (StringUtil.emptyOrNull(maintainReportByArea.stationText)) {
+            builder.append("补全场站，");
+        }
+        if (StringUtil.emptyOrNull(maintainReportByArea.checkerText)) {
+            builder.append("补全测试人，");
+        }
+        return builder.toString();
     }
 
 }

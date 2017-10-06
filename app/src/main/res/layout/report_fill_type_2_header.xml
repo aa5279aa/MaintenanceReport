@@ -85,8 +85,8 @@
             android:gravity="right|center_vertical"
             android:text="日期：" />
 
-        <EditText
-            android:id="@+id/date"
+        <TextView
+            android:id="@+id/report_header_date"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

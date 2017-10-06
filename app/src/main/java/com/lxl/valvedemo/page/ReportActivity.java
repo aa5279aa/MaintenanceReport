@@ -1,5 +1,6 @@
 package com.lxl.valvedemo.page;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,14 +17,14 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.lxl.valvedemo.BaseActivity;
 import com.lxl.valvedemo.MainActivity;
 import com.lxl.valvedemo.R;
-import com.lxl.valvedemo.model.viewmodel.ReportSelectionItemEntity;
 import com.lxl.valvedemo.model.buildModel.ReportSelectionSubItemEntity;
+import com.lxl.valvedemo.model.viewmodel.ReportSelectionItemEntity;
 import com.lxl.valvedemo.util.PoiHelper;
 import com.lxl.valvedemo.view.ListLinearLayout;
 import com.lxl.valvedemo.view.SelectionAdapter;
+import com.lxl.valvedemo.view.StockTitleView;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -33,9 +34,9 @@ import java.util.List;
  * 废弃
  */
 @Deprecated
-public class ReportActivity extends BaseActivity {
+public class ReportActivity extends Activity {
 
-    protected TextView titleText;
+    protected StockTitleView titleText;
     public Context mContext;
     public ListLinearLayout mList;
     public Button mSubmit;
@@ -49,12 +50,11 @@ public class ReportActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_report);
-        titleText = (TextView) findViewById(R.id.text_title);
+        titleText = (StockTitleView) findViewById(R.id.stock_title_view);
         mList = (ListLinearLayout) findViewById(R.id.listview);
         mSubmit = (Button) findViewById(R.id.submit);
         initView();
         initData();
-        setParentContentView();
         startLocationService();
     }
 
@@ -90,7 +90,7 @@ public class ReportActivity extends BaseActivity {
     }
 
     private void initView() {
-        titleText.setText("计量专业季度保养检查表");
+        titleText.setTitle("计量专业季度保养检查表");
         adapter = new SelectionAdapter(mContext, -1);
         mList.setAdapter(adapter);
         mSubmit.setOnClickListener(new OnClickListener() {
@@ -104,7 +104,7 @@ public class ReportActivity extends BaseActivity {
                 String station = ((TextView) findViewById(R.id.station)).getText().toString();
                 String owner = ((TextView) findViewById(R.id.owner)).getText().toString();
                 String checker = ((TextView) findViewById(R.id.checker)).getText().toString();
-                String date = ((TextView) findViewById(R.id.date)).getText().toString();
+                String date = ((TextView) findViewById(R.id.report_header_date)).getText().toString();
                 // 开启一个线程
                 createReport(adapter, station, owner, checker, date);
                 Intent intent = new Intent();

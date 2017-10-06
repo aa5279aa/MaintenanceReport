@@ -16,6 +16,8 @@ import com.lxl.valvedemo.R;
 public class OperationActivity extends Activity {
 
     Button selectBtn;
+    Button makeCamera;
+    int TAKE_PICTURE = 101;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,10 +36,17 @@ public class OperationActivity extends Activity {
                 startActivity(intent);
             }
         });
+        makeCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivityForResult(new Intent("android.media.action.IMAGE_CAPTURE"), TAKE_PICTURE);
+            }
+        });
     }
 
     private void initView() {
         selectBtn = (Button) findViewById(R.id.select_btn);
+        makeCamera = (Button) findViewById(R.id.make_camera);
     }
 
     @Override

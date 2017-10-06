@@ -139,7 +139,7 @@ public class BuildType7Service extends BuildTypeBaseService {
             dateCell.setCellStyle(StyleUtil.createDescStyle(wb));
             sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
 
-            sheet.setColumnWidth(1, 256 * 60 + 184);
+            sheet.setColumnWidth(1, StyleUtil.getColumnWidth(60));
 
             FileOutputStream fileOut = new FileOutputStream(outFile);
             wb.write(fileOut);
@@ -213,4 +213,20 @@ public class BuildType7Service extends BuildTypeBaseService {
         }
         return reportModelType7;
     }
+
+    public String checkInfo(ReportBuildModel buildModel) {
+        ReportModelType7 reportModelType7 = buildModel.reportModelType7;
+        StringBuilder builder = new StringBuilder();
+        if (StringUtil.emptyOrNull(reportModelType7.stationText)) {
+            builder.append("补全场站，");
+        }
+        if (StringUtil.emptyOrNull(reportModelType7.workAreaText)) {
+            builder.append("补全作业区，");
+        }
+        if (StringUtil.emptyOrNull(reportModelType7.checkText)) {
+            builder.append("补全检修人员，");
+        }
+        return builder.toString();
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.lxl.valvedemo.page;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -11,12 +12,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lxl.valvedemo.BaseActivity;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.TableConfig;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 
-public class SelectActivity extends BaseActivity {
+public class SelectActivity extends Activity {
     Context context;
     public final static String SELECT_MODEL = "SELECT_MODEL";
     SingleSelectionModel singleSelctionEntity;
@@ -33,7 +33,6 @@ public class SelectActivity extends BaseActivity {
         getElement();
         initData();
         initView();
-        setParentContentView();
     }
 
     private void getElement() {

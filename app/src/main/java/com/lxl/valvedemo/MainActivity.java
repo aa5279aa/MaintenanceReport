@@ -33,7 +33,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TextView findViewById = (TextView) findViewById(R.id.text_title);
+        TextView findViewById = (TextView) findViewById(R.id.stock_title_view);
 //        findViewById.setText(String.valueOf(getResources().getDisplayMetrics().density));
         findViewById.setText("维修队计量专业季度维护保养检查");
         start = (TextView) findViewById(R.id.start);

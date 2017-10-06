@@ -43,6 +43,7 @@ import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.view.HotelCustomDialog;
+import com.lxl.valvedemo.view.HotelCustomEditDialog;
 import com.lxl.valvedemo.view.StockTitleView;
 
 import java.io.File;
@@ -101,7 +102,7 @@ public class ReportRecordActivity extends FragmentActivity {
     }
 
     private void initView() {
-        titleText = (StockTitleView) findViewById(R.id.text_title);
+        titleText = (StockTitleView) findViewById(R.id.stock_title_view);
         mSubmit = (Button) findViewById(R.id.submit);
     }
 
@@ -169,66 +170,91 @@ public class ReportRecordActivity extends FragmentActivity {
             public void onClick(View v) {
                 Toast.makeText(mContext, "结果已提交，正在生成excel表", Toast.LENGTH_SHORT).show();
                 final ReportBuildModel buildModel = buildFragment.buildBuildModel();
-                buildModel.tableName = mSelectModel.itemStr;
-                buildModel.dateStr = DateUtil.getCurrentTime();
-                new Thread(new Runnable() {
+                //检查必填内容
+                BuildTypeBaseService serviceInter = null;
+                if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_ONE) {
+                    serviceInter = new BuildType1Service();
+                } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_TWO) {
+                    serviceInter = new BuildType2Service();
+                } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_THREE) {
+                    serviceInter = new BuildType3Service();
+                } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_FOUR) {
+                    serviceInter = new BuildType4Service();
+                } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_FIVE) {
+                    serviceInter = new BuildType5Service();
+                } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_SIX) {
+                    serviceInter = new BuildType6Service();
+                } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_SEVEN) {
+                    serviceInter = new BuildType7Service();
+                }
+                if (serviceInter == null) {
+                    return;
+                }
+                String checkResult = serviceInter.checkInfo(buildModel);
+                if (!StringUtil.emptyOrNull(checkResult)) {
+                    showResult("请补全必填内容：" + checkResult);
+                    return;
+                }
+                final BuildTypeBaseService service = serviceInter;
+                HotelCustomEditDialog dialog = new HotelCustomEditDialog();
+                dialog.setContent("", "确定", "取消");
+                dialog.setDialogBtnEditClick(new HotelCustomEditDialog.HotelDialogBtnEditClickListener() {
                     @Override
-                    public void run() {
-
-                        try {
-                            List<String> strList = locationRcord2List(recordList);
-                            String s = IOHelper.listToStr(strList);
-                            final String path = ReportBuildConfig.reportBuildPath + File.separator + buildModel.tableName + "_" + buildModel.dateStr;
-                            File outFile = new File(path + ReportBuildConfig.Location_Suffix);
-                            IOHelper.checkParent(outFile);
-                            IOHelper.writerStrByCodeToFile(outFile, s);
-                            outFile = new File(path + ReportBuildConfig.Execl_Suffix);
-                            BuildTypeBaseService service = null;
-                            if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_ONE) {
-                                service = new BuildType1Service();
-                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_TWO) {
-                                service = new BuildType2Service();
-                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_THREE) {
-                                service = new BuildType3Service();
-                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_FOUR) {
-                                service = new BuildType4Service();
-                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_FIVE) {
-                                service = new BuildType5Service();
-                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_SIX) {
-                                service = new BuildType6Service();
-                            } else if (buildModel.buildType == ReportBuildModel.BUILD_TYPE_SEVEN) {
-                                service = new BuildType7Service();
-                            }
-                            if (service == null) {
-                                return;
-                            }
-                            service.writeReport(outFile, buildModel, new BuildResultInter() {
-                                @Override
-                                public void buildSucess(String pathStr) {
-                                    showResult("execl生成成功，位置：" + pathStr + "\n即将跳转轨迹路径界面");
-//                                    //退回到大首页
-                                    new Handler(getMainLooper()).postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            gotoTrajectoryPage(path);
-
-                                        }
-                                    }, 2000);
-                                }
-
-                                @Override
-                                public void buildFail(String caseStr) {
-                                    showResult(caseStr);
-                                }
-                            });
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                    public void leftBtnClick(HotelCustomEditDialog dialog, String input) {
+                        createTable(buildModel, input, service);
                     }
-                }).start();
+
+                    @Override
+                    public void rightBtnClick(HotelCustomEditDialog dialog, String input) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show(getSupportFragmentManager(), "");
             }
         });
     }
+
+    private void createTable(final ReportBuildModel buildModel, String input, final BuildTypeBaseService service) {
+        buildModel.tableName = input;
+        buildModel.dateStr = DateUtil.getCurrentTime();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    List<String> strList = locationRcord2List(recordList);
+                    String s = IOHelper.listToStr(strList);
+                    final String path = ReportBuildConfig.getBaseBuildPath() + File.separator + buildModel.tableName + "_" + buildModel.dateStr;
+                    File outFile = new File(path + ReportBuildConfig.Location_Suffix);
+                    IOHelper.checkParent(outFile);
+                    IOHelper.writerStrByCodeToFile(outFile, s);
+                    outFile = new File(path + ReportBuildConfig.Execl_Suffix);
+                    service.writeReport(outFile, buildModel, new BuildResultInter() {
+                        @Override
+                        public void buildSucess(String pathStr) {
+                            showResult("execl生成成功，位置：" + pathStr + "\n即将跳转轨迹路径界面");
+//                                    //退回到大首页
+                            new Handler(getMainLooper()).postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    gotoTrajectoryPage(path);
+
+                                }
+                            }, 2000);
+                        }
+
+                        @Override
+                        public void buildFail(String caseStr) {
+                            showResult(caseStr);
+                        }
+                    });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 
     private void showResult(final String str) {
         mHander.post(new Runnable() {
@@ -239,6 +265,7 @@ public class ReportRecordActivity extends FragmentActivity {
             }
         });
     }
+
 
     public List<String> locationRcord2List(List<LocationRecordModel> recordList) {
         List<String> strList = new ArrayList<>();

@@ -2,9 +2,11 @@ package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
+import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
 import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
 import com.lxl.valvedemo.model.buildModel.type5.ReportModelType5;
 import com.lxl.valvedemo.util.DateUtil;
+import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -113,5 +115,17 @@ public class BuildType4Service extends BuildTypeBaseService {
     public AlertReportModel readReportTypeFour(InputStream open) {
         AlertReportModel reportModel = new AlertReportModel();
         return reportModel;
+    }
+
+    public String checkInfo(ReportBuildModel buildModel) {
+        AlertReportModel alertReportModel = buildModel.alertReportModel;
+        StringBuilder builder = new StringBuilder();
+        if (StringUtil.emptyOrNull(alertReportModel.stationText)) {
+            builder.append("补全输气站，");
+        }
+        if (StringUtil.emptyOrNull(alertReportModel.checkerText)) {
+            builder.append("补全校对人，");
+        }
+        return builder.toString();
     }
 }

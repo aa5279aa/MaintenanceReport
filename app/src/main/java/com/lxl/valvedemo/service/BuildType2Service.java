@@ -2,9 +2,11 @@ package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
+import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportSubTypeModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportTypeModel;
+import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -215,5 +217,19 @@ public class BuildType2Service extends BuildTypeBaseService {
         }
     }
 
+    public String checkInfo(ReportBuildModel buildModel) {
+        InspectionReportModel inspectionReportModel = buildModel.inspectionReportModel;
+        StringBuilder builder = new StringBuilder();
+        if (StringUtil.emptyOrNull(inspectionReportModel.workAreaText)) {
+            builder.append("作业区，");
+        }
+        if (StringUtil.emptyOrNull(inspectionReportModel.stationText)) {
+            builder.append("补全场站，");
+        }
+        if (StringUtil.emptyOrNull(inspectionReportModel.checkerText)) {
+            builder.append("补全检查人，");
+        }
+        return builder.toString();
+    }
 
 }
