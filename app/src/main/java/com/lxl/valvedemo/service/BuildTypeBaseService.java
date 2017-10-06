@@ -4,8 +4,11 @@ import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
 import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.model.buildModel.type6.ReportModelType6;
+import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
@@ -65,4 +68,17 @@ public abstract class BuildTypeBaseService {
     }
 
     public abstract String checkInfo(ReportBuildModel buildModel);
+
+    public HSSFCell createBaseCell(HSSFWorkbook wb, HSSFRow row, int position) {
+        HSSFCell cell = row.createCell(position);
+        cell.setCellStyle(StyleUtil.createBaseFontStyle(wb));
+        return cell;
+    }
+
+    public HSSFCell createDescCell(HSSFWorkbook wb, HSSFRow row, int position) {
+        HSSFCell cell = row.createCell(position);
+        cell.setCellStyle(StyleUtil.createDescStyle(wb));
+        return cell;
+    }
+
 }

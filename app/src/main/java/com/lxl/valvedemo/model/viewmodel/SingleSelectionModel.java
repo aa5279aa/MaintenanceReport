@@ -13,7 +13,7 @@ public class SingleSelectionModel implements Serializable {
     public boolean isCanSelect = true;
     public boolean isCanJump = false;
     public List<SingleSelectionModel> selectList = new ArrayList<SingleSelectionModel>();
-    public SingleSelectionModel parentModel;
+    public SingleSelectionModel parentModel = null;
     public String parseType = "";
     public String tableTitle = "";
 }

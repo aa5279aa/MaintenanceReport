@@ -10,6 +10,17 @@ import org.apache.poi.ss.usermodel.CellStyle;
  */
 public class StyleUtil {
 
+
+    //创造基础描述的样式
+    public static HSSFCellStyle createBaseFontStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
+        font.setFontHeightInPoints((short) 10);
+        setBorder.setFont(font);
+        return setBorder;
+    }
+
     //创造头部大字体样式
     public static HSSFCellStyle createTitleBigFontStyle(HSSFWorkbook wb) {
         return createTitleStyle(wb, 20);
@@ -20,11 +31,12 @@ public class StyleUtil {
         return createTitleStyle(wb, 16);
     }
 
-    //创造头部小字体样式
+    //创造头部体样式
     public static HSSFCellStyle createTitleStyle(HSSFWorkbook wb, int fontSize) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         setBorder.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
         HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
         font.setFontHeightInPoints((short) fontSize);
         setBorder.setFont(font);
@@ -35,8 +47,9 @@ public class StyleUtil {
     public static HSSFCellStyle createDescStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
-        font.setFontHeightInPoints((short) 14);
+        font.setFontHeightInPoints((short) 12);
         setBorder.setFont(font);
         return setBorder;
     }

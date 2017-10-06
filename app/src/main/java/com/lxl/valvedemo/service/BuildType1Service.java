@@ -34,15 +34,17 @@ public class BuildType1Service extends BuildTypeBaseService {
 
         //title
         HSSFRow titleRow = sheet.createRow(0);
+        titleRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(maintainReportModel.tableTile);
-        titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
+        titleCell.setCellStyle(StyleUtil.createTitleSmallFontStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
 
         //desc
         HSSFRow areaRow = sheet.createRow(1);
-        HSSFCell areaCell = areaRow.createCell(0);
-        HSSFCell stationCell = areaRow.createCell(4);
+        areaRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
+        HSSFCell areaCell = createDescCell(wb, areaRow, 0);
+        HSSFCell stationCell = createDescCell(wb, areaRow, 4);
         stationCell.setCellValue(maintainReportModel.stationName + ":" + maintainReportModel.stationText);
         areaCell.setCellValue(maintainReportModel.workAreaName + ":" + maintainReportModel.workAreaText);
         stationCell.setCellStyle(StyleUtil.createDescStyle(wb));
@@ -63,6 +65,7 @@ public class BuildType1Service extends BuildTypeBaseService {
             String equipmentIdCellStr = "设备编号";
             String maintainInfoCellStr = "检查与维护保养情况";
             String maintainDescCellStr = "备注";
+            HSSFRow headerRow = sheet.createRow(i + 3);
             if (i >= 0) {
                 MaintainReportItemModel maintainReportItemModel = maintainReportModel.maintainList.get(i);
                 positionCellStr = String.valueOf(i + 1);
@@ -71,8 +74,11 @@ public class BuildType1Service extends BuildTypeBaseService {
                 equipmentIdCellStr = maintainReportItemModel.equipmentId;
                 maintainInfoCellStr = maintainReportItemModel.maintainInfo;
                 maintainDescCellStr = maintainReportItemModel.maintainDesc;
+                areaRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
+            } else {
+                areaRow.setHeight(StyleUtil.getRowHeight((short) 14.25));
             }
-            HSSFRow headerRow = sheet.createRow(i + 3);
+
             HSSFCell positionCell = headerRow.createCell(0);
             HSSFCell equipmentNameCell = headerRow.createCell(1);
             HSSFCell specificationsCell = headerRow.createCell(2);

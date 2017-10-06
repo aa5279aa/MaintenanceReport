@@ -167,16 +167,24 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
          * 2.起点经纬
          * 3.重点经纬
          */
-        LocationRecordModel firstModel = recordList.get(0);
-        LocationRecordModel lastModel = recordList.get(recordList.size() - 1);
-        StringBuilder builder = new StringBuilder();
-        builder.append(mName + "\n");
-        builder.append(lastModel.addressText + "\n");
-        builder.append(firstModel.latitude + ":" + firstModel.longitude + "\n");
-        builder.append(firstModel.latitude + ":" + firstModel.longitude + "\n");
-        builder.append(DateUtil.getCurrentTime(DateUtil.SIMPLEFORMATTYPESTRING4));
-        Bitmap bitmap = Bitmap.createBitmap(createWatermarkBitmap(cachebmp,
-                builder.toString()));
+        String title = mName + "轨迹图";
+        String startAddress = "暂无位置";
+        String startLocation = "暂无经纬度";
+        String data = DateUtil.getCurrentTime(DateUtil.SIMPLEFORMATTYPESTRING4);
+        if (recordList.size() > 0) {
+            LocationRecordModel firstModel = recordList.get(0);
+            LocationRecordModel lastModel = recordList.get(recordList.size() - 1);
+            if (!"null".equals(firstModel.addressText)) {
+                startAddress = firstModel.addressText;
+            }
+            startLocation = firstModel.latitude + "—" + firstModel.longitude;
+        }
+        List<String> list = new ArrayList<>();
+        list.add("地点：" + startAddress);
+        list.add("经纬度：" + startLocation);
+        list.add("时间：" + DateUtil.getCurrentTime(DateUtil.SIMPLEFORMATTYPESTRING4));
+        Bitmap bitmap = Bitmap.createBitmap(createWatermarkBitmap(cachebmp, mName,
+                list));
 
         FileOutputStream fos;
         try {
@@ -214,7 +222,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
     }
 
     // 为图片target添加水印
-    private Bitmap createWatermarkBitmap(Bitmap target, String str) {
+    private Bitmap createWatermarkBitmap(Bitmap target, String title, List<String> list) {
         int w = target.getWidth();
         int h = target.getHeight();
 
@@ -222,23 +230,35 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         Canvas canvas = new Canvas(bmp);
 
         Paint p = new Paint();
-
         // 水印的颜色
         p.setColor(Color.RED);
-
         // 水印的字体大小
-        p.setTextSize(16);
-
+        p.setTextSize(16);//20
         p.setAntiAlias(true);// 去锯齿
+
+        Paint p2 = new Paint();
+        // 水印的颜色
+        p2.setColor(Color.RED);
+        // 水印的字体大小
+        p2.setTextSize(24);//20
+        p2.setAntiAlias(true);// 去锯齿
 
         canvas.drawBitmap(target, 0, 0, p);
 
-        // 在中间位置开始添加水印
-        canvas.drawText(str, w * 4 / 5, h * 4 / 5, p);
-
+        // 在头部添加标题
+        canvas.drawText(title, w / 2, h * 1 / 5, p2);
         canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
 
+        // 在中间位置开始添加水印
+        int item = h / 40;
+        int height = 32 * item;
+        for (String str : list) {
+            canvas.drawText(str, w * 1 / 5, height, p);
+            canvas.save(Canvas.ALL_SAVE_FLAG);
+            canvas.restore();
+            height += item;
+        }
         return bmp;
     }
 
