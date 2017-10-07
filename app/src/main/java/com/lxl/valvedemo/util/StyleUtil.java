@@ -190,8 +190,7 @@ public class StyleUtil {
         return setBorder;
     }
 
-    public static float getExcelCellAutoHeight(String str, float fontCountInline) {
-        float defaultRowHeight = 12.00f;//每一行的高度指定
+    public static float getExcelCellAutoHeight(String str, float defaultRowHeight, float fontCountInline) {
         float defaultCount = 0.00f;
         for (int i = 0; i < str.length(); i++) {
             float ff = getregex(str.substring(i, i + 1));

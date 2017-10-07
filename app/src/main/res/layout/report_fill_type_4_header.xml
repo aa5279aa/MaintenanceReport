@@ -40,7 +40,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="right|center_vertical"
             android:singleLine="true"
-            android:text="标准气浓度（%LEL）：" />
+            android:text="标准气浓度：" />
 
         <EditText
             android:id="@+id/standard"

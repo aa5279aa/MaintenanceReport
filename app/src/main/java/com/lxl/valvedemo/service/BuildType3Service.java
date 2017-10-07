@@ -170,7 +170,7 @@ BuildType3Service extends BuildTypeBaseService {
                         HSSFCell subCell1 = createBaseCell(wb, row, 1);
                         HSSFCell subCell5 = createBaseCell(wb, row, 5);
                         sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 1, 4));
-                        float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc, 24);
+                        float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc,12, 24);
                         row.setHeight(StyleUtil.getRowHeight(excelCellAutoHeight));
                         subCell0.setCellValue(subByNormal.subNormalTitle);
                         subCell1.setCellValue(normalItemValue.columDesc);
