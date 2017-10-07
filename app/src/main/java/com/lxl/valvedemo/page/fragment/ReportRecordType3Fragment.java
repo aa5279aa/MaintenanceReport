@@ -38,6 +38,13 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
     EditText mReportHeaderChecker;
     TextView mReportHeaderDate;
 
+    EditText mReportMaintainDesc;
+    EditText mReportMaintainOther;
+    EditText mReportMaintainConfirm;
+
+    EditText mReportConfirmPerson;
+    EditText mReportConfirmDate;
+
     LinearLayout mReportFillContainer;
 
     BuildType3Service tyeThreeService = new BuildType3Service();
@@ -61,6 +68,13 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
         mReportHeaderDate = (TextView) view.findViewById(R.id.report_header_date);
         mReportHeaderCreate = (EditText) view.findViewById(R.id.report_header_create);//厂区
         mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_checker);
+
+        mReportMaintainDesc = (EditText) view.findViewById(R.id.maintain_desc);
+        mReportMaintainOther = (EditText) view.findViewById(R.id.maintain_other);
+        mReportMaintainConfirm = (EditText) view.findViewById(R.id.maintain_desc);
+
+        mReportConfirmPerson = (EditText) view.findViewById(R.id.confirm_person);
+        mReportConfirmDate = (EditText) view.findViewById(R.id.confirm_date);
         mReportFillContainer = (LinearLayout) view.findViewById(R.id.report_fill_contanier);
     }
 
@@ -177,6 +191,11 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
         maintainReportByArea.checkerText = checker;
         maintainReportByArea.productText = create;
         maintainReportByArea.dateText = data;
+        maintainReportByArea.maintainDescText = mReportMaintainDesc.getText().toString();
+        maintainReportByArea.maintainOtherText = mReportMaintainOther.getText().toString();
+        maintainReportByArea.stationConfirmText = mReportMaintainConfirm.getText().toString();
+        maintainReportByArea.stationConfirmPersonText = mReportConfirmPerson.getText().toString();
+        maintainReportByArea.stationConfirmDateText = mReportConfirmDate.getText().toString();
 
         //获取
         int childCount = mReportFillContainer.getChildCount();
@@ -237,9 +256,6 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
                     LinearLayout itemCheckContainer = (LinearLayout) childAt1.findViewById(R.id.check_container);
                     for (int k = 0; k < itemCheckContainer.getChildCount(); k++) {
                         View childAt2 = itemCheckContainer.getChildAt(k);
-//                        if(childAt2 == null){
-//                            Log.i("lxltest","");
-//                        }
                         TextView subCheckText = (TextView) childAt2.findViewById(R.id.sub_check_text);
                         EditText subCheckEdit = (EditText) childAt2.findViewById(R.id.sub_check_edit);
                         subByNormal.normalItemValueList.get(k).columText = subCheckEdit.getText().toString();

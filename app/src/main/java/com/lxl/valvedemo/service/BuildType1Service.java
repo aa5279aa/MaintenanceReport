@@ -43,8 +43,8 @@ public class BuildType1Service extends BuildTypeBaseService {
         //desc
         HSSFRow areaRow = sheet.createRow(1);
         areaRow.setHeight(StyleUtil.getRowHeight( 28.5));
-        HSSFCell areaCell = createDescCell(wb, areaRow, 0);
-        HSSFCell stationCell = createDescCell(wb, areaRow, 4);
+        HSSFCell areaCell = createDescBoldCell(wb, areaRow, 0);
+        HSSFCell stationCell = createDescBoldCell(wb, areaRow, 4);
         stationCell.setCellValue(maintainReportModel.stationName + ":" + maintainReportModel.stationText);
         areaCell.setCellValue(maintainReportModel.workAreaName + ":" + maintainReportModel.workAreaText);
         stationCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
@@ -97,8 +97,8 @@ public class BuildType1Service extends BuildTypeBaseService {
         int nextRow = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRow);
         bottomRow.setHeight(StyleUtil.getRowHeight(28.5));
-        HSSFCell checkerCell = createDescCell(wb, bottomRow, 0);
-        HSSFCell dataCell = createDescCell(wb, bottomRow, 4);
+        HSSFCell checkerCell = createDescBoldCell(wb, bottomRow, 0);
+        HSSFCell dataCell = createDescBoldCell(wb, bottomRow, 4);
         checkerCell.setCellValue("维护保养人员：" + maintainReportModel.checkerText);
         dataCell.setCellValue("日期：" + maintainReportModel.dateText);
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 3));

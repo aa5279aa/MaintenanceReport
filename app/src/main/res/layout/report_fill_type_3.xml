@@ -90,6 +90,27 @@
             </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/confirm_person"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:hint="请输入确认人" />
+
+            <EditText
+                android:id="@+id/confirm_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="请输入确认日期" />
+        </LinearLayout>
+
     </com.lxl.valvedemo.view.ListLinearLayout>
 </ScrollView>
 

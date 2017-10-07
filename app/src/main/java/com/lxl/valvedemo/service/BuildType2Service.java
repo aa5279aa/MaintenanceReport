@@ -9,7 +9,6 @@ import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -161,12 +160,12 @@ public class BuildType2Service extends BuildTypeBaseService {
             if (i == -1) {
                 HSSFRow headerRow = sheet.createRow(i + 3);
                 headerRow.setHeight(StyleUtil.getRowHeight(28.5));
-                HSSFCell typeCellCell = createDescCell(wb, headerRow, 0);
-                HSSFCell positionCellCell = createDescCell(wb, headerRow, 1);
-                HSSFCell equipmentTypeCell = createDescCell(wb, headerRow, 2);
-                HSSFCell requireCell = createDescCell(wb, headerRow, 3);
-                HSSFCell checkrecordCell = createDescCell(wb, headerRow, 4);
-                HSSFCell checkdescCell = createDescCell(wb, headerRow, 5);
+                HSSFCell typeCellCell = createDescBoldCell(wb, headerRow, 0);
+                HSSFCell positionCellCell = createDescBoldCell(wb, headerRow, 1);
+                HSSFCell equipmentTypeCell = createDescBoldCell(wb, headerRow, 2);
+                HSSFCell requireCell = createDescBoldCell(wb, headerRow, 3);
+                HSSFCell checkrecordCell = createDescBoldCell(wb, headerRow, 4);
+                HSSFCell checkdescCell = createDescBoldCell(wb, headerRow, 5);
                 typeCellCell.setCellValue(typeCellStr);
                 positionCellCell.setCellValue(positionCellStr);
                 equipmentTypeCell.setCellValue(equipmentTypeCellStr);
@@ -189,7 +188,7 @@ public class BuildType2Service extends BuildTypeBaseService {
                     InspectionReportSubTypeModel.InspectionReportCellModel cellModel = subTypeModel.cellModelList.get(k);
                     HSSFRow headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
                     headerRow.setHeight(StyleUtil.getRowHeight(14.25));
-                    HSSFCell typeCell = createDescCell(wb, headerRow, 0);
+                    HSSFCell typeCell = createDescBoldCell(wb, headerRow, 0);
                     HSSFCell positionCellCell = createBaseCell(wb, headerRow, 1);
                     HSSFCell equipmentTypeCell = createBaseCell(wb, headerRow, 2);
                     HSSFCell requireCell = createBaseCell(wb, headerRow, 3);
@@ -213,10 +212,10 @@ public class BuildType2Service extends BuildTypeBaseService {
         int nextRow = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRow);
         bottomRow.setHeight(StyleUtil.getRowHeight(28.5));
-        HSSFCell checkerNameCell = createDescCell(wb, bottomRow, 1);
-        HSSFCell checkerTextCell = createDescCell(wb, bottomRow, 3);
-        HSSFCell dateNameCell = createDescCell(wb, bottomRow, 4);
-        HSSFCell dateTextCell = createDescCell(wb, bottomRow, 5);
+        HSSFCell checkerNameCell = createDescBoldCell(wb, bottomRow, 1);
+        HSSFCell checkerTextCell = createDescBoldCell(wb, bottomRow, 3);
+        HSSFCell dateNameCell = createDescBoldCell(wb, bottomRow, 4);
+        HSSFCell dateTextCell = createDescBoldCell(wb, bottomRow, 5);
         checkerNameCell.setCellValue(inspectionReportModel.checkerName);
         checkerTextCell.setCellValue(inspectionReportModel.checkerText);
         dateNameCell.setCellValue(inspectionReportModel.dateName);

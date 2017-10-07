@@ -44,26 +44,6 @@ public abstract class BuildTypeBaseService {
         return merge;
     }
 
-    public CellRangeAddress getMergeByIndex(Sheet sheet, HSSFCell cell) {
-        int[] merge = new int[2];
-//        merge[0] = cell.getRowIndex();
-//        merge[1] = cell.getRowIndex();
-        int sheetMergeCount = sheet.getNumMergedRegions();
-        for (int i = 0; i < sheetMergeCount; i++) {
-            CellRangeAddress range = sheet.getMergedRegion(i);
-            int firstColumn = range.getFirstColumn();
-            int lastColumn = range.getLastColumn();
-            int firstRow = range.getFirstRow();
-            int lastRow = range.getLastRow();
-            int columnIndex = cell.getColumnIndex();
-            int rowIndex = cell.getRowIndex();
-            if (firstColumn == columnIndex && firstRow == rowIndex) {
-                return range;
-            }
-        }
-        return null;
-    }
-
     public abstract String checkInfo(ReportBuildModel buildModel);
 
     public HSSFCell createBaseCell(HSSFWorkbook wb, HSSFRow row, int position) {
@@ -72,9 +52,15 @@ public abstract class BuildTypeBaseService {
         return cell;
     }
 
-    public HSSFCell createDescCell(HSSFWorkbook wb, HSSFRow row, int position) {
+    public HSSFCell createDescBoldCell(HSSFWorkbook wb, HSSFRow row, int position) {
         HSSFCell cell = row.createCell(position);
         cell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+        return cell;
+    }
+
+    public HSSFCell createDescCell(HSSFWorkbook wb, HSSFRow row, int position) {
+        HSSFCell cell = row.createCell(position);
+        cell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
         return cell;
     }
 
