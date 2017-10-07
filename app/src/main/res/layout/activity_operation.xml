@@ -38,6 +38,15 @@
             android:background="@drawable/select_button_bg"
             android:padding="30dp"
             android:text="拍照" />
+
+        <Button
+            android:id="@+id/location"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/select_button_bg"
+            android:padding="30dp"
+            android:text="定位" />
     </LinearLayout>
 
 

@@ -2,6 +2,7 @@ package com.lxl.valvedemo.page;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,10 +11,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.sender.StockSender;
+import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
+import com.lxl.valvedemo.util.StockShowUtil;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -65,12 +70,42 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
     }
 
     private void handleGoToNext(String user) {
-        if (!(mUserList.size() == 0 || mUserList.contains(user))) {
+        if (checkLoginPermission()) {
+            Intent intent = new Intent();
+            intent.setClass(this, OperationActivity.class);
+            startActivity(intent);
             return;
         }
-        Intent intent = new Intent();
-        intent.setClass(this, OperationActivity.class);
-        startActivity(intent);
+        //不可登录
+        StockShowUtil.showToastOnMainThread(this, "不可登录状态，请联系管理员！");
+    }
+
+    /**
+     * @return true为可登陆
+     */
+    private boolean checkLoginPermission() {
+        final SharedPreferences login = getSharedPreferences("login", 0);
+        String date = login.getString("date", "");
+        final String currentDate = DateUtil.getCurrentDate();
+        if (!date.equals(currentDate)) {
+            //请求
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    String s = StockSender.requestGet(StockSender.PermissionUrl, new HashMap<String, String>(), "utf-8");
+                    SharedPreferences.Editor edit = login.edit();
+                    if ("noPermission".equals(s)) {
+                        edit.putBoolean("canLogin", false);
+                    } else if ("success".equals(s)) {
+                        edit.putBoolean("canLogin", true);
+                    }
+                    edit.putString("date", currentDate);
+                    edit.commit();
+                }
+            }).start();
+        }
+        boolean canLogin = login.getBoolean("canLogin", true);
+        return canLogin;
     }
 
     @Override

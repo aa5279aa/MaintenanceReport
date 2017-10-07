@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,7 @@ public class DrawLineView extends View {
 
     public void drawPoint(int x, int y) {
         canvas.drawPoint(x, y, pointPaint);//画点
+        Log.i("lxltest", "x:" + x + ",y:" + y);
         invalidate();
     }
 

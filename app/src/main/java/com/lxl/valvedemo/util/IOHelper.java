@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -67,6 +68,10 @@ public class IOHelper {
     }
 
     public static String fromIputStreamToString(InputStream is) {
+        return fromIputStreamToString(is, "utf-8");
+    }
+
+    public static String fromIputStreamToString(InputStream is, String code) {
         if (is == null)
             return null;
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -79,7 +84,14 @@ public class IOHelper {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return baos.toString();
+        byte[] lens = baos.toByteArray();
+        String result = null;
+        try {
+            result = new String(lens, code);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public static List<String> readListStrByCode(InputStream is, String code)

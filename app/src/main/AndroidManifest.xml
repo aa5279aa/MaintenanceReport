@@ -67,7 +67,11 @@
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
-
+        <activity
+            android:name=".page.LocationActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

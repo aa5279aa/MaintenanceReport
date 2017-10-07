@@ -17,6 +17,7 @@ public class OperationActivity extends Activity {
 
     Button selectBtn;
     Button makeCamera;
+    Button locationBtn;
     int TAKE_PICTURE = 101;
 
     @Override
@@ -42,11 +43,22 @@ public class OperationActivity extends Activity {
                 startActivityForResult(new Intent("android.media.action.IMAGE_CAPTURE"), TAKE_PICTURE);
             }
         });
+        locationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(OperationActivity.this, TrajectoryShowActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void initView() {
         selectBtn = (Button) findViewById(R.id.select_btn);
         makeCamera = (Button) findViewById(R.id.make_camera);
+        locationBtn = (Button) findViewById(R.id.location);
+
     }
 
     @Override

@@ -49,11 +49,31 @@ public class DataConfig {
 
     public static List<LocationRecordModel> getRecordList() {
         List<LocationRecordModel> list = new ArrayList<>();
-        list.add(new LocationRecordModel(35.4227345984,119.5337199627));
-        list.add(new LocationRecordModel(35.4237445984,119.5337199627));
-        list.add(new LocationRecordModel(35.4247545984,119.5337199627));
-        list.add(new LocationRecordModel(35.4257645984,119.5337199627));
-        list.add(new LocationRecordModel(35.4267745984,119.5337199627));
+//        list.add(new LocationRecordModel(35.441273,119.449116));
+//        list.add(new LocationRecordModel(35.441273,119.449116));
+//        list.add(new LocationRecordModel(35.441273,119.449116));
+//        list.add(new LocationRecordModel(35.441273,119.449116));
+//        list.add(new LocationRecordModel(35.441377,119.449297));
+//        list.add(new LocationRecordModel(35.442089,119.450083));
+//        list.add(new LocationRecordModel(35.442092,119.450909));
+//        list.add(new LocationRecordModel(35.439468,119.448356));
+//        list.add(new LocationRecordModel(35.4421,119.435143));//
+//        list.add(new LocationRecordModel(35.441697,119.449702));
+//        list.add(new LocationRecordModel(35.442134,119.450395));
+//        list.add(new LocationRecordModel(35.442134,119.450909));
+        list.add(new LocationRecordModel(34.836237, 117.493237));
+        list.add(new LocationRecordModel(34.836025, 117.491838));
+        list.add(new LocationRecordModel(34.835968, 117.49113));
+        list.add(new LocationRecordModel(34.836091, 117.492776));
+        list.add(new LocationRecordModel(34.835959, 117.49101));
+        list.add(new LocationRecordModel(34.835949, 117.490674));
+        list.add(new LocationRecordModel(34.836101, 117.492791));
+        list.add(new LocationRecordModel(34.836074, 117.492732));
+        list.add(new LocationRecordModel(34.836082, 117.492732));
+        list.add(new LocationRecordModel(34.836076, 117.492745));
+        list.add(new LocationRecordModel(34.837446, 117.490139));
+        list.add(new LocationRecordModel(34.838116, 117.489894));
+        list.add(new LocationRecordModel(34.834255, 117.485855));
         return list;
     }
 

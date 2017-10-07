@@ -89,12 +89,12 @@ public class ReportRecordActivity extends FragmentActivity {
                 recordModel.longitude = bdLocation.getLongitude();
                 recordModel.addressText = bdLocation.getAddrStr();
                 recordModel.cityText = bdLocation.getCity();
+                recordModel.dataText = DateUtil.getCurrentTime();
                 recordList.add(recordModel);
             }
         };
         mClient.registerLocationListener(listener);
         LocationClientOption option = new LocationClientOption();
-//        option.setOpenAutoNotifyMode(10, 0, LocationClientOption.LOC_SENSITIVITY_HIGHT);
         option.setScanSpan(10 * 1000);
         option.setIsNeedAddress(true);
         mClient.setLocOption(option);
@@ -283,6 +283,13 @@ public class ReportRecordActivity extends FragmentActivity {
         intent.putExtra(TrajectoryShowActivity.PATH, path);
         intent.putExtra(TrajectoryShowActivity.NAME, tableName);
         startActivity(intent);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mClient.stop();
     }
 
 }
