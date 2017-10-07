@@ -37,6 +37,7 @@ public class BuildType6Service extends BuildTypeBaseService {
 
         //title
         HSSFRow titleRow = sheet.createRow(0);
+        titleRow.setHeight(StyleUtil.getRowHeight(40));
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(reportModelType6.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
@@ -44,8 +45,13 @@ public class BuildType6Service extends BuildTypeBaseService {
 
         //作业区 场站
         HSSFRow stationRow = sheet.createRow(1);
+        stationRow.setHeight(StyleUtil.getRowHeight(32));
         HSSFCell workAreaCell = stationRow.createCell(1);
         HSSFCell stationCell = stationRow.createCell(2);
+
+        workAreaCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+        stationCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+
         workAreaCell.setCellValue(reportModelType6.workAreaName + reportModelType6.workAreaText);
         stationCell.setCellValue(reportModelType6.stationName + reportModelType6.stationText);
 
@@ -62,11 +68,12 @@ public class BuildType6Service extends BuildTypeBaseService {
             HSSFRow headerRow = null;
             if (i < 0) {
                 headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                headerRow.setHeight(StyleUtil.getRowHeight(32));
                 HSSFCell indexCell = headerRow.createCell(0);
                 HSSFCell checkInfoCell = headerRow.createCell(1);
                 HSSFCell checkDescCell = headerRow.createCell(2);
 
-                HSSFCellStyle descStyle = StyleUtil.createFont12BoldLeftStyle(wb);
+                HSSFCellStyle descStyle = StyleUtil.createFont12BoldCenterStyle(wb);
                 indexCell.setCellStyle(descStyle);
                 checkInfoCell.setCellStyle(descStyle);
                 checkDescCell.setCellStyle(descStyle);
@@ -91,7 +98,7 @@ public class BuildType6Service extends BuildTypeBaseService {
             for (int k = 0; k < size; k++) {
                 String checkInfo = subModel.checkInfoList.get(k);
                 headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
-                HSSFCell checkInfoCell = headerRow.createCell(1);
+                HSSFCell checkInfoCell = createBaseCell(wb, headerRow, 1);
                 checkInfoCell.setCellValue(checkInfo);
             }
             //合并单元格
@@ -105,12 +112,15 @@ public class BuildType6Service extends BuildTypeBaseService {
         //确认项
         HSSFRow bottomRow = sheet.createRow(sheet.getLastRowNum() + 1);
         HSSFCell cell0 = bottomRow.createCell(0);
-        cell0.setCellValue("确认项");
-
         HSSFCell cell1 = bottomRow.createCell(1);
-        cell1.setCellValue("是否对阀门执行机构进行排水、通风处理？（方法：打开齿轮箱侧面的内六角螺栓排水，每两月找晴朗无风的天气打开排水螺栓通风透气5～8天。）");
-
         HSSFCell cell2 = bottomRow.createCell(2);
+
+        cell0.setCellStyle(StyleUtil.createFont11BoldLeft(wb));
+        cell1.setCellStyle(StyleUtil.createFont11BoldLeft(wb));
+        cell2.setCellStyle(StyleUtil.createFont11BoldLeft(wb));
+
+        cell0.setCellValue("确认项");
+        cell1.setCellValue("是否对阀门执行机构进行排水、通风处理？（方法：打开齿轮箱侧面的内六角螺栓排水，每两月找晴朗无风的天气打开排水螺栓通风透气5～8天。）");
         cell2.setCellValue(" 确认签字：" + reportModelType6.confirmText);
 
         bottomRow = sheet.createRow(sheet.getLastRowNum() + 1);
@@ -118,8 +128,8 @@ public class BuildType6Service extends BuildTypeBaseService {
         HSSFCell dateCell = bottomRow.createCell(2);
         checkerCell.setCellValue(reportModelType6.checkerName + reportModelType6.checkerText);
         dateCell.setCellValue(reportModelType6.dateName + DateUtil.formatDateTime2String(reportModelType6.dateText));
-        checkerCell.setCellStyle(StyleUtil.createHCenterBStyle(wb));
-        dateCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+        checkerCell.setCellStyle(StyleUtil.createFont11Center(wb));
+        dateCell.setCellStyle(StyleUtil.createFont11Center(wb));
         sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(6.2));

@@ -12,6 +12,18 @@ import java.util.regex.Pattern;
  */
 public class StyleUtil {
 
+    //创造基础描述的样式
+    public static HSSFCellStyle createFont8LeftStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
+        font.setFontHeightInPoints((short) 8);
+        setBorder.setFont(font);
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        setBorder.setWrapText(true);
+        return setBorder;
+    }
+
 
     //创造基础描述的样式
     public static HSSFCellStyle createFont10LeftStyle(HSSFWorkbook wb) {
@@ -24,6 +36,20 @@ public class StyleUtil {
         setBorder.setWrapText(true);
         return setBorder;
     }
+
+    //创造基础描述的样式
+    public static HSSFCellStyle createFont10BoldLeftStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        font.setFontHeightInPoints((short) 10);
+        setBorder.setFont(font);
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        setBorder.setWrapText(true);
+        return setBorder;
+    }
+
 
     //创造基础描述的样式
     public static HSSFCellStyle createFont10CenterStyle(HSSFWorkbook wb) {
@@ -77,6 +103,31 @@ public class StyleUtil {
         return setBorder;
     }
 
+    public static HSSFCellStyle createFont11BoldLeft(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        font.setFontHeightInPoints((short) 11);
+        setBorder.setFont(font);
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        setBorder.setWrapText(true);
+        return setBorder;
+    }
+
+    public static HSSFCellStyle createFont11Center(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
+        font.setFontHeightInPoints((short) 11);
+        setBorder.setFont(font);
+        setBorder.setAlignment(CellStyle.ALIGN_CENTER);//水平居中
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        setBorder.setWrapText(true);
+        return setBorder;
+    }
+
+
     //创造自动换行样式
     public static HSSFCellStyle createWrapTextStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
@@ -84,31 +135,6 @@ public class StyleUtil {
         HSSFFont font = wb.createFont();
         font.setFontHeightInPoints((short)
                 12);
-        setBorder.setFont(font);
-        return setBorder;
-    }
-
-    //创造基础cell样式
-    public static HSSFCellStyle createNormalStyle(HSSFWorkbook wb) {
-        HSSFCellStyle setBorder = wb.createCellStyle();
-        HSSFFont font = wb.createFont();
-        font.setFontHeightInPoints((short) 12);
-        setBorder.setFont(font);
-
-        setBorder.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
-        setBorder.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
-        setBorder.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
-        setBorder.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
-        return setBorder;
-    }
-
-    //创造基础cell样式
-    public static HSSFCellStyle createVerticalCenterBStyle(HSSFWorkbook wb) {
-        HSSFCellStyle setBorder = wb.createCellStyle();
-        setBorder.setAlignment(HSSFCellStyle.VERTICAL_CENTER); // 居中
-        HSSFFont font = wb.createFont();
-        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
-        font.setFontHeightInPoints((short) 14);
         setBorder.setFont(font);
         return setBorder;
     }

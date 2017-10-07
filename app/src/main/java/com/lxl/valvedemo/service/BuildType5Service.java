@@ -84,6 +84,7 @@ public class BuildType5Service extends BuildTypeBaseService {
 
         //title
         HSSFRow titleRow = sheet.createRow(0);
+        titleRow.setHeight(StyleUtil.getRowHeight(25.5));
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(reportModelType5.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
@@ -91,9 +92,13 @@ public class BuildType5Service extends BuildTypeBaseService {
 
         //desc
         HSSFRow stationRow = sheet.createRow(1);
-        HSSFCell stationCell = stationRow.createCell(0);
-        stationCell.setCellValue(reportModelType5.stationName + reportModelType5.stationText);
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 1));
+        stationRow.setHeight(StyleUtil.getRowHeight(25.5));
+        HSSFCell stationCellName = stationRow.createCell(0);
+        HSSFCell stationCellText = stationRow.createCell(1);
+        stationCellName.setCellStyle(StyleUtil.createFont12BoldCenterStyle(wb));
+        stationCellName.setCellValue(reportModelType5.stationName);
+        stationCellText.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
+        stationCellText.setCellValue(reportModelType5.stationText);
 
         if (reportModelType5.reportItemModelList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);
@@ -110,11 +115,11 @@ public class BuildType5Service extends BuildTypeBaseService {
             HSSFRow headerRow = null;
             if (i < 0) {
                 headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
-                HSSFCell indexCell = headerRow.createCell(0);
-                HSSFCell projectCell = headerRow.createCell(1);
-                HSSFCell checkInfoCell = headerRow.createCell(2);
-                HSSFCell checkResultCell = headerRow.createCell(3);
-                HSSFCell checkDescCell = headerRow.createCell(4);
+                HSSFCell indexCell = createDescBoldCell(wb, headerRow, 0);
+                HSSFCell projectCell = createDescBoldCell(wb, headerRow, 1);
+                HSSFCell checkInfoCell = createDescBoldCell(wb, headerRow, 2);
+                HSSFCell checkResultCell = createDescBoldCell(wb, headerRow, 3);
+                HSSFCell checkDescCell = createDescBoldCell(wb, headerRow, 4);
 
                 HSSFCellStyle descStyle = StyleUtil.createFont12BoldLeftStyle(wb);
                 indexCell.setCellStyle(descStyle);
@@ -138,15 +143,14 @@ public class BuildType5Service extends BuildTypeBaseService {
                 checkDescStr = checkItem.checkDesc;
                 checkResultStr = checkItem.checkResult;
                 headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
-                HSSFCell indexCell = headerRow.createCell(0);
+                HSSFCell indexCell = createBaseCell(wb, headerRow, 0);
                 if (k == 0) {
-                    HSSFCell projectCell = headerRow.createCell(1);
-                    projectCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));//流量计算机检测
+                    HSSFCell projectCell = createBaseCell(wb, headerRow, 1);
                     projectCell.setCellValue(projectCellStr);
                 }
-                HSSFCell checkInfoCell = headerRow.createCell(2);
-                HSSFCell checkResultCell = headerRow.createCell(3);
-                HSSFCell checkDescCell = headerRow.createCell(4);
+                HSSFCell checkInfoCell = createBaseCell(wb, headerRow, 2);
+                HSSFCell checkResultCell = createBaseCell(wb, headerRow, 3);
+                HSSFCell checkDescCell = createBaseCell(wb, headerRow, 4);
                 indexCell.setCellValue(sheet.getLastRowNum() - 2);
                 checkInfoCell.setCellValue(checkInfoStr);
                 checkResultCell.setCellValue(checkResultStr);
@@ -162,9 +166,10 @@ public class BuildType5Service extends BuildTypeBaseService {
         //                        场站负责人：                  检查人：                  日期：
         int nextRow = sheet.getLastRowNum() + 3;
         HSSFRow bottomRow = sheet.createRow(nextRow);
+        bottomRow.setHeight(StyleUtil.getRowHeight(16));
         HSSFCell checkerCell = bottomRow.createCell(0);
-        checkerCell.setCellValue(reportModelType5.owerName + reportModelType5.owerText + "  " + reportModelType5.checkerName + reportModelType5.checkerText + "  " + reportModelType5.dateName + reportModelType5.dateText);
-        checkerCell.setCellStyle(StyleUtil.createHCenterBStyle(wb));
+        checkerCell.setCellValue(reportModelType5.owerName + reportModelType5.owerText + "    " + reportModelType5.checkerName + reportModelType5.checkerText + "      " + reportModelType5.dateName + reportModelType5.dateText);
+        checkerCell.setCellStyle(StyleUtil.createFont12BoldCenterStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 4));
 
         //设置列宽

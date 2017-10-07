@@ -40,6 +40,7 @@ public class BuildType7Service extends BuildTypeBaseService {
 
             //title
             HSSFRow titleRow = sheet.createRow(0);
+            titleRow.setHeight(StyleUtil.getRowHeight(37.5));
             HSSFCell titleCell = titleRow.createCell(0);
             titleCell.setCellValue(reportModelType7.tableName);
             titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
@@ -47,8 +48,9 @@ public class BuildType7Service extends BuildTypeBaseService {
 
             //作业区 场站
             HSSFRow stationRow = sheet.createRow(1);
-            HSSFCell workAreaCell = stationRow.createCell(0);
-            HSSFCell stationCell = stationRow.createCell(2);
+            stationRow.setHeight(StyleUtil.getRowHeight(20));
+            HSSFCell workAreaCell = createDescBoldCell(wb, stationRow, 0);
+            HSSFCell stationCell = createDescBoldCell(wb, stationRow, 2);
             workAreaCell.setCellValue(reportModelType7.workAreaName + reportModelType7.workAreaText);
             stationCell.setCellValue(reportModelType7.stationName + reportModelType7.stationText);
             sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 1));
@@ -65,13 +67,14 @@ public class BuildType7Service extends BuildTypeBaseService {
                 String checkInfoStr = "电气设备定期维护项目";
                 String checkDescStr = "检查情况";
                 HSSFRow headerRow = null;
-                if (i < 0) {
+                if (i < 0 || (sheet.getLastRowNum() + 1) == 16) {
                     headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                    headerRow.setHeight(StyleUtil.getRowHeight(28));
                     HSSFCell indexCell = headerRow.createCell(0);
                     HSSFCell checkInfoCell = headerRow.createCell(1);
                     HSSFCell checkDescCell = headerRow.createCell(2);
 
-                    HSSFCellStyle descStyle = StyleUtil.createFont12BoldLeftStyle(wb);
+                    HSSFCellStyle descStyle = StyleUtil.createFont12BoldCenterStyle(wb);
                     indexCell.setCellStyle(descStyle);
                     checkInfoCell.setCellStyle(descStyle);
                     checkDescCell.setCellStyle(descStyle);
@@ -79,14 +82,20 @@ public class BuildType7Service extends BuildTypeBaseService {
                     indexCell.setCellValue(indexCellStr);
                     checkInfoCell.setCellValue(checkInfoStr);
                     checkDescCell.setCellValue(checkDescStr);
+                    sheet.addMergedRegion(new CellRangeAddress(headerRow.getRowNum(), headerRow.getRowNum(), 2, 3));
                     continue;
                 }
                 //每一行的逻辑处理
                 ReportModelType7.ReportModelType7SubModel subModel = reportModelType7.reportItemModelList.get(i);
                 //添加标题栏
                 headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                headerRow.setHeight(StyleUtil.getRowHeight(18));
                 HSSFCell indexCell = headerRow.createCell(0);
                 HSSFCell projectCell = headerRow.createCell(1);
+
+                indexCell.setCellStyle(StyleUtil.createFont10BoldLeftStyle(wb));
+                projectCell.setCellStyle(StyleUtil.createFont10BoldLeftStyle(wb));
+
                 indexCell.setCellValue(subModel.indexStr);
                 projectCell.setCellValue(subModel.projectText);
 
@@ -95,24 +104,36 @@ public class BuildType7Service extends BuildTypeBaseService {
                         headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
                         HSSFCell checkCell = headerRow.createCell(1);
                         HSSFCell descCell = headerRow.createCell(2);
-                        checkCell.setCellValue(reportModelType7SubItemModel.checkInfo);
-                        checkCell.setCellStyle(StyleUtil.createWrapTextStyle(wb));
-                        descCell.setCellValue(reportModelType7SubItemModel.checkDescText);
+
+                        checkCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
+                        descCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
+
+                        checkCell.setCellValue("\r\n" + reportModelType7SubItemModel.checkInfo + "\r\n");
+                        descCell.setCellValue("\r\n" + reportModelType7SubItemModel.checkDescText + "\r\n");
                     }
                 } else {
                     for (ReportModelType7.ReportModelType7SubSubModel subSubModel : subModel.checkInfoSubList) {
                         headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                        headerRow.setHeight(StyleUtil.getRowHeight(18));
+
                         HSSFCell subIndexCell = headerRow.createCell(0);
                         HSSFCell subProjectCell = headerRow.createCell(1);
+
+                        subIndexCell.setCellStyle(StyleUtil.createFont10BoldLeftStyle(wb));
+                        subProjectCell.setCellStyle(StyleUtil.createFont10BoldLeftStyle(wb));
+
                         subIndexCell.setCellValue(subSubModel.indexStr);
                         subProjectCell.setCellValue(subSubModel.projectText);
                         for (ReportModelType7.ReportModelType7SubItemModel reportModelType7SubItemModel : subSubModel.checkInfoSubList) {
                             headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
                             HSSFCell checkCell = headerRow.createCell(1);
                             HSSFCell descCell = headerRow.createCell(2);
-                            checkCell.setCellValue(reportModelType7SubItemModel.checkInfo);
-                            checkCell.setCellStyle(StyleUtil.createWrapTextStyle(wb));
-                            descCell.setCellValue(reportModelType7SubItemModel.checkDescText);
+
+                            checkCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
+                            descCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
+
+                            checkCell.setCellValue("\r\n" + reportModelType7SubItemModel.checkInfo + "\r\n");
+                            descCell.setCellValue("\r\n" + reportModelType7SubItemModel.checkDescText + "\r\n");
                         }
                     }
                 }
@@ -123,18 +144,28 @@ public class BuildType7Service extends BuildTypeBaseService {
             bottomRow.setHeight(StyleUtil.getRowHeight(106));
             HSSFCell descNameCell = bottomRow.createCell(0);
             HSSFCell descTextCell = bottomRow.createCell(1);
+
+            descNameCell.setCellStyle(StyleUtil.createFont10LeftStyle(wb));
+            descTextCell.setCellStyle(StyleUtil.createFont10LeftStyle(wb));
+
             descNameCell.setCellValue(reportModelType7.descName);
             descTextCell.setCellValue(reportModelType7.descText);
             sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 1, 3));
 
             bottomRow = sheet.createRow(sheet.getLastRowNum() + 2);
+            bottomRow.setHeight(StyleUtil.getRowHeight(15.6));
+            bottomRow.setHeight(StyleUtil.getRowHeight(14.25));
             HSSFCell checkerCell = bottomRow.createCell(0);
             HSSFCell dateCell = bottomRow.createCell(2);
+
+            checkerCell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
+            dateCell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
+
             checkerCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText);
             dateCell.setCellValue(reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));
-            checkerCell.setCellStyle(StyleUtil.createHCenterBStyle(wb));
-            dateCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+
             sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
+            sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 2, 3));
 
             sheet.setColumnWidth(0, StyleUtil.getColumnWidth(3));
             sheet.setColumnWidth(1, StyleUtil.getColumnWidth(35));
@@ -171,6 +202,9 @@ public class BuildType7Service extends BuildTypeBaseService {
         HSSFRow nextRow = sheet1.getRow(2);
         while (true) {
             nextRow = sheet1.getRow(nextRow.getRowNum() + 1);
+            if (nextRow.getRowNum() == 16) {
+                continue;
+            }
             HSSFCell indexCell = nextRow.getCell(0);
             if (indexCell == null || indexCell.getCellType() < 0) {
                 break;
