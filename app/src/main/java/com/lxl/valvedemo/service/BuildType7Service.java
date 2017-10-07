@@ -3,9 +3,6 @@ package com.lxl.valvedemo.service;
 import com.lxl.valvedemo.config.DataConfig;
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
-import com.lxl.valvedemo.model.buildModel.type6.ReportModelType6;
 import com.lxl.valvedemo.model.buildModel.type7.ReportModelType7;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.StringUtil;
@@ -74,7 +71,7 @@ public class BuildType7Service extends BuildTypeBaseService {
                     HSSFCell checkInfoCell = headerRow.createCell(1);
                     HSSFCell checkDescCell = headerRow.createCell(2);
 
-                    HSSFCellStyle descStyle = StyleUtil.createDescStyle(wb);
+                    HSSFCellStyle descStyle = StyleUtil.createFont12BoldLeftStyle(wb);
                     indexCell.setCellStyle(descStyle);
                     checkInfoCell.setCellStyle(descStyle);
                     checkDescCell.setCellStyle(descStyle);
@@ -123,7 +120,7 @@ public class BuildType7Service extends BuildTypeBaseService {
 
             //备注
             HSSFRow bottomRow = sheet.createRow(sheet.getLastRowNum() + 1);
-            bottomRow.setHeight(StyleUtil.getRowHeight((short) 106));
+            bottomRow.setHeight(StyleUtil.getRowHeight(106));
             HSSFCell descNameCell = bottomRow.createCell(0);
             HSSFCell descTextCell = bottomRow.createCell(1);
             descNameCell.setCellValue(reportModelType7.descName);
@@ -136,7 +133,7 @@ public class BuildType7Service extends BuildTypeBaseService {
             checkerCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText);
             dateCell.setCellValue(reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));
             checkerCell.setCellStyle(StyleUtil.createHCenterBStyle(wb));
-            dateCell.setCellStyle(StyleUtil.createDescStyle(wb));
+            dateCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
             sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
 
             sheet.setColumnWidth(0, StyleUtil.getColumnWidth(3));

@@ -69,7 +69,7 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
             return;
         }
         Intent intent = new Intent();
-        intent.setClass(this, SelectActivity.class);
+        intent.setClass(this, OperationActivity.class);
         startActivity(intent);
     }
 

@@ -12,45 +12,41 @@ public class StyleUtil {
 
 
     //创造基础描述的样式
-    public static HSSFCellStyle createBaseFontStyle(HSSFWorkbook wb) {
+    public static HSSFCellStyle createFont10LeftStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         HSSFFont font = wb.createFont();
         font.setFontName("宋体");
         font.setFontHeightInPoints((short) 10);
         setBorder.setFont(font);
-        return setBorder;
-    }
-
-    //创造头部大字体样式
-    public static HSSFCellStyle createTitleBigFontStyle(HSSFWorkbook wb) {
-        return createTitleStyle(wb, 20);
-    }
-
-    //创造头部小字体样式
-    public static HSSFCellStyle createTitleSmallFontStyle(HSSFWorkbook wb) {
-        return createTitleStyle(wb, 16);
-    }
-
-    //创造头部体样式
-    public static HSSFCellStyle createTitleStyle(HSSFWorkbook wb, int fontSize) {
-        HSSFCellStyle setBorder = wb.createCellStyle();
-        setBorder.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
-        HSSFFont font = wb.createFont();
-        font.setFontName("宋体");
-        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
-        font.setFontHeightInPoints((short) fontSize);
-        setBorder.setFont(font);
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        setBorder.setWrapText(true);
         return setBorder;
     }
 
     //创造描述样式
-    public static HSSFCellStyle createDescStyle(HSSFWorkbook wb) {
+    public static HSSFCellStyle createFont12BoldLeftStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         HSSFFont font = wb.createFont();
         font.setFontName("宋体");
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
         font.setFontHeightInPoints((short) 12);
         setBorder.setFont(font);
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        setBorder.setWrapText(true);
+        return setBorder;
+    }
+
+    //创造描述样式
+    public static HSSFCellStyle createFont12BoldCenterStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        font.setFontHeightInPoints((short) 12);
+        setBorder.setFont(font);
+        setBorder.setAlignment(CellStyle.ALIGN_CENTER);//水平居中
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        setBorder.setWrapText(true);
         return setBorder;
     }
 
@@ -59,7 +55,8 @@ public class StyleUtil {
         HSSFCellStyle setBorder = wb.createCellStyle();
         setBorder.setWrapText(true);
         HSSFFont font = wb.createFont();
-        font.setFontHeightInPoints((short) 12);
+        font.setFontHeightInPoints((short)
+                12);
         setBorder.setFont(font);
         return setBorder;
     }
@@ -147,11 +144,38 @@ public class StyleUtil {
         return setBorder;
     }
 
+    /**
+     * 头部样式
+     */
+    public static HSSFCellStyle createTitleBigFontStyle(HSSFWorkbook wb) {
+        return createTitleStyle(wb, 20);
+    }
+
+    //创造头部小字体样式
+    public static HSSFCellStyle createTitleSmallFontStyle(HSSFWorkbook wb) {
+        return createTitleStyle(wb, 16);
+    }
+
+
+    //创造头部体样式
+    public static HSSFCellStyle createTitleStyle(HSSFWorkbook wb, int fontSize) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setAlignment(HSSFCellStyle.ALIGN_CENTER); // 居中
+        HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        font.setFontHeightInPoints((short) fontSize);
+        setBorder.setFont(font);
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        return setBorder;
+    }
+
+
     public static int getColumnWidth(double width) {
         return (int) (256 * width + 184);
     }
 
-    public static short getRowHeight(short height) {
+    public static short getRowHeight(double height) {
         return (short) (20 * height);
     }
 

@@ -183,7 +183,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         list.add("地点：" + startAddress);
         list.add("经纬度：" + startLocation);
         list.add("时间：" + DateUtil.getCurrentTime(DateUtil.SIMPLEFORMATTYPESTRING4));
-        Bitmap bitmap = Bitmap.createBitmap(createWatermarkBitmap(cachebmp, mName,
+        Bitmap bitmap = Bitmap.createBitmap(createWatermarkBitmap(cachebmp, title,
                 list));
 
         FileOutputStream fos;
@@ -267,7 +267,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         int id = v.getId();
         if (id == R.id.open_file) {
             openAssignFolder(ReportBuildConfig.getBaseBuildPath());
-        } else if (id == R.id.back_btn) {
+        } else if (id == R.id.back_btn1) {
             Intent intent = new Intent();
             intent.setClass(this, OperationActivity.class);
             startActivity(intent);

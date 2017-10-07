@@ -2,7 +2,6 @@ package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
 import com.lxl.valvedemo.model.buildModel.type5.ReportModelType5;
 import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.util.StyleUtil;
@@ -117,7 +116,7 @@ public class BuildType5Service extends BuildTypeBaseService {
                 HSSFCell checkResultCell = headerRow.createCell(3);
                 HSSFCell checkDescCell = headerRow.createCell(4);
 
-                HSSFCellStyle descStyle = StyleUtil.createDescStyle(wb);
+                HSSFCellStyle descStyle = StyleUtil.createFont12BoldLeftStyle(wb);
                 indexCell.setCellStyle(descStyle);
                 projectCell.setCellStyle(descStyle);
                 checkInfoCell.setCellStyle(descStyle);

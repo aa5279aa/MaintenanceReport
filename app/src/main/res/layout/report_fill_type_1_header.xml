@@ -22,8 +22,8 @@
             android:id="@+id/report_header_workarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="作业区信息"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="请输入作业区信息" />
 
 
     </LinearLayout>
@@ -46,8 +46,8 @@
             android:id="@+id/report_header_station"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="厂区信息"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="请输入厂区信息" />
 
     </LinearLayout>
 
@@ -69,8 +69,8 @@
             android:id="@+id/report_header_checker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="检查人信息"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:hint="请输入检查人信息" />
 
     </LinearLayout>
 
@@ -90,8 +90,8 @@
 
         <TextView
             android:id="@+id/report_header_date"
-            android:layout_width="wrap_content"
             style="@style/text_16_000000"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 

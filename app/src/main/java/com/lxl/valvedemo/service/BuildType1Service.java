@@ -34,7 +34,7 @@ public class BuildType1Service extends BuildTypeBaseService {
 
         //title
         HSSFRow titleRow = sheet.createRow(0);
-        titleRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
+        titleRow.setHeight(StyleUtil.getRowHeight( 28.5));
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(maintainReportModel.tableTile);
         titleCell.setCellStyle(StyleUtil.createTitleSmallFontStyle(wb));
@@ -42,13 +42,13 @@ public class BuildType1Service extends BuildTypeBaseService {
 
         //desc
         HSSFRow areaRow = sheet.createRow(1);
-        areaRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
+        areaRow.setHeight(StyleUtil.getRowHeight( 28.5));
         HSSFCell areaCell = createDescCell(wb, areaRow, 0);
         HSSFCell stationCell = createDescCell(wb, areaRow, 4);
         stationCell.setCellValue(maintainReportModel.stationName + ":" + maintainReportModel.stationText);
         areaCell.setCellValue(maintainReportModel.workAreaName + ":" + maintainReportModel.workAreaText);
-        stationCell.setCellStyle(StyleUtil.createDescStyle(wb));
-        areaCell.setCellStyle(StyleUtil.createDescStyle(wb));
+        stationCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+        areaCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 3));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
 
@@ -74,17 +74,17 @@ public class BuildType1Service extends BuildTypeBaseService {
                 equipmentIdCellStr = maintainReportItemModel.equipmentId;
                 maintainInfoCellStr = maintainReportItemModel.maintainInfo;
                 maintainDescCellStr = maintainReportItemModel.maintainDesc;
-                areaRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
+                areaRow.setHeight(StyleUtil.getRowHeight( 28.5));
             } else {
-                areaRow.setHeight(StyleUtil.getRowHeight((short) 14.25));
+                areaRow.setHeight(StyleUtil.getRowHeight(14.25));
             }
 
-            HSSFCell positionCell = headerRow.createCell(0);
-            HSSFCell equipmentNameCell = headerRow.createCell(1);
-            HSSFCell specificationsCell = headerRow.createCell(2);
-            HSSFCell equipmentIdCell = headerRow.createCell(3);
-            HSSFCell maintainInfoCell = headerRow.createCell(4);
-            HSSFCell maintainDescCell = headerRow.createCell(5);
+            HSSFCell positionCell = createBaseCell(wb, headerRow, 0);
+            HSSFCell equipmentNameCell = createBaseCell(wb, headerRow, 1);
+            HSSFCell specificationsCell = createBaseCell(wb, headerRow, 2);
+            HSSFCell equipmentIdCell = createBaseCell(wb, headerRow, 3);
+            HSSFCell maintainInfoCell = createBaseCell(wb, headerRow, 4);
+            HSSFCell maintainDescCell = createBaseCell(wb, headerRow, 5);
             positionCell.setCellValue(positionCellStr);
             equipmentNameCell.setCellValue(equipmentNameCellStr);
             specificationsCell.setCellValue(specificationsCellStr);
@@ -96,8 +96,9 @@ public class BuildType1Service extends BuildTypeBaseService {
         //维护保养人员  + 日期
         int nextRow = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRow);
-        HSSFCell checkerCell = bottomRow.createCell(0);
-        HSSFCell dataCell = bottomRow.createCell(4);
+        bottomRow.setHeight(StyleUtil.getRowHeight(28.5));
+        HSSFCell checkerCell = createDescCell(wb, bottomRow, 0);
+        HSSFCell dataCell = createDescCell(wb, bottomRow, 4);
         checkerCell.setCellValue("维护保养人员：" + maintainReportModel.checkerText);
         dataCell.setCellValue("日期：" + maintainReportModel.dateText);
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 3));

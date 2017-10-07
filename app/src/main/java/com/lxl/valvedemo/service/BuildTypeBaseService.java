@@ -2,8 +2,6 @@ package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
-import com.lxl.valvedemo.model.buildModel.type6.ReportModelType6;
 import com.lxl.valvedemo.util.StyleUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -14,7 +12,6 @@ import org.apache.poi.ss.util.CellRangeAddress;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Created by Administrator on 2017/10/4 0004.
@@ -71,13 +68,13 @@ public abstract class BuildTypeBaseService {
 
     public HSSFCell createBaseCell(HSSFWorkbook wb, HSSFRow row, int position) {
         HSSFCell cell = row.createCell(position);
-        cell.setCellStyle(StyleUtil.createBaseFontStyle(wb));
+        cell.setCellStyle(StyleUtil.createFont10LeftStyle(wb));
         return cell;
     }
 
     public HSSFCell createDescCell(HSSFWorkbook wb, HSSFRow row, int position) {
         HSSFCell cell = row.createCell(position);
-        cell.setCellStyle(StyleUtil.createDescStyle(wb));
+        cell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         return cell;
     }
 

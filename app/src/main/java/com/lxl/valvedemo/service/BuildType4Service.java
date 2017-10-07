@@ -2,9 +2,7 @@ package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
 import com.lxl.valvedemo.model.buildModel.type4.AlertReportModel;
-import com.lxl.valvedemo.model.buildModel.type5.ReportModelType5;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.util.StyleUtil;
@@ -35,7 +33,7 @@ public class BuildType4Service extends BuildTypeBaseService {
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
-        HSSFCellStyle descStyle = StyleUtil.createDescStyle(wb);
+        HSSFCellStyle descStyle = StyleUtil.createFont12BoldLeftStyle(wb);
 
         //title
         HSSFRow titleRow = sheet.createRow(0);

@@ -2,7 +2,6 @@ package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportSubTypeModel;
 import com.lxl.valvedemo.model.buildModel.type2.InspectionReportTypeModel;
@@ -131,18 +130,18 @@ public class BuildType2Service extends BuildTypeBaseService {
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(inspectionReportModel.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleSmallFontStyle(wb));
-        titleRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
+        titleRow.setHeight(StyleUtil.getRowHeight(28.5));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
 
         //desc
         HSSFRow areaRow = sheet.createRow(1);
-        areaRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
+        areaRow.setHeight(StyleUtil.getRowHeight(28.5));
         HSSFCell areaCell = areaRow.createCell(0);
         HSSFCell stationCell = areaRow.createCell(4);
         areaCell.setCellValue(inspectionReportModel.workAreaName + ":" + inspectionReportModel.workAreaText);
         stationCell.setCellValue(inspectionReportModel.stationName + ":" + inspectionReportModel.stationText);
-        areaCell.setCellStyle(StyleUtil.createDescStyle(wb));
-        stationCell.setCellStyle(StyleUtil.createDescStyle(wb));
+        areaCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+        stationCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 2));
         sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
 
@@ -157,12 +156,11 @@ public class BuildType2Service extends BuildTypeBaseService {
             String positionCellStr = "序号";
             String equipmentTypeCellStr = "设备类别";
             String requireCellStr = "现场标准/要求";
-            String checkrecord = "设备编号";
-            String checkdesc = "检查与维护保养情况";
+            String checkrecord = "检查记录";
+            String checkdesc = "备注";
             if (i == -1) {
                 HSSFRow headerRow = sheet.createRow(i + 3);
-                headerRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
-                HSSFCellStyle descStyle = StyleUtil.createDescStyle(wb);
+                headerRow.setHeight(StyleUtil.getRowHeight(28.5));
                 HSSFCell typeCellCell = createDescCell(wb, headerRow, 0);
                 HSSFCell positionCellCell = createDescCell(wb, headerRow, 1);
                 HSSFCell equipmentTypeCell = createDescCell(wb, headerRow, 2);
@@ -190,7 +188,7 @@ public class BuildType2Service extends BuildTypeBaseService {
                 for (int k = 0; k < subTypeModel.cellModelList.size(); k++) {
                     InspectionReportSubTypeModel.InspectionReportCellModel cellModel = subTypeModel.cellModelList.get(k);
                     HSSFRow headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
-                    headerRow.setHeight(StyleUtil.getRowHeight((short) 14.25));
+                    headerRow.setHeight(StyleUtil.getRowHeight(14.25));
                     HSSFCell typeCell = createDescCell(wb, headerRow, 0);
                     HSSFCell positionCellCell = createBaseCell(wb, headerRow, 1);
                     HSSFCell equipmentTypeCell = createBaseCell(wb, headerRow, 2);
@@ -214,9 +212,9 @@ public class BuildType2Service extends BuildTypeBaseService {
         //维护保养人员  + 日期
         int nextRow = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRow);
-        bottomRow.setHeight(StyleUtil.getRowHeight((short) 28.5));
+        bottomRow.setHeight(StyleUtil.getRowHeight(28.5));
         HSSFCell checkerNameCell = createDescCell(wb, bottomRow, 1);
-        HSSFCell checkerTextCell = createDescCell(wb, bottomRow, 2);
+        HSSFCell checkerTextCell = createDescCell(wb, bottomRow, 3);
         HSSFCell dateNameCell = createDescCell(wb, bottomRow, 4);
         HSSFCell dateTextCell = createDescCell(wb, bottomRow, 5);
         checkerNameCell.setCellValue(inspectionReportModel.checkerName);
@@ -226,9 +224,10 @@ public class BuildType2Service extends BuildTypeBaseService {
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 1, 2));
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(5));
-        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(8));
+        sheet.setColumnWidth(1, StyleUtil.getColumnWidth(3));
+        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(9.5));
         sheet.setColumnWidth(3, StyleUtil.getColumnWidth(52));
-        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(8));
+        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(9.5));
         sheet.setColumnWidth(5, StyleUtil.getColumnWidth(25));
 
         FileOutputStream fileOut = new FileOutputStream(outFile);

@@ -2,9 +2,6 @@ package com.lxl.valvedemo.service;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
-import com.lxl.valvedemo.model.buildModel.type5.ReportModelType5;
 import com.lxl.valvedemo.model.buildModel.type6.ReportModelType6;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.StringUtil;
@@ -69,7 +66,7 @@ public class BuildType6Service extends BuildTypeBaseService {
                 HSSFCell checkInfoCell = headerRow.createCell(1);
                 HSSFCell checkDescCell = headerRow.createCell(2);
 
-                HSSFCellStyle descStyle = StyleUtil.createDescStyle(wb);
+                HSSFCellStyle descStyle = StyleUtil.createFont12BoldLeftStyle(wb);
                 indexCell.setCellStyle(descStyle);
                 checkInfoCell.setCellStyle(descStyle);
                 checkDescCell.setCellStyle(descStyle);
@@ -86,9 +83,9 @@ public class BuildType6Service extends BuildTypeBaseService {
             HSSFCell checkProjectCell = itemHeader.createCell(1);
             HSSFCell checkDescCell = itemHeader.createCell(2);
             indexCell.setCellValue(String.valueOf(i + 1));
-            indexCell.setCellStyle(StyleUtil.createDescStyle(wb));
+            indexCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
             checkProjectCell.setCellValue(subModel.projectText);
-            checkProjectCell.setCellStyle(StyleUtil.createDescStyle(wb));
+            checkProjectCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
             checkDescCell.setCellValue(subModel.checkDesc);
             int size = subModel.checkInfoList.size();
             for (int k = 0; k < size; k++) {
@@ -122,7 +119,7 @@ public class BuildType6Service extends BuildTypeBaseService {
         checkerCell.setCellValue(reportModelType6.checkerName + reportModelType6.checkerText);
         dateCell.setCellValue(reportModelType6.dateName + DateUtil.formatDateTime2String(reportModelType6.dateText));
         checkerCell.setCellStyle(StyleUtil.createHCenterBStyle(wb));
-        dateCell.setCellStyle(StyleUtil.createDescStyle(wb));
+        dateCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(6.2));
