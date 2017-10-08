@@ -72,7 +72,7 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
     private void handleGoToNext(String user) {
         if (checkLoginPermission()) {
             Intent intent = new Intent();
-            intent.setClass(this, OperationActivity.class);
+            intent.setClass(this, SelectActivity.class);
             startActivity(intent);
             return;
         }
