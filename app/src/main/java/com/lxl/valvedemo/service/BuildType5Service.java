@@ -169,7 +169,7 @@ public class BuildType5Service extends BuildTypeBaseService {
         bottomRow.setHeight(StyleUtil.getRowHeight(16));
         HSSFCell checkerCell = bottomRow.createCell(0);
         checkerCell.setCellValue(reportModelType5.owerName + reportModelType5.owerText + "    " + reportModelType5.checkerName + reportModelType5.checkerText + "      " + reportModelType5.dateName + reportModelType5.dateText);
-        checkerCell.setCellStyle(StyleUtil.createFont12BoldCenterStyle(wb));
+        checkerCell.setCellStyle(StyleUtil.createFont12BoldCenterNoBorderStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 4));
 
         //设置列宽

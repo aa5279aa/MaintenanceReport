@@ -106,9 +106,9 @@ public class BuildType4Service extends BuildTypeBaseService {
         HSSFCell checkCellText = bottomRow.createCell(1);
         HSSFCell dateCell = bottomRow.createCell(2);
 
-        checkCellName.setCellStyle(StyleUtil.createFont12BoldCenterStyle(wb));
-        checkCellText.setCellStyle(StyleUtil.createFont10LeftStyle(wb));
-        dateCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+        checkCellName.setCellStyle(StyleUtil.createFont12BoldCenterNoBorderStyle(wb));
+        checkCellText.setCellStyle(StyleUtil.createFont10LeftNoBorderStyle(wb));
+        dateCell.setCellStyle(StyleUtil.createFont12BoldLeftNoBorderStyle(wb));
 
         checkCellName.setCellValue(alertReportModel.checkerName);
         checkCellText.setCellValue(alertReportModel.checkerText);

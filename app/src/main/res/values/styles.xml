@@ -179,26 +179,10 @@
         <item name="android:textColor">#4289ff</item>
     </style>
 
-    <style name="hotel_text_14_186DB7">
-        <item name="android:textSize">14dip</item>
-        <item name="android:textColor">#4289ff</item>
-    </style>
-
-
-    <style name="hotel_text_15_186DB7_b">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textSize">15dip</item>
-        <item name="android:textColor">#4289ff</item>
-    </style>
 
     <style name="text_12_090909">
         <item name="android:textSize">12dip</item>
         <item name="android:textColor">#090909</item>
-    </style>
-
-    <style name="text_14_cccccc">
-        <item name="android:textSize">14dip</item>
-        <item name="android:textColor">#cccccc</item>
     </style>
 
     <style name="text_18_ffffff">
@@ -211,5 +195,11 @@
         <item name="android:textColor">#000000</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="text_18_b0c4de">
+        <item name="android:textSize">18dip</item>
+        <item name="android:textColor">#2295BD</item>
+    </style>
+
 
 </resources>

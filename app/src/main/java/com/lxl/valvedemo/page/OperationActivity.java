@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.util.DeviceUtil;
 
 /**
  * Created by Administrator on 2017/9/29 0029.
@@ -15,6 +17,7 @@ import com.lxl.valvedemo.R;
 
 public class OperationActivity extends Activity {
 
+    LinearLayout btnContainer;
     Button selectBtn;
     Button makeCamera;
     Button locationBtn;
@@ -51,6 +54,15 @@ public class OperationActivity extends Activity {
                 startActivity(intent);
             }
         });
+        findViewById(R.id.test_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(OperationActivity.this, TestActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -58,6 +70,18 @@ public class OperationActivity extends Activity {
         selectBtn = (Button) findViewById(R.id.select_btn);
         makeCamera = (Button) findViewById(R.id.make_camera);
         locationBtn = (Button) findViewById(R.id.location);
+        btnContainer = (LinearLayout) findViewById(R.id.btn_container);
+        //统一button样式
+        int width = DeviceUtil.getScreenWidth(this) * 4 / 5;
+        for (int i = 0; i < btnContainer.getChildCount(); i++) {
+            View childAt = btnContainer.getChildAt(i);
+            if (childAt instanceof Button) {
+                Button button = (Button) childAt;
+                button.getLayoutParams().width = width;
+                button.setBackgroundResource(R.drawable.select_button_bg);
+                button.setTextAppearance(this, R.style.text_18_ffffff);
+            }
+        }
 
     }
 

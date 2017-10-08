@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/hotel_city_item_title_line"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,13 +29,23 @@
             <TextView
                 android:id="@+id/report_fill_equipment_edit"
                 style="@style/text_16_000000"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/report_fill_delete"
+                style="@style/text_14_000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/report_button"
+                android:padding="5dp"
+                android:text="删除" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/tag_container"
+            android:id="@+id/equipment_name_tag_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@drawable/divider_horizontal_bg"
@@ -43,7 +55,7 @@
             android:showDividers="middle">
 
             <Button
-                android:id="@+id/tag1"
+                android:id="@+id/equipment_name_tag1"
                 style="@style/text_12_090909"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +65,7 @@
                 android:text="球  阀" />
 
             <Button
-                android:id="@+id/tag2"
+                android:id="@+id/equipment_name_tag2"
                 style="@style/text_12_090909"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -63,7 +75,7 @@
                 android:text="旋塞阀" />
 
             <Button
-                android:id="@+id/tag3"
+                android:id="@+id/equipment_name_tag3"
                 style="@style/text_12_090909"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,7 +85,7 @@
                 android:text="排污阀" />
 
             <Button
-                android:id="@+id/tag4"
+                android:id="@+id/equipment_name_tag4"
                 style="@style/text_12_090909"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,6 +167,58 @@
             android:layout_height="wrap_content"
             android:hint="请填写保养情况"
             android:minHeight="50dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fill_situation_tag_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider_horizontal_bg"
+        android:dividerPadding="10dp"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:showDividers="middle">
+
+        <Button
+            android:id="@+id/fill_situation_tag1"
+            style="@style/text_12_090909"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/stock_search_hot_button_bg"
+            android:padding="5dp"
+            android:text="注733" />
+
+        <Button
+            android:id="@+id/fill_situation_tag2"
+            style="@style/text_12_090909"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/stock_search_hot_button_bg"
+            android:padding="5dp"
+            android:text="注80" />
+
+        <Button
+            android:id="@+id/fill_situation_tag3"
+            style="@style/text_12_090909"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/stock_search_hot_button_bg"
+            android:padding="5dp"
+            android:text="有积水" />
+
+        <Button
+            android:id="@+id/fill_situation_tag4"
+            style="@style/text_12_090909"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/stock_search_hot_button_bg"
+            android:padding="5dp"
+            android:text="换润滑油" />
 
     </LinearLayout>
 

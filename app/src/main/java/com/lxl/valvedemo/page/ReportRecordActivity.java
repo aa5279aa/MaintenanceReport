@@ -58,6 +58,8 @@ public class ReportRecordActivity extends FragmentActivity {
     private StockTitleView titleText;
     private Context mContext;
     private Button mSubmit;
+    private Button mGoTOP;
+
     SingleSelectionModel mSelectModel;
 
     BaseBuildFragment buildFragment;
@@ -104,6 +106,8 @@ public class ReportRecordActivity extends FragmentActivity {
     private void initView() {
         titleText = (StockTitleView) findViewById(R.id.stock_title_view);
         mSubmit = (Button) findViewById(R.id.submit);
+        mGoTOP = (Button) findViewById(R.id.go_top_btn);
+        titleText.setActionBtnShow(View.VISIBLE);
     }
 
     private void initData() {
@@ -164,6 +168,14 @@ public class ReportRecordActivity extends FragmentActivity {
         fragmentTransaction.replace(R.id.fragment_container, buildFragment);
         fragmentTransaction.commit();
         titleText.setTitle(mSelectModel.itemStr);
+        mGoTOP.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //回顶部
+                buildFragment.gotoTop();
+            }
+        });
+
         mSubmit.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -216,8 +228,8 @@ public class ReportRecordActivity extends FragmentActivity {
 
     private void createTable(final ReportBuildModel buildModel, String input, final BuildTypeBaseService service) {
         Toast.makeText(mContext, "结果已提交，正在生成excel表", Toast.LENGTH_SHORT).show();
-        buildModel.tableName = input;
-        buildModel.dateStr = DateUtil.getCurrentTime();
+        buildModel.tableName = input + "_" + mSelectModel.itemStr;
+        buildModel.dateStr = DateUtil.getCurrentDate();
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -12,7 +12,7 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         app:stock_title_text_msg="填写页"
-        app:stock_title_text_style="@style/text_20_ffffff" />
+        />
 
     <LinearLayout
         android:id="@+id/bottomlayout"
@@ -22,6 +22,15 @@
         android:background="#d2d2d2"
         android:gravity="right"
         android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/go_top_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="回顶部" />
 
         <Button
             android:id="@+id/submit"

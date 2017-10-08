@@ -1,23 +1,23 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources><color name="hotel_coupon_nopress">#52bce8</color>
-    <color name="stock_main_color">#214E82</color>
+<resources>
+    <color name="stock_main_color">#2295BD</color>
     <color name="background_dialog">#99000000</color>
     <color name="carrental_dark2">#d7d7d7</color>
     <color name="transparent">#00000000</color>
 
-	<color name="hotel_coupon_press">#3983a2</color>
-	<color name="hotel_inquire_after6_color">#b2b2b2</color>
+    <color name="hotel_coupon_press">#3983a2</color>
+    <color name="hotel_inquire_after6_color">#b2b2b2</color>
     <color name="hotel_inquire_before6_color">#099fde</color>
     <color name="hotel_gloabal_city_promotion">#25b5ff</color>
-	<color name="ui_bg_divider5">#dfdfdf</color>
+    <color name="ui_bg_divider5">#dfdfdf</color>
     <color name="hotel_facility">#f6f6f6</color>
-	<color name="hotel_order_people">#fff9e6</color>
+    <color name="hotel_order_people">#fff9e6</color>
     <color name="hotel_addtion_comment_bg">#e9f6fc</color>
-	<color name="hotel_reply_bg">#f3f3f3</color>
+    <color name="hotel_reply_bg">#f3f3f3</color>
     <color name="hotel_list_search_input">#e6f0f7</color>
-	<drawable name="hotel_comment_editor_bg_normal">#00000000</drawable>
+    <drawable name="hotel_comment_editor_bg_normal">#00000000</drawable>
     <drawable name="hotel_comment_editor_bg_pressed">#50000000</drawable>
-	<color name="hotel_city_item_title_bg">#efefef</color>
+    <color name="hotel_city_item_title_bg">#efefef</color>
     <color name="hotel_city_item_title_line">#bcbcbc</color>
     <color name="hotel_city_select_special_white_bg">#ffffff</color>
     <color name="hotel_city_right_index_color">#099fde</color>
@@ -89,4 +89,4 @@
     <color name="hotel_color_f34934">#f34934</color>
     <color name="hotel_color_fba765">#fba765</color>
     <color name="hotel_color_fe802c">#fe802c</color>
- </resources>
+</resources>

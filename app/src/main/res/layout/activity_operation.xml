@@ -9,12 +9,13 @@
     <com.lxl.valvedemo.view.StockTitleView
         android:id="@+id/text_title"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        app:stock_title_text_msg="操作列表"
-        app:stock_title_text_style="@style/text_20_ffffff" />
+        app:stock_title_text_msg="中原输油气分公司"
+        />
 
     <LinearLayout
+        android:id="@+id/btn_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/text_title"
@@ -24,29 +25,34 @@
 
         <Button
             android:id="@+id/select_btn"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/select_button_bg"
             android:padding="30dp"
             android:text="进入选择页" />
 
         <Button
             android:id="@+id/make_camera"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@drawable/select_button_bg"
             android:padding="30dp"
             android:text="拍照" />
 
         <Button
             android:id="@+id/location"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:background="@drawable/select_button_bg"
             android:padding="30dp"
             android:text="定位" />
+
+        <Button
+            android:id="@+id/test_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:padding="30dp"
+            android:text="测试" />
     </LinearLayout>
 
 

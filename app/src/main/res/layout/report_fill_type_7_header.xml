@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="作业区信息" />
+            android:hint="作业区信息" />
 
 
     </LinearLayout>
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="场站信息" />
+            android:hint="场站信息" />
 
     </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="检修人员信息" />
+            android:hint="检修人员信息" />
 
     </LinearLayout>
 

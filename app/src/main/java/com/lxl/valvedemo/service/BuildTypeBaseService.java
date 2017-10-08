@@ -52,15 +52,33 @@ public abstract class BuildTypeBaseService {
         return cell;
     }
 
+    public HSSFCell createBaseNoBorderCell(HSSFWorkbook wb, HSSFRow row, int position) {
+        HSSFCell cell = row.createCell(position);
+        cell.setCellStyle(StyleUtil.createFont10LeftNoBorderStyle(wb));
+        return cell;
+    }
+
     public HSSFCell createDescBoldCell(HSSFWorkbook wb, HSSFRow row, int position) {
         HSSFCell cell = row.createCell(position);
         cell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         return cell;
     }
 
+    public HSSFCell createDescBoldNoBorderCell(HSSFWorkbook wb, HSSFRow row, int position) {
+        HSSFCell cell = row.createCell(position);
+        cell.setCellStyle(StyleUtil.createFont12BoldLeftNoBorderStyle(wb));
+        return cell;
+    }
+
     public HSSFCell createDescCell(HSSFWorkbook wb, HSSFRow row, int position) {
         HSSFCell cell = row.createCell(position);
         cell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
+        return cell;
+    }
+
+    public HSSFCell createDescCenterFontCell(HSSFWorkbook wb, HSSFRow row, int position) {
+        HSSFCell cell = row.createCell(position);
+        cell.setCellStyle(StyleUtil.createFont12BoldCenterStyle(wb));
         return cell;
     }
 

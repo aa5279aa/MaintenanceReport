@@ -104,6 +104,7 @@ public class BuildType7Service extends BuildTypeBaseService {
                         headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
                         HSSFCell checkCell = headerRow.createCell(1);
                         HSSFCell descCell = headerRow.createCell(2);
+                        sheet.addMergedRegion(new CellRangeAddress(headerRow.getRowNum(), headerRow.getRowNum(), 2, 3));
 
                         checkCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
                         descCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
@@ -128,6 +129,7 @@ public class BuildType7Service extends BuildTypeBaseService {
                             headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
                             HSSFCell checkCell = headerRow.createCell(1);
                             HSSFCell descCell = headerRow.createCell(2);
+                            sheet.addMergedRegion(new CellRangeAddress(headerRow.getRowNum(), headerRow.getRowNum(), 2, 3));
 
                             checkCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
                             descCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
@@ -158,8 +160,8 @@ public class BuildType7Service extends BuildTypeBaseService {
             HSSFCell checkerCell = bottomRow.createCell(0);
             HSSFCell dateCell = bottomRow.createCell(2);
 
-            checkerCell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
-            dateCell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
+            checkerCell.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
+            dateCell.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
 
             checkerCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText);
             dateCell.setCellValue(reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));

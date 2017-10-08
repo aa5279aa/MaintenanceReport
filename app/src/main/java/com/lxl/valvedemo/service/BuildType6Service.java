@@ -128,8 +128,8 @@ public class BuildType6Service extends BuildTypeBaseService {
         HSSFCell dateCell = bottomRow.createCell(2);
         checkerCell.setCellValue(reportModelType6.checkerName + reportModelType6.checkerText);
         dateCell.setCellValue(reportModelType6.dateName + DateUtil.formatDateTime2String(reportModelType6.dateText));
-        checkerCell.setCellStyle(StyleUtil.createFont11Center(wb));
-        dateCell.setCellStyle(StyleUtil.createFont11Center(wb));
+        checkerCell.setCellStyle(StyleUtil.createFont11NoBorderCenter(wb));
+        dateCell.setCellStyle(StyleUtil.createFont11NoBorderCenter(wb));
         sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(6.2));

@@ -160,12 +160,12 @@ public class BuildType2Service extends BuildTypeBaseService {
             if (i == -1) {
                 HSSFRow headerRow = sheet.createRow(i + 3);
                 headerRow.setHeight(StyleUtil.getRowHeight(28.5));
-                HSSFCell typeCellCell = createDescBoldCell(wb, headerRow, 0);
-                HSSFCell positionCellCell = createDescBoldCell(wb, headerRow, 1);
-                HSSFCell equipmentTypeCell = createDescBoldCell(wb, headerRow, 2);
-                HSSFCell requireCell = createDescBoldCell(wb, headerRow, 3);
-                HSSFCell checkrecordCell = createDescBoldCell(wb, headerRow, 4);
-                HSSFCell checkdescCell = createDescBoldCell(wb, headerRow, 5);
+                HSSFCell typeCellCell = createDescCenterFontCell(wb, headerRow, 0);
+                HSSFCell positionCellCell = createDescCenterFontCell(wb, headerRow, 1);
+                HSSFCell equipmentTypeCell = createDescCenterFontCell(wb, headerRow, 2);
+                HSSFCell requireCell = createDescCenterFontCell(wb, headerRow, 3);
+                HSSFCell checkrecordCell = createDescCenterFontCell(wb, headerRow, 4);
+                HSSFCell checkdescCell = createDescCenterFontCell(wb, headerRow, 5);
                 typeCellCell.setCellValue(typeCellStr);
                 positionCellCell.setCellValue(positionCellStr);
                 equipmentTypeCell.setCellValue(equipmentTypeCellStr);
@@ -191,9 +191,14 @@ public class BuildType2Service extends BuildTypeBaseService {
                     HSSFCell typeCell = createDescBoldCell(wb, headerRow, 0);
                     HSSFCell positionCellCell = createBaseCell(wb, headerRow, 1);
                     HSSFCell equipmentTypeCell = createBaseCell(wb, headerRow, 2);
-                    HSSFCell requireCell = createBaseCell(wb, headerRow, 3);
-                    HSSFCell checkrecordCell = createBaseCell(wb, headerRow, 4);
+                    HSSFCell requireCell = createBaseCell(wb, headerRow, 3);//
+                    HSSFCell checkrecordCell = createBaseCell(wb, headerRow, 4);//
                     HSSFCell checkdescCell = createBaseCell(wb, headerRow, 5);
+
+                    float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(cellModel.requireDesc, 14, 25);
+                    float excelCellAutoHeight1 = StyleUtil.getExcelCellAutoHeight(cellModel.checkRecord, 14, 25);
+                    excelCellAutoHeight = excelCellAutoHeight > excelCellAutoHeight1 ? excelCellAutoHeight : excelCellAutoHeight1;
+                    headerRow.setHeight((short) excelCellAutoHeight);
 
                     typeCell.setCellValue(typeCellStr);
                     positionCellCell.setCellValue(sheet.getLastRowNum() - 2);
@@ -212,10 +217,10 @@ public class BuildType2Service extends BuildTypeBaseService {
         int nextRow = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRow);
         bottomRow.setHeight(StyleUtil.getRowHeight(28.5));
-        HSSFCell checkerNameCell = createDescBoldCell(wb, bottomRow, 1);
-        HSSFCell checkerTextCell = createDescBoldCell(wb, bottomRow, 3);
-        HSSFCell dateNameCell = createDescBoldCell(wb, bottomRow, 4);
-        HSSFCell dateTextCell = createDescBoldCell(wb, bottomRow, 5);
+        HSSFCell checkerNameCell = createDescBoldNoBorderCell(wb, bottomRow, 1);
+        HSSFCell checkerTextCell = createDescBoldNoBorderCell(wb, bottomRow, 3);
+        HSSFCell dateNameCell = createDescBoldNoBorderCell(wb, bottomRow, 4);
+        HSSFCell dateTextCell = createDescBoldNoBorderCell(wb, bottomRow, 5);
         checkerNameCell.setCellValue(inspectionReportModel.checkerName);
         checkerTextCell.setCellValue(inspectionReportModel.checkerText);
         dateNameCell.setCellValue(inspectionReportModel.dateName);

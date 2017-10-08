@@ -2,6 +2,7 @@ package com.lxl.valvedemo.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.View;
@@ -22,6 +23,7 @@ public class StockTitleView extends RelativeLayout {
     ImageView mBackBtn;
     ImageView mActionBtn;
 
+    int TAKE_PICTURE = 101;
 
     public StockTitleView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,7 +39,7 @@ public class StockTitleView extends RelativeLayout {
         this.mContext = context;
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.StockTitleView);
         String title = a.getString(R.styleable.StockTitleView_stock_title_text_msg);
-        int titleStyle = a.getResourceId(R.styleable.StockTitleView_stock_title_text_style, R.style.text_18_ffffff);
+        int titleStyle = a.getResourceId(R.styleable.StockTitleView_stock_title_text_style, R.style.text_20_ffffff);
         a.recycle();
         inflate(context, R.layout.stock_view_basetitle, this);
         initView();
@@ -56,7 +58,13 @@ public class StockTitleView extends RelativeLayout {
                 ((Activity) mContext).finish();
             }
         });
+        mActionBtn.setOnClickListener(new View.OnClickListener() {
 
+            @Override
+            public void onClick(View v) {
+                ((Activity) mContext).startActivityForResult(new Intent("android.media.action.IMAGE_CAPTURE"), TAKE_PICTURE);
+            }
+        });
     }
 
     private void initView() {
@@ -73,4 +81,9 @@ public class StockTitleView extends RelativeLayout {
         mTitle.setText(title);
         mTitle.setTextAppearance(mContext, style);
     }
+
+    public void setActionBtnShow(int state) {
+        mActionBtn.setVisibility(state);
+    }
+
 }

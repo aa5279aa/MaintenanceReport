@@ -168,9 +168,9 @@ BuildType3Service extends BuildTypeBaseService {
                         row = sheet.createRow(rowNum);
                         HSSFCell subCell0 = createBaseCell(wb, row, 0);
                         HSSFCell subCell1 = createBaseCell(wb, row, 1);
-                        HSSFCell subCell5 = createBaseCell(wb, row, 5);
+                        HSSFCell subCell5 = createBaseCell(wb, row, 5);//lxltest bug
                         sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 1, 4));
-                        float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc,12, 24);
+                        float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc, 14, 24);
                         row.setHeight(StyleUtil.getRowHeight(excelCellAutoHeight));
                         subCell0.setCellValue(subByNormal.subNormalTitle);
                         subCell1.setCellValue(normalItemValue.columDesc);
@@ -219,10 +219,10 @@ BuildType3Service extends BuildTypeBaseService {
 
         nextRowNum = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRowNum);
-        HSSFCell bottomCell0 = createDescCell(wb, bottomRow, 0);
-        HSSFCell bottomCell1 = createBaseCell(wb, bottomRow, 1);
-        HSSFCell bottomCell4 = createDescCell(wb, bottomRow, 4);
-        HSSFCell bottomCell5 = createBaseCell(wb, bottomRow, 5);
+        HSSFCell bottomCell0 = createDescBoldNoBorderCell(wb, bottomRow, 0);
+        HSSFCell bottomCell1 = createBaseNoBorderCell(wb, bottomRow, 1);
+        HSSFCell bottomCell4 = createDescBoldNoBorderCell(wb, bottomRow, 4);
+        HSSFCell bottomCell5 = createBaseNoBorderCell(wb, bottomRow, 5);
         bottomCell0.setCellValue(maintainReportByArea.productName);
         bottomCell1.setCellValue(maintainReportByArea.productText);
         bottomCell4.setCellValue(maintainReportByArea.checkerName);

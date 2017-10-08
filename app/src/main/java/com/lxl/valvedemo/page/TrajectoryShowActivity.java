@@ -99,7 +99,6 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         ArrayList<LocationRecordModel> list = (ArrayList<LocationRecordModel>) getIntent().getSerializableExtra(RECORD);
         mPath = getIntent().getStringExtra(PATH);
         mName = getIntent().getStringExtra(NAME);
-        list = null;
         if (list == null) {
             recordList.addAll(DataConfig.getRecordList());
         } else {

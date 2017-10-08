@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="作业区信息" />
+            android:hint="作业区信息" />
 
 
     </LinearLayout>
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="场站信息" />
+            android:hint="场站信息" />
 
     </LinearLayout>
 
@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="保养人员信息" />
+            android:hint="保养人员信息" />
 
     </LinearLayout>
 
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="确认人员签字" />
+            android:hint="确认人员签字" />
 
     </LinearLayout>
 
