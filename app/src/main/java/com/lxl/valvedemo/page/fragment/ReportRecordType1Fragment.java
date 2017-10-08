@@ -82,7 +82,7 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
         inflate.findViewById(R.id.equipment_name_tag3).setOnClickListener(equipmentNamelistener);
         inflate.findViewById(R.id.equipment_name_tag4).setOnClickListener(equipmentNamelistener);
 
-        final TextView fill_specificationEdit = (TextView) inflate.findViewById(R.id.report_fill_specifications_edit);
+        final TextView fill_specificationEdit = (TextView) inflate.findViewById(R.id.report_fill_situation_edit);
         View.OnClickListener fillSituationlistener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +90,7 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
                     return;
                 }
                 String s = ((TextView) v).getText().toString();
-                String oldStr = equipmentEdit.getText().toString();
+                String oldStr = fill_specificationEdit.getText().toString();
                 if (oldStr.contains(s)) {
                     return;
                 }
