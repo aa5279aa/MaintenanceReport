@@ -53,8 +53,8 @@ public class BuildType7Service extends BuildTypeBaseService {
             HSSFCell stationCell = createDescBoldCell(wb, stationRow, 2);
             workAreaCell.setCellValue(reportModelType7.workAreaName + reportModelType7.workAreaText);
             stationCell.setCellValue(reportModelType7.stationName + reportModelType7.stationText);
-            sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 1));
-            sheet.addMergedRegion(new CellRangeAddress(1, 1, 2, 3));
+            mergedRegion(wb, sheet, 1, 1, 0, 1);
+            mergedRegion(wb, sheet, 1, 1, 2, 3);
 
             if (reportModelType7.reportItemModelList.size() == 0) {
                 FileOutputStream fileOut = new FileOutputStream(outFile);
@@ -82,7 +82,7 @@ public class BuildType7Service extends BuildTypeBaseService {
                     indexCell.setCellValue(indexCellStr);
                     checkInfoCell.setCellValue(checkInfoStr);
                     checkDescCell.setCellValue(checkDescStr);
-                    sheet.addMergedRegion(new CellRangeAddress(headerRow.getRowNum(), headerRow.getRowNum(), 2, 3));
+                    mergedRegion(wb, sheet, headerRow.getRowNum(), headerRow.getRowNum(), 2, 3);
                     continue;
                 }
                 //每一行的逻辑处理
@@ -104,7 +104,7 @@ public class BuildType7Service extends BuildTypeBaseService {
                         headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
                         HSSFCell checkCell = headerRow.createCell(1);
                         HSSFCell descCell = headerRow.createCell(2);
-                        sheet.addMergedRegion(new CellRangeAddress(headerRow.getRowNum(), headerRow.getRowNum(), 2, 3));
+                        mergedRegion(wb, sheet, headerRow.getRowNum(), headerRow.getRowNum(), 2, 3);
 
                         checkCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
                         descCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
@@ -129,7 +129,7 @@ public class BuildType7Service extends BuildTypeBaseService {
                             headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
                             HSSFCell checkCell = headerRow.createCell(1);
                             HSSFCell descCell = headerRow.createCell(2);
-                            sheet.addMergedRegion(new CellRangeAddress(headerRow.getRowNum(), headerRow.getRowNum(), 2, 3));
+                            mergedRegion(wb, sheet, headerRow.getRowNum(), headerRow.getRowNum(), 2, 3);
 
                             checkCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
                             descCell.setCellStyle(StyleUtil.createFont8LeftStyle(wb));
@@ -152,7 +152,7 @@ public class BuildType7Service extends BuildTypeBaseService {
 
             descNameCell.setCellValue(reportModelType7.descName);
             descTextCell.setCellValue(reportModelType7.descText);
-            sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 1, 3));
+            mergedRegion(wb, sheet, bottomRow.getRowNum(), bottomRow.getRowNum(), 1, 3);
 
             bottomRow = sheet.createRow(sheet.getLastRowNum() + 2);
             bottomRow.setHeight(StyleUtil.getRowHeight(15.6));
@@ -166,8 +166,8 @@ public class BuildType7Service extends BuildTypeBaseService {
             checkerCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText);
             dateCell.setCellValue(reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));
 
-            sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
-            sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 2, 3));
+            mergedRegion(wb, sheet, bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1);
+            mergedRegion(wb, sheet, bottomRow.getRowNum(), bottomRow.getRowNum(), 2, 3);
 
             sheet.setColumnWidth(0, StyleUtil.getColumnWidth(3));
             sheet.setColumnWidth(1, StyleUtil.getColumnWidth(35));

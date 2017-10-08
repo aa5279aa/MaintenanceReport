@@ -7,6 +7,8 @@ import com.lxl.valvedemo.util.StyleUtil;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellRangeAddress;
 
@@ -87,7 +89,17 @@ public abstract class BuildTypeBaseService {
      * 如果没有单元格就创建并只添加边框样式
      * 如果有就直接合并
      */
-    public void mergedRegion(Sheet sheet, int firstRow, int lastRow, int firstCol, int lastCol) {
+    public void mergedRegion(HSSFWorkbook wb, Sheet sheet, int firstRow, int lastRow, int firstCol, int lastCol) {
+        for (int i = firstRow; i <= lastRow; i++) {
+            Row row = sheet.getRow(i);
+            for (int j = firstCol; j <= lastCol; j++) {
+                Cell cell = row.getCell(j);
+                if (cell == null) {
+                    cell = row.createCell(j);
+                    cell.setCellStyle(StyleUtil.createBorderStyle(wb));
+                }
+            }
+        }
         sheet.addMergedRegion(new CellRangeAddress(firstRow, lastRow, firstCol, lastCol));
     }
 

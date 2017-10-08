@@ -56,9 +56,9 @@ public class TableConfig {
         if (split.length < 3) {
             return;
         }
-        String plate = split[0];
-        String major = split[1];
-        String form = split[2];
+        String plate = split[0].trim();
+        String major = split[1].trim();
+        String form = split[2].trim();
         String parseType = "1";
         String tableTitle = "table名称";
         if (split.length >= 4) {

@@ -105,7 +105,7 @@ public class BuildType6Service extends BuildTypeBaseService {
             if (headerRow != null) {
                 int startRowNum = itemHeader.getRowNum();
                 int endRowNum = itemHeader.getRowNum() + size;
-                sheet.addMergedRegion(new CellRangeAddress(startRowNum, endRowNum, 2, 2));
+                mergedRegion(wb, sheet,  startRowNum, endRowNum, 2, 2);
             }
         }
 

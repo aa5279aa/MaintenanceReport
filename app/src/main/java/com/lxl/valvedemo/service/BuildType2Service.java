@@ -141,8 +141,8 @@ public class BuildType2Service extends BuildTypeBaseService {
         stationCell.setCellValue(inspectionReportModel.stationName + ":" + inspectionReportModel.stationText);
         areaCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         stationCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 2));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
+        mergedRegion(wb, sheet, 1, 1, 0, 2);
+        mergedRegion(wb, sheet, 1, 1, 4, 5);
 
         if (inspectionReportModel.typeModelList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);
@@ -207,10 +207,10 @@ public class BuildType2Service extends BuildTypeBaseService {
                     checkrecordCell.setCellValue(cellModel.checkRecord);
                     checkdescCell.setCellValue(cellModel.checkDesc);
                 }
-                sheet.addMergedRegion(new CellRangeAddress(startSubRomNum, sheet.getLastRowNum(), 2, 2));
+                mergedRegion(wb, sheet, startSubRomNum, sheet.getLastRowNum(), 2, 2);
             }
             //合并单元格
-            sheet.addMergedRegion(new CellRangeAddress(startRomNum, sheet.getLastRowNum(), 0, 0));
+            mergedRegion(wb, sheet, startRomNum, sheet.getLastRowNum(), 0, 0);
         }
 
         //维护保养人员  + 日期

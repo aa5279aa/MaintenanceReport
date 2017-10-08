@@ -160,7 +160,7 @@ public class BuildType5Service extends BuildTypeBaseService {
             if (headerRow != null) {
                 int rowNum = headerRow.getRowNum();
                 int startRowNum = rowNum - subModel.checkInfoList.size() + 1;
-                sheet.addMergedRegion(new CellRangeAddress(startRowNum, rowNum, 1, 1));
+                mergedRegion(wb, sheet, startRowNum, rowNum, 1, 1);
             }
         }
         //                        场站负责人：                  检查人：                  日期：

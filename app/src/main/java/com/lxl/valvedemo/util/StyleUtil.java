@@ -28,6 +28,16 @@ public class StyleUtil {
         return setBorder;
     }
 
+    //创造基础描述的样式
+    public static HSSFCellStyle createBorderStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        setBorder.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
+        setBorder.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
+        setBorder.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
+        setBorder.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+        return setBorder;
+    }
+
 
     //创造基础描述的样式
     public static HSSFCellStyle createFont10LeftStyle(HSSFWorkbook wb) {

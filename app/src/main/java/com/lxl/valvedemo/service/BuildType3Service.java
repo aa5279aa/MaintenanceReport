@@ -66,8 +66,8 @@ BuildType3Service extends BuildTypeBaseService {
         stationTextCell.setCellValue(maintainReportByArea.stationText);
         dateNameCell.setCellValue(maintainReportByArea.dateName);
         dateTextCell.setCellValue(maintainReportByArea.dateText);
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 1, 2));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
+        mergedRegion(wb, sheet, 1, 1, 1, 2);
+        mergedRegion(wb, sheet, 1, 1, 4, 5);
 
         //desc
         HSSFRow headerRow = sheet.createRow(2);
@@ -81,7 +81,7 @@ BuildType3Service extends BuildTypeBaseService {
         cell0.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
         cell1.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
         cell5.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 4));
+        mergedRegion(wb, sheet, 2, 2, 1, 4);
 
         if (maintainReportByArea.scadaList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);
@@ -97,7 +97,7 @@ BuildType3Service extends BuildTypeBaseService {
             HSSFCell cell = row.createCell(0);
             cell.setCellValue(reportBySCADA.scadaTitle);
             cell.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
-            sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 0, 5));
+            mergedRegion(wb, sheet, rowNum, rowNum, 0, 5);
             for (int j = 0; j < reportBySCADA.subList.size(); j++) {
                 MaintainReportSubByBase subByBase = reportBySCADA.subList.get(j);
                 if (subByBase instanceof MaintainReportSubByCPU) {
@@ -130,8 +130,7 @@ BuildType3Service extends BuildTypeBaseService {
                     HSSFCell subTitleCell = sheet.getRow(cpuStartRowNum).createCell(0);
                     subTitleCell.setCellValue(subByCPU.cpuTitle);
                     subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
-                    sheet.addMergedRegion(new CellRangeAddress(cpuStartRowNum, sheet.getLastRowNum(), 0, 0));
-
+                    mergedRegion(wb, sheet, cpuStartRowNum, sheet.getLastRowNum(), 0, 0);
                 } else if (subByBase instanceof MaintainReportSubByESD) {
                     MaintainReportSubByESD subByESD = (MaintainReportSubByESD) subByBase;
                     int esdStartRowNum = sheet.getLastRowNum() + 1;
@@ -158,7 +157,7 @@ BuildType3Service extends BuildTypeBaseService {
                     HSSFCell subTitleCell = createBaseCell(wb, sheet.getRow(esdStartRowNum), 0);
                     subTitleCell.setCellValue(subByESD.esdTitle);
                     subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
-                    sheet.addMergedRegion(new CellRangeAddress(esdStartRowNum, sheet.getLastRowNum(), 0, 0));
+                    mergedRegion(wb, sheet, esdStartRowNum, sheet.getLastRowNum(), 0, 0);
                 } else {
                     MaintainReportSubByNormal subByNormal = (MaintainReportSubByNormal) subByBase;
                     int normalStartRowNum = sheet.getLastRowNum() + 1;
@@ -169,7 +168,7 @@ BuildType3Service extends BuildTypeBaseService {
                         HSSFCell subCell0 = createBaseCell(wb, row, 0);
                         HSSFCell subCell1 = createBaseCell(wb, row, 1);
                         HSSFCell subCell5 = createBaseCell(wb, row, 5);//lxltest bug
-                        sheet.addMergedRegion(new CellRangeAddress(rowNum, rowNum, 1, 4));
+                        mergedRegion(wb, sheet, rowNum, rowNum, 1, 4);
                         float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc, 14, 24);
                         row.setHeight(StyleUtil.getRowHeight(excelCellAutoHeight));
                         subCell0.setCellValue(subByNormal.subNormalTitle);
@@ -177,7 +176,7 @@ BuildType3Service extends BuildTypeBaseService {
                         subCell5.setCellValue(normalItemValue.columText);
                     }
                     //合并单元格
-                    sheet.addMergedRegion(new CellRangeAddress(normalStartRowNum, sheet.getLastRowNum(), 0, 0));
+                    mergedRegion(wb, sheet, normalStartRowNum, sheet.getLastRowNum(), 0, 0);
                 }
             }
 
@@ -187,7 +186,7 @@ BuildType3Service extends BuildTypeBaseService {
         int nextRowNum = sheet.getLastRowNum() + 1;
         HSSFRow nextRow = sheet.createRow(nextRowNum);
         HSSFCell nextCell = nextRow.createCell(0);
-        sheet.addMergedRegion(new CellRangeAddress(nextRowNum, nextRowNum, 0, 5));
+        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 5);
         nextRow.setHeight(StyleUtil.getRowHeight(160));
         nextCell.setCellValue(maintainReportByArea.maintainDescName + maintainReportByArea.maintainDescText);
         nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
@@ -196,7 +195,7 @@ BuildType3Service extends BuildTypeBaseService {
         nextRow = sheet.createRow(nextRowNum);
         nextCell = nextRow.createCell(0);
         nextRow.setHeight(StyleUtil.getRowHeight(160));
-        sheet.addMergedRegion(new CellRangeAddress(nextRowNum, nextRowNum, 0, 5));
+        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 5);
         nextCell.setCellValue(maintainReportByArea.maintainOtherName + maintainReportByArea.maintainOtherText);
         nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
 
@@ -204,7 +203,7 @@ BuildType3Service extends BuildTypeBaseService {
         nextRow = sheet.createRow(nextRowNum);
         nextCell = nextRow.createCell(0);
         nextRow.setHeight(StyleUtil.getRowHeight(160));
-        sheet.addMergedRegion(new CellRangeAddress(nextRowNum, nextRowNum, 0, 5));
+        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 5);
         nextCell.setCellValue(maintainReportByArea.stationConfirmName + maintainReportByArea.stationConfirmText);
         nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
 

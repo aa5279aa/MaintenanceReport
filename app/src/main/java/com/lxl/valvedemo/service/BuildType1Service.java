@@ -49,8 +49,8 @@ public class BuildType1Service extends BuildTypeBaseService {
         areaCell.setCellValue(maintainReportModel.workAreaName + ":" + maintainReportModel.workAreaText);
         stationCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         areaCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 3));
-        sheet.addMergedRegion(new CellRangeAddress(1, 1, 4, 5));
+        mergedRegion(wb, sheet, 1, 1, 0, 3);
+        mergedRegion(wb, sheet, 1, 1, 4, 5);
 
         if (maintainReportModel.maintainList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);

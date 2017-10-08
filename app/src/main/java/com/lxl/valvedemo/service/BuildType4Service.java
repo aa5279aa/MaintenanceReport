@@ -97,7 +97,7 @@ public class BuildType4Service extends BuildTypeBaseService {
         HSSFCell cell = bottomRow.createCell(0);
         cell.setCellValue("注：1、允许示值误差±5%LEL；2、请将存在问题的报警器数量统计后上报安全科。");
         cell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 2));
+        mergedRegion(wb, sheet, nextRow, nextRow, 0, 2);
 
         nextRow = sheet.getLastRowNum() + 1;
         bottomRow = sheet.createRow(nextRow);
