@@ -21,14 +21,14 @@
 
             <TextView
                 android:id="@+id/report_fill_equipment_name"
-                style="@style/text_14_000000"
+                style="@style/text_19_000000_b"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="设备名称" />
 
             <TextView
                 android:id="@+id/report_fill_equipment_edit"
-                style="@style/text_16_000000"
+                style="@style/text_18_333333"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
@@ -108,17 +108,18 @@
 
         <TextView
             android:id="@+id/report_fill_specifications_name"
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="规格型号" />
 
         <EditText
             android:id="@+id/report_fill_specifications_edit"
-            style="@style/text_16_000000"
+            style="@style/text_18_333333"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="请填写规格型号" />
+            android:hint="请填写规格型号"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 
@@ -131,17 +132,18 @@
 
         <TextView
             android:id="@+id/report_fill_number_name"
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="设备编号" />
 
         <EditText
             android:id="@+id/report_fill_number_edit"
-            style="@style/text_16_000000"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="请填设备编号" />
+            android:hint="请填设备编号"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 
@@ -155,18 +157,19 @@
 
         <TextView
             android:id="@+id/report_fill_situation_name"
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="检查与维护保养情况" />
 
         <EditText
             android:id="@+id/report_fill_situation_edit"
-            style="@style/text_16_000000"
+            style="@style/text_18_333333"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请填写保养情况"
-            android:minHeight="50dp" />
+            android:minHeight="50dp"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 
@@ -231,17 +234,19 @@
 
         <TextView
             android:id="@+id/report_fill_desc_name"
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="备注" />
 
         <EditText
             android:id="@+id/report_fill_desc_edit"
+            style="@style/text_18_333333"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="请填写备注"
-            android:minHeight="50dp" />
+            android:minHeight="50dp"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 

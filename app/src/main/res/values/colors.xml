@@ -5,6 +5,8 @@
     <color name="carrental_dark2">#d7d7d7</color>
     <color name="transparent">#00000000</color>
 
+    <color name="hint_color">#cccccc</color>
+
     <color name="hotel_coupon_press">#3983a2</color>
     <color name="hotel_inquire_after6_color">#b2b2b2</color>
     <color name="hotel_inquire_before6_color">#099fde</color>
