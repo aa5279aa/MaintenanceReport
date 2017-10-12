@@ -136,10 +136,12 @@ public class BuildType2Service extends BuildTypeBaseService {
         HSSFRow areaRow = sheet.createRow(1);
         areaRow.setHeight(StyleUtil.getRowHeight(28.5));
         HSSFCell areaCell = areaRow.createCell(0);
+        HSSFCell bolderCell = areaRow.createCell(3);
         HSSFCell stationCell = areaRow.createCell(4);
         areaCell.setCellValue(inspectionReportModel.workAreaName + ":" + inspectionReportModel.workAreaText);
         stationCell.setCellValue(inspectionReportModel.stationName + ":" + inspectionReportModel.stationText);
         areaCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+        bolderCell.setCellStyle(StyleUtil.createBorderStyle(wb));
         stationCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         mergedRegion(wb, sheet, 1, 1, 0, 2);
         mergedRegion(wb, sheet, 1, 1, 4, 5);
@@ -187,7 +189,6 @@ public class BuildType2Service extends BuildTypeBaseService {
                 for (int k = 0; k < subTypeModel.cellModelList.size(); k++) {
                     InspectionReportSubTypeModel.InspectionReportCellModel cellModel = subTypeModel.cellModelList.get(k);
                     HSSFRow headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
-                    headerRow.setHeight(StyleUtil.getRowHeight(14.25));
                     HSSFCell typeCell = createDescBoldCell(wb, headerRow, 0);
                     HSSFCell positionCellCell = createBaseCell(wb, headerRow, 1);
                     HSSFCell equipmentTypeCell = createBaseCell(wb, headerRow, 2);
@@ -195,10 +196,10 @@ public class BuildType2Service extends BuildTypeBaseService {
                     HSSFCell checkrecordCell = createBaseCell(wb, headerRow, 4);//
                     HSSFCell checkdescCell = createBaseCell(wb, headerRow, 5);
 
-                    float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(cellModel.requireDesc, 14, 25);
-                    float excelCellAutoHeight1 = StyleUtil.getExcelCellAutoHeight(cellModel.checkRecord, 14, 25);
+                    short excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(cellModel.requireDesc, 14, 25);
+                    short excelCellAutoHeight1 = StyleUtil.getExcelCellAutoHeight(cellModel.checkRecord, 14, 25);
                     excelCellAutoHeight = excelCellAutoHeight > excelCellAutoHeight1 ? excelCellAutoHeight : excelCellAutoHeight1;
-                    headerRow.setHeight((short) excelCellAutoHeight);
+                    headerRow.setHeight(excelCellAutoHeight);
 
                     typeCell.setCellValue(typeCellStr);
                     positionCellCell.setCellValue(sheet.getLastRowNum() - 2);

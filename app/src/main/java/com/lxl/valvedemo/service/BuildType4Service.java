@@ -33,7 +33,6 @@ public class BuildType4Service extends BuildTypeBaseService {
         //拷贝这种类型文件到到指定的目录
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
-        HSSFCellStyle descStyle = StyleUtil.createFont12BoldLeftStyle(wb);
 
         //title
         HSSFRow titleRow = sheet.createRow(0);
@@ -46,10 +45,12 @@ public class BuildType4Service extends BuildTypeBaseService {
         //desc
         HSSFRow areaRow = sheet.createRow(1);
         HSSFCell areaNameCell = areaRow.createCell(0);
+        HSSFCell borderCell = areaRow.createCell(1);
         HSSFCell showValueNameCell = areaRow.createCell(2);
         areaRow.setHeight(StyleUtil.getRowHeight(20));
 
         areaNameCell.setCellStyle(StyleUtil.createFont12BoldCenterStyle(wb));
+        borderCell.setCellStyle(StyleUtil.createBorderStyle(wb));
         showValueNameCell.setCellStyle(StyleUtil.createFont12BoldCenterStyle(wb));
 
         areaNameCell.setCellValue(alertReportModel.stationText + alertReportModel.stationName);
@@ -74,8 +75,7 @@ public class BuildType4Service extends BuildTypeBaseService {
                 indexCellStr = String.valueOf(alertReportItemModel.index);
                 installStr = alertReportItemModel.installPosition;
                 showValueStr = alertReportItemModel.showValue;
-                float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(installStr, 15, 29);
-                headerRow.setHeight(StyleUtil.getRowHeight(excelCellAutoHeight));
+                headerRow.setHeight(StyleUtil.getExcelCellAutoHeight(installStr, 15, 29));
                 indexCell.setCellStyle(StyleUtil.createFont10LeftStyle(wb));
                 installCell.setCellStyle(StyleUtil.createFont10LeftStyle(wb));
                 showValueCell.setCellStyle(StyleUtil.createFont10LeftStyle(wb));
@@ -98,6 +98,7 @@ public class BuildType4Service extends BuildTypeBaseService {
         cell.setCellValue("注：1、允许示值误差±5%LEL；2、请将存在问题的报警器数量统计后上报安全科。");
         cell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
         mergedRegion(wb, sheet, nextRow, nextRow, 0, 2);
+        bottomRow.setHeight(StyleUtil.getRowHeight(16));
 
         nextRow = sheet.getLastRowNum() + 1;
         bottomRow = sheet.createRow(nextRow);
@@ -113,11 +114,8 @@ public class BuildType4Service extends BuildTypeBaseService {
         checkCellName.setCellValue(alertReportModel.checkerName);
         checkCellText.setCellValue(alertReportModel.checkerText);
 
-        dateCell.setCellStyle(descStyle);
         String s = DateUtil.formatDateTime2String(alertReportModel.checkDateText);
         dateCell.setCellValue(alertReportModel.checkDateName + s);
-
-        sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(25));
         sheet.setColumnWidth(1, StyleUtil.getColumnWidth(52));

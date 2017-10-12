@@ -40,7 +40,7 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.report_fill_type_1, container, false);
+        return inflater.inflate(R.layout.report_fill_type_2, container, false);
     }
 
     @Override

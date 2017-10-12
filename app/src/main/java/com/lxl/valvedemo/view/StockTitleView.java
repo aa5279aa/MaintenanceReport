@@ -74,7 +74,7 @@ public class StockTitleView extends RelativeLayout {
     }
 
     public void setTitle(String title) {
-        setTitle(title, R.style.text_18_ffffff);
+        setTitle(title, R.style.text_20_ffffff);
     }
 
     public void setTitle(String title, int style) {

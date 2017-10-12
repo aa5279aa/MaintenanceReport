@@ -13,9 +13,8 @@ public class MaintainReportSubByESD extends MaintainReportSubByBase {
     public String cpuColumName2 = "";//F30
     public String cpuColumName3 = "";//IO1
     public String cpuColumName4 = "";//IO2
-    public int topRow;
-    public int lastRow;
     public List<MaintainReportByESDItemValue> esdItemValueList = new ArrayList<>();
+    public String subDesc = "";//描述
 
     public MaintainReportSubByESD(int position) {
         super(position);

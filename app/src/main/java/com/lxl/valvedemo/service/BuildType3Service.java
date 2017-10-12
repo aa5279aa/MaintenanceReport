@@ -4,9 +4,6 @@ import android.util.Log;
 
 import com.lxl.valvedemo.inter.BuildResultInter;
 import com.lxl.valvedemo.model.buildModel.ReportBuildModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportItemModel;
-import com.lxl.valvedemo.model.buildModel.type1.MaintainReportModel;
-import com.lxl.valvedemo.model.buildModel.type2.InspectionReportModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportByAreaModel;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByBase;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByCPU;
@@ -54,6 +51,7 @@ BuildType3Service extends BuildTypeBaseService {
         titleCell.setCellValue(maintainReportByArea.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleSmallFontStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+        titleRow.setHeight(StyleUtil.getRowHeight(28.5));
 
         //desc
         HSSFRow areaRow = sheet.createRow(1);
@@ -97,18 +95,34 @@ BuildType3Service extends BuildTypeBaseService {
             HSSFCell cell = row.createCell(0);
             cell.setCellValue(reportBySCADA.scadaTitle);
             cell.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
+            row.setHeight(StyleUtil.getRowHeight(15));
             mergedRegion(wb, sheet, rowNum, rowNum, 0, 5);
             for (int j = 0; j < reportBySCADA.subList.size(); j++) {
                 MaintainReportSubByBase subByBase = reportBySCADA.subList.get(j);
                 if (subByBase instanceof MaintainReportSubByCPU) {
                     MaintainReportSubByCPU subByCPU = (MaintainReportSubByCPU) subByBase;
                     int cpuStartRowNum = sheet.getLastRowNum() + 1;
+                    //创建title
+                    row = sheet.createRow(cpuStartRowNum);
+                    HSSFCell descCell1 = createBaseCell(wb, row, 1);
+                    HSSFCell descCell3 = createBaseCell(wb, row, 3);
+                    HSSFCell descCell4 = createBaseCell(wb, row, 4);
+                    descCell1.setCellValue(subByCPU.cpuColumName0);
+                    descCell3.setCellValue(subByCPU.cpuColumName1);
+                    descCell4.setCellValue(subByCPU.cpuColumName2);
+                    if (!tableName.contains("冀宁")) {
+                        HSSFCell descCell5 = createBaseCell(wb, row, 5);
+                        HSSFCell descCell6 = createBaseCell(wb, row, 6);
+                        descCell5.setCellValue(subByCPU.cpuColumName3);
+                        descCell6.setCellValue(subByCPU.cpuColumName4);
+                    }
+                    mergedRegion(wb, sheet, sheet.getLastRowNum(), sheet.getLastRowNum(), 1, 2);
                     for (int k = 0; k < subByCPU.cpuSubList.size(); k++) {
                         MaintainReportSubByCPU.MaintainReportByCPUSubValue cpuSubValue = subByCPU.cpuSubList.get(k);
+                        int subStartNum = sheet.getLastRowNum() + 1;
                         for (int m = 0; m < cpuSubValue.cpuItemValueList.size(); m++) {
                             MaintainReportSubByCPU.MaintainReportByCPUItemValue maintainReportByCPUItemValue = cpuSubValue.cpuItemValueList.get(m);
-                            rowNum = sheet.getLastRowNum() + 1;
-                            row = sheet.createRow(rowNum);
+                            row = sheet.createRow(sheet.getLastRowNum() + 1);
                             //title
                             HSSFCell subCell1 = createBaseCell(wb, row, 1);
                             HSSFCell subCell2 = createBaseCell(wb, row, 2);
@@ -125,12 +139,21 @@ BuildType3Service extends BuildTypeBaseService {
                             subCell3.setCellValue(maintainReportByCPUItemValue.subItemValueText1);
                             subCell4.setCellValue(maintainReportByCPUItemValue.subItemValueText2);
                         }
+                        if (sheet.getLastRowNum() > subStartNum) {
+                            mergedRegion(wb, sheet, subStartNum, sheet.getLastRowNum(), 1, 1);
+                        }
                     }
                     //设置名称并合并单元格
                     HSSFCell subTitleCell = sheet.getRow(cpuStartRowNum).createCell(0);
                     subTitleCell.setCellValue(subByCPU.cpuTitle);
                     subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
+
+                    HSSFCell subDescCell = sheet.getRow(cpuStartRowNum).createCell(5);
+                    subDescCell.setCellValue(subByCPU.subDesc);
+                    subDescCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
+
                     mergedRegion(wb, sheet, cpuStartRowNum, sheet.getLastRowNum(), 0, 0);
+                    mergedRegion(wb, sheet, cpuStartRowNum, sheet.getLastRowNum(), 5, 5);
                 } else if (subByBase instanceof MaintainReportSubByESD) {
                     MaintainReportSubByESD subByESD = (MaintainReportSubByESD) subByBase;
                     int esdStartRowNum = sheet.getLastRowNum() + 1;
@@ -155,9 +178,13 @@ BuildType3Service extends BuildTypeBaseService {
                     }
                     //设置名称并合并单元格
                     HSSFCell subTitleCell = createBaseCell(wb, sheet.getRow(esdStartRowNum), 0);
+                    HSSFCell subDescCell = createBaseCell(wb, sheet.getRow(esdStartRowNum), 5);
                     subTitleCell.setCellValue(subByESD.esdTitle);
                     subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
+                    subDescCell.setCellValue(subByESD.subDesc);
+                    subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
                     mergedRegion(wb, sheet, esdStartRowNum, sheet.getLastRowNum(), 0, 0);
+                    mergedRegion(wb, sheet, esdStartRowNum, sheet.getLastRowNum(), 5, 5);
                 } else {
                     MaintainReportSubByNormal subByNormal = (MaintainReportSubByNormal) subByBase;
                     int normalStartRowNum = sheet.getLastRowNum() + 1;
@@ -167,16 +194,17 @@ BuildType3Service extends BuildTypeBaseService {
                         row = sheet.createRow(rowNum);
                         HSSFCell subCell0 = createBaseCell(wb, row, 0);
                         HSSFCell subCell1 = createBaseCell(wb, row, 1);
-                        HSSFCell subCell5 = createBaseCell(wb, row, 5);//lxltest bug
-                        mergedRegion(wb, sheet, rowNum, rowNum, 1, 4);
-                        float excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc, 14, 24);
-                        row.setHeight(StyleUtil.getRowHeight(excelCellAutoHeight));
+                        HSSFCell subCell5 = createBaseCell(wb, row, 5);//todo
+                        short excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc, 15, 18);
+                        row.setHeight(excelCellAutoHeight);
                         subCell0.setCellValue(subByNormal.subNormalTitle);
                         subCell1.setCellValue(normalItemValue.columDesc);
                         subCell5.setCellValue(normalItemValue.columText);
+                        mergedRegion(wb, sheet, rowNum, rowNum, 1, 4);
                     }
                     //合并单元格
                     mergedRegion(wb, sheet, normalStartRowNum, sheet.getLastRowNum(), 0, 0);
+                    mergedRegion(wb, sheet, normalStartRowNum, sheet.getLastRowNum(), 5, 5);
                 }
             }
 
@@ -278,13 +306,13 @@ BuildType3Service extends BuildTypeBaseService {
                 if (mainAreaModel.tableName.contains("冀宁线")) {
                     reportSubByCPU.cpuColumName1 = "A机架";
                     reportSubByCPU.cpuColumName2 = "B机架";
-                    reportSubByCPU.cpuColumName0 = "B机架";
+                    reportSubByCPU.cpuColumName0 = "记录以下指示灯状态";
                 } else {
                     reportSubByCPU.cpuColumName1 = "PLC-A";
                     reportSubByCPU.cpuColumName2 = "PLC-B";
                     reportSubByCPU.cpuColumName3 = "ESD-A";
                     reportSubByCPU.cpuColumName4 = "ESD-B";
-                    reportSubByCPU.cpuColumName0 = "B机架";
+                    reportSubByCPU.cpuColumName0 = "记录以下指示灯状态";
                 }
                 int[] rowHeightByIndex1 = getRowHeightByIndex(sheet, cell);//cpu机架的高度
                 int k = rowHeightByIndex1[0];

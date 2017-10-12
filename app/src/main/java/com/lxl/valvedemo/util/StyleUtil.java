@@ -221,8 +221,6 @@ public class StyleUtil {
     }
 
 
-
-
     //创造自动换行样式
     public static HSSFCellStyle createWrapTextStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
@@ -260,7 +258,7 @@ public class StyleUtil {
      */
     public static HSSFCellStyle createVerticalTopStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
-        setBorder.setVerticalAlignment(CellStyle.VERTICAL_TOP);//垂直居中
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_TOP);//垂直靠上
         setBorder.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
         setBorder.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
         setBorder.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
@@ -335,13 +333,13 @@ public class StyleUtil {
         return setBorder;
     }
 
-    public static float getExcelCellAutoHeight(String str, float defaultRowHeight, float fontCountInline) {
+    public static short getExcelCellAutoHeight(String str, float defaultRowHeight, float fontCountInline) {
         float defaultCount = 0.00f;
         for (int i = 0; i < str.length(); i++) {
             float ff = getregex(str.substring(i, i + 1));
             defaultCount = defaultCount + ff;
         }
-        return ((int) (defaultCount / fontCountInline) + 1) * defaultRowHeight;//计算
+        return (short) (((defaultCount / fontCountInline) + 1) * defaultRowHeight * 20);//计算
     }
 
     public static float getregex(String charStr) {

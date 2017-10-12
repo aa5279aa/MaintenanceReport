@@ -41,14 +41,16 @@ public class BuildType6Service extends BuildTypeBaseService {
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(reportModelType6.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 2));
 
         //作业区 场站
         HSSFRow stationRow = sheet.createRow(1);
         stationRow.setHeight(StyleUtil.getRowHeight(32));
+        HSSFCell borderCell = stationRow.createCell(1);
         HSSFCell workAreaCell = stationRow.createCell(1);
         HSSFCell stationCell = stationRow.createCell(2);
 
+        borderCell.setCellStyle(StyleUtil.createBorderStyle(wb));
         workAreaCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
         stationCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
 
@@ -93,6 +95,7 @@ public class BuildType6Service extends BuildTypeBaseService {
             indexCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
             checkProjectCell.setCellValue(subModel.projectText);
             checkProjectCell.setCellStyle(StyleUtil.createFont12BoldLeftStyle(wb));
+            checkDescCell.setCellStyle(StyleUtil.createFont10LeftStyle(wb));
             checkDescCell.setCellValue(subModel.checkDesc);
             int size = subModel.checkInfoList.size();
             for (int k = 0; k < size; k++) {
@@ -105,7 +108,7 @@ public class BuildType6Service extends BuildTypeBaseService {
             if (headerRow != null) {
                 int startRowNum = itemHeader.getRowNum();
                 int endRowNum = itemHeader.getRowNum() + size;
-                mergedRegion(wb, sheet,  startRowNum, endRowNum, 2, 2);
+                mergedRegion(wb, sheet, startRowNum, endRowNum, 2, 2);
             }
         }
 

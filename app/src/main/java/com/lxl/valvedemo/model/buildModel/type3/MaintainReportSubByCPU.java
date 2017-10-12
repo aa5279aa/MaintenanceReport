@@ -15,8 +15,7 @@ public class MaintainReportSubByCPU extends MaintainReportSubByBase {
     public String cpuColumName3 = "";//ESD-A
     public String cpuColumName4 = "";//ESD-B
     public List<MaintainReportByCPUSubValue> cpuSubList = new ArrayList<>();
-    public int topRow;
-    public int lastRow;
+    public String subDesc = "";//描述
 
     public MaintainReportSubByCPU(int position) {
         super(position);

@@ -86,18 +86,21 @@ public class BuildType5Service extends BuildTypeBaseService {
         HSSFRow titleRow = sheet.createRow(0);
         titleRow.setHeight(StyleUtil.getRowHeight(25.5));
         HSSFCell titleCell = titleRow.createCell(0);
+        HSSFCell borderCell = titleRow.createCell(2);
         titleCell.setCellValue(reportModelType5.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
+        borderCell.setCellStyle(StyleUtil.createBorderStyle(wb));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 1));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 2, 4));
 
         //desc
         HSSFRow stationRow = sheet.createRow(1);
         stationRow.setHeight(StyleUtil.getRowHeight(25.5));
         HSSFCell stationCellName = stationRow.createCell(0);
         HSSFCell stationCellText = stationRow.createCell(1);
-        stationCellName.setCellStyle(StyleUtil.createFont12BoldCenterStyle(wb));
+        stationCellName.setCellStyle(StyleUtil.createFont12BoldCenterNoBorderStyle(wb));
         stationCellName.setCellValue(reportModelType5.stationName);
-        stationCellText.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
+        stationCellText.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
         stationCellText.setCellValue(reportModelType5.stationText);
 
         if (reportModelType5.reportItemModelList.size() == 0) {

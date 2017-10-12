@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -70,11 +71,16 @@ public class ReportRecordType4Fragment extends BaseBuildFragment {
         addNode2Container(mReportFillContainer);
     }
 
-    private void addNode2Container(LinearLayout fillContainer) {
-        View inflate = View.inflate(getContext(), R.layout.report_fill_type_4_additem, null);
-        TextView positionView = (TextView) inflate.findViewById(R.id.index);
-        positionView.setText("序号：" + String.valueOf(mReportFillContainer.getChildCount() + 1));
+    private void addNode2Container(final LinearLayout fillContainer) {
+        final View inflate = View.inflate(getContext(), R.layout.report_fill_type_4_additem, null);
+        Button deleteView = (Button) inflate.findViewById(R.id.report_fill_delete);
         fillContainer.addView(inflate);
+        deleteView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fillContainer.removeView(inflate);
+            }
+        });
     }
 
     @Override

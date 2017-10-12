@@ -44,7 +44,7 @@ public class BuildType7Service extends BuildTypeBaseService {
             HSSFCell titleCell = titleRow.createCell(0);
             titleCell.setCellValue(reportModelType7.tableName);
             titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
-            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
+            sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 3));
 
             //作业区 场站
             HSSFRow stationRow = sheet.createRow(1);
@@ -92,12 +92,15 @@ public class BuildType7Service extends BuildTypeBaseService {
                 headerRow.setHeight(StyleUtil.getRowHeight(18));
                 HSSFCell indexCell = headerRow.createCell(0);
                 HSSFCell projectCell = headerRow.createCell(1);
+                HSSFCell borderCell = headerRow.createCell(2);
 
                 indexCell.setCellStyle(StyleUtil.createFont10BoldLeftStyle(wb));
                 projectCell.setCellStyle(StyleUtil.createFont10BoldLeftStyle(wb));
+                borderCell.setCellStyle(StyleUtil.createBorderStyle(wb));
 
                 indexCell.setCellValue(subModel.indexStr);
                 projectCell.setCellValue(subModel.projectText);
+                mergedRegion(wb, sheet, headerRow.getRowNum(), headerRow.getRowNum(), 2, 3);
 
                 if (subModel.subItemModelList.size() > 0) {
                     for (ReportModelType7.ReportModelType7SubItemModel reportModelType7SubItemModel : subModel.subItemModelList) {
@@ -119,12 +122,16 @@ public class BuildType7Service extends BuildTypeBaseService {
 
                         HSSFCell subIndexCell = headerRow.createCell(0);
                         HSSFCell subProjectCell = headerRow.createCell(1);
+                        borderCell = headerRow.createCell(2);
 
                         subIndexCell.setCellStyle(StyleUtil.createFont10BoldLeftStyle(wb));
                         subProjectCell.setCellStyle(StyleUtil.createFont10BoldLeftStyle(wb));
+                        borderCell.setCellStyle(StyleUtil.createBorderStyle(wb));
 
                         subIndexCell.setCellValue(subSubModel.indexStr);
                         subProjectCell.setCellValue(subSubModel.projectText);
+                        mergedRegion(wb, sheet, headerRow.getRowNum(), headerRow.getRowNum(), 2, 3);
+
                         for (ReportModelType7.ReportModelType7SubItemModel reportModelType7SubItemModel : subSubModel.checkInfoSubList) {
                             headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
                             HSSFCell checkCell = headerRow.createCell(1);
@@ -158,10 +165,14 @@ public class BuildType7Service extends BuildTypeBaseService {
             bottomRow.setHeight(StyleUtil.getRowHeight(15.6));
             bottomRow.setHeight(StyleUtil.getRowHeight(14.25));
             HSSFCell checkerCell = bottomRow.createCell(0);
+            HSSFCell borderCell1 = bottomRow.createCell(1);
             HSSFCell dateCell = bottomRow.createCell(2);
+            HSSFCell borderCell2 = bottomRow.createCell(2);
 
             checkerCell.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
+            borderCell1.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
             dateCell.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
+            borderCell2.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
 
             checkerCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText);
             dateCell.setCellValue(reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));
@@ -169,7 +180,7 @@ public class BuildType7Service extends BuildTypeBaseService {
             mergedRegion(wb, sheet, bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1);
             mergedRegion(wb, sheet, bottomRow.getRowNum(), bottomRow.getRowNum(), 2, 3);
 
-            sheet.setColumnWidth(0, StyleUtil.getColumnWidth(3));
+            sheet.setColumnWidth(0, StyleUtil.getColumnWidth(5));
             sheet.setColumnWidth(1, StyleUtil.getColumnWidth(35));
             sheet.setColumnWidth(2, StyleUtil.getColumnWidth(13.3));
             sheet.setColumnWidth(3, StyleUtil.getColumnWidth(26.9));

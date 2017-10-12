@@ -9,6 +9,7 @@ import java.util.List;
 
 public class MaintainReportSubByNormal extends MaintainReportSubByBase {
     public String subNormalTitle = "";
+    public String subDesc = "";//描述
     public List<MaintainReportSubByNormalItemValue> normalItemValueList = new ArrayList<>();
 
     public MaintainReportSubByNormal(int position) {

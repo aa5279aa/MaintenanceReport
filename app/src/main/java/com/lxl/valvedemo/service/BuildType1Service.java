@@ -87,7 +87,12 @@ public class BuildType1Service extends BuildTypeBaseService {
                 equipmentIdCellStr = maintainReportItemModel.equipmentId;
                 maintainInfoCellStr = maintainReportItemModel.maintainInfo;
                 maintainDescCellStr = maintainReportItemModel.maintainDesc;
-                areaRow.setHeight(StyleUtil.getRowHeight(28.5));
+
+                //需要计算最大行高
+                short excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(maintainInfoCellStr, 15, 17);
+                short excelCellAutoHeight1 = StyleUtil.getExcelCellAutoHeight(maintainDescCellStr, 15, 4);
+                excelCellAutoHeight = excelCellAutoHeight > excelCellAutoHeight1 ? excelCellAutoHeight : excelCellAutoHeight1;
+                headerRow.setHeight(excelCellAutoHeight);
             } else {
                 positionCell = createDescCenterFontCell(wb, headerRow, 0);
                 equipmentNameCell = createDescCenterFontCell(wb, headerRow, 1);
@@ -95,7 +100,7 @@ public class BuildType1Service extends BuildTypeBaseService {
                 equipmentIdCell = createDescCenterFontCell(wb, headerRow, 3);
                 maintainInfoCell = createDescCenterFontCell(wb, headerRow, 4);
                 maintainDescCell = createDescCenterFontCell(wb, headerRow, 5);
-                areaRow.setHeight(StyleUtil.getRowHeight(14.25));
+                areaRow.setHeight(StyleUtil.getRowHeight(28.5));
             }
 
             positionCell.setCellValue(positionCellStr);
@@ -117,7 +122,7 @@ public class BuildType1Service extends BuildTypeBaseService {
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 3));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 4, 5));
 
-        sheet.setColumnWidth(0, StyleUtil.getColumnWidth(4.2));
+        sheet.setColumnWidth(0, StyleUtil.getColumnWidth(4.5));
         sheet.setColumnWidth(1, StyleUtil.getColumnWidth(13));
         sheet.setColumnWidth(2, StyleUtil.getColumnWidth(13));
         sheet.setColumnWidth(3, StyleUtil.getColumnWidth(13));
