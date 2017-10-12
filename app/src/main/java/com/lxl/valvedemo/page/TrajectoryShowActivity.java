@@ -250,8 +250,9 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
 
         canvas.drawBitmap(target, 0, 0, p);
 
+        float v = p2.measureText(title);
         // 在头部添加标题
-        canvas.drawText(title, w / 2, h * 1 / 5, p2);
+        canvas.drawText(title, (w - v) / 2, h * 1 / 5, p2);
         canvas.save(Canvas.ALL_SAVE_FLAG);
         canvas.restore();
 
