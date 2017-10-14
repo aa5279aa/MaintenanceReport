@@ -149,7 +149,11 @@ BuildType3Service extends BuildTypeBaseService {
                     subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
 
                     HSSFCell subDescCell = sheet.getRow(cpuStartRowNum).createCell(5);
-                    subDescCell.setCellValue(subByCPU.subDesc);
+                    StringBuilder subDescBuilder = new StringBuilder();
+                    for (String key : subByCPU.cpuCheckInfoMap.keySet()) {
+                        subDescBuilder.append(key + subByCPU.cpuCheckInfoMap.get(key) + "\n");
+                    }
+                    subDescCell.setCellValue(subDescCell.toString());
                     subDescCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
 
                     mergedRegion(wb, sheet, cpuStartRowNum, sheet.getLastRowNum(), 0, 0);
@@ -276,6 +280,8 @@ BuildType3Service extends BuildTypeBaseService {
         MaintainReportByAreaModel mainAreaModel = new MaintainReportByAreaModel();
         HSSFWorkbook wb = new HSSFWorkbook(open);
         HSSFSheet sheet1 = wb.getSheet("Sheet1");
+        HSSFCell tableCell = sheet1.getRow(0).getCell(0);
+        mainAreaModel.tableName = tableCell.getStringCellValue();
         setSCADAValue(mainAreaModel, sheet1);
         return mainAreaModel;
     }
@@ -356,8 +362,39 @@ BuildType3Service extends BuildTypeBaseService {
                     maintainReportByESD.esdItemValueList.add(cpuItemValue);
                 }
             } else if (stringCellValue.equals("远程机架") && mainAreaModel.tableName.contains("平泰线")) {
-                //暂不处理
-
+                MaintainReportSubByCPU reportSubByCPU = new MaintainReportSubByCPU(position++);
+                scada.subList.add(reportSubByCPU);
+                reportSubByCPU.cpuTitle = stringCellValue;
+                reportSubByCPU.cpuColumName1 = "PLC-1";
+                reportSubByCPU.cpuColumName2 = "PLC-2";
+                reportSubByCPU.cpuColumName3 = "ESD-1";
+                reportSubByCPU.cpuColumName4 = "ESD-2";
+                reportSubByCPU.cpuColumName0 = "记录以下指示灯状态";
+                int[] rowHeightByIndex1 = getRowHeightByIndex(sheet, cell);//cpu机架的高度
+                int k = rowHeightByIndex1[0];
+                k++;//忽略第一行
+                while (k <= rowHeightByIndex1[1]) {
+                    HSSFRow cpuSubRow = sheet.getRow(k);
+                    HSSFCell cpuSubCell = cpuSubRow.getCell(1);
+                    int[] rowHeightByIndex = getRowHeightByIndex(sheet, cpuSubCell);
+                    int cpuFirstRow = rowHeightByIndex[0];
+                    int cpuLastRow = rowHeightByIndex[1];//CPU模块的高度
+                    MaintainReportSubByCPU.MaintainReportByCPUSubValue cpuSubValue = new MaintainReportSubByCPU.MaintainReportByCPUSubValue();
+                    cpuSubValue.cpuSubName = cpuSubCell.getStringCellValue();
+                    if (cpuSubValue.cpuSubName.equals("各IO模块运行情况")) {
+                        reportSubByCPU.ioDescName = "各IO模块运行情况";
+                        break;
+                    }
+                    reportSubByCPU.cpuSubList.add(cpuSubValue);
+                    for (int i = cpuFirstRow; i <= cpuLastRow; i++) {
+                        HSSFRow lineRow = sheet.getRow(i);
+                        HSSFCell cell1 = lineRow.getCell(2);
+                        MaintainReportSubByCPU.MaintainReportByCPUItemValue cpuItemValue = new MaintainReportSubByCPU.MaintainReportByCPUItemValue();
+                        cpuItemValue.subItemName = cell1.getStringCellValue();
+                        cpuSubValue.cpuItemValueList.add(cpuItemValue);
+                    }
+                    k = rowHeightByIndex[1] + 1;
+                }
             } else {
                 MaintainReportSubByNormal maintainReportSubByNormal = new MaintainReportSubByNormal(position++);
                 scada.subList.add(maintainReportSubByNormal);
@@ -402,48 +439,6 @@ BuildType3Service extends BuildTypeBaseService {
         }
     }
 
-    public List<Integer[]> findAllNextAllRow(String tableName, Sheet sheet) {
-        List<Integer[]> allRowList = new ArrayList<>();
-        if (tableName.contains("冀宁线")) {
-            Integer[] integers1 = new Integer[]{3, 8};
-            Integer[] integers2 = new Integer[]{9, 54};
-            Integer[] integers3 = new Integer[]{55, 60};
-            allRowList.add(integers1);
-            allRowList.add(integers2);
-            allRowList.add(integers3);
-        } else {
-            Integer[] integers3 = new Integer[]{4, 8};
-            Integer[] integers1 = new Integer[]{10, 45};
-            Integer[] integers2 = new Integer[]{47, 51};
-            allRowList.add(integers1);
-            allRowList.add(integers2);
-            allRowList.add(integers3);
-        }
-
-        //寻找合并横行所有单元格的
-//        int sheetMergeCount = sheet.getNumMergedRegions();
-//        for (int i = 0; i < sheetMergeCount; i++) {
-//            CellRangeAddress range = sheet.getMergedRegion(i);
-//            int firstColumn = range.getFirstColumn();
-//            int lastColumn = range.getLastColumn();
-//            int lastRow = range.getLastRow();
-//            int firstRow = range.getFirstRow();
-//            if (firstColumn == 0 && lastColumn == 5 && firstRow != 0) {
-//                nextAllRowList.add(firstRow);
-//            }
-//        }
-//        //去掉最大的三个
-//        Collections.sort(nextAllRowList, new Comparator<Integer>() {
-//            @Override
-//            public int compare(Integer lhs, Integer rhs) {
-//                return lhs > rhs ? 1 : -1;
-//            }
-//        });
-//        return nextAllRowList.subList(0, nextAllRowList.size() - 3);
-
-        return allRowList;
-    }
-
     public String checkInfo(ReportBuildModel buildModel) {
         MaintainReportByAreaModel maintainReportByArea = buildModel.maintainReportByArea;
         StringBuilder builder = new StringBuilder();
@@ -454,6 +449,26 @@ BuildType3Service extends BuildTypeBaseService {
             builder.append("补全测试人，");
         }
         return builder.toString();
+    }
+
+    public List<Integer[]> findAllNextAllRow(String tableName, Sheet sheet) {
+        List<Integer[]> allRowList = new ArrayList<>();
+        if (tableName.contains("冀宁线")) {
+            Integer[] integers1 = new Integer[]{3, 8};
+            Integer[] integers2 = new Integer[]{9, 54};
+            Integer[] integers3 = new Integer[]{55, 60};
+            allRowList.add(integers1);
+            allRowList.add(integers2);
+            allRowList.add(integers3);
+        } else {
+            Integer[] integers1 = new Integer[]{3, 8};
+            Integer[] integers2 = new Integer[]{9, 45};
+            Integer[] integers3 = new Integer[]{46, 51};
+            allRowList.add(integers1);
+            allRowList.add(integers2);
+            allRowList.add(integers3);
+        }
+        return allRowList;
     }
 
 }

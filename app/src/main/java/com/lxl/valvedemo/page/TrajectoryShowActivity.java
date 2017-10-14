@@ -275,7 +275,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
             openAssignFolder(ReportBuildConfig.getBaseBuildPath());
         } else if (id == R.id.back_btn1) {
             Intent intent = new Intent();
-            intent.setClass(this, OperationActivity.class);
+            intent.setClass(this, StockRegisterActivity.class);
             startActivity(intent);
         }
     }

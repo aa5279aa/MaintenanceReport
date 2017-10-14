@@ -22,8 +22,10 @@ import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByESD;
 import com.lxl.valvedemo.model.buildModel.type3.MaintainReportSubByNormal;
 import com.lxl.valvedemo.service.BuildType3Service;
 import com.lxl.valvedemo.util.DateUtil;
+import com.lxl.valvedemo.util.StringUtil;
 
 import java.io.InputStream;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -109,8 +111,26 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
         //冀宁 平台
         View inflate = View.inflate(getContext(), R.layout.report_fill_type_3_item_cpu, null);
         TextView checkTitle = (TextView) inflate.findViewById(R.id.check_title);
-        LinearLayout checkContainer = (LinearLayout) inflate.findViewById(R.id.check_info_container);
+        LinearLayout checkInfoContainer = (LinearLayout) inflate.findViewById(R.id.check_info_container);
+        LinearLayout checkDescContainer = (LinearLayout) inflate.findViewById(R.id.check_desc_container);
         checkTitle.setText(subByCPU.cpuTitle);
+
+        TextView name1 = (TextView) inflate.findViewById(R.id.cpu_title_name1);
+        TextView name2 = (TextView) inflate.findViewById(R.id.cpu_title_name2);
+        TextView name3 = (TextView) inflate.findViewById(R.id.cpu_title_name3);
+        TextView name4 = (TextView) inflate.findViewById(R.id.cpu_title_name4);
+
+        name1.setText(subByCPU.cpuColumName1);
+        name2.setText(subByCPU.cpuColumName2);
+        if (StringUtil.emptyOrNull(subByCPU.cpuColumName3) || StringUtil.emptyOrNull(subByCPU.cpuColumName4)) {
+            name3.setVisibility(View.GONE);
+            name4.setVisibility(View.GONE);
+        } else {
+            name3.setVisibility(View.VISIBLE);
+            name4.setVisibility(View.VISIBLE);
+            name3.setText(subByCPU.cpuColumName3);
+            name4.setText(subByCPU.cpuColumName4);
+        }
         for (MaintainReportSubByCPU.MaintainReportByCPUSubValue cpuSubValue : subByCPU.cpuSubList) {
             for (int i = 0; i < cpuSubValue.cpuItemValueList.size(); i++) {
                 MaintainReportSubByCPU.MaintainReportByCPUItemValue maintainReportByCPUItemValue = cpuSubValue.cpuItemValueList.get(i);
@@ -127,8 +147,16 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
                 }
                 checkInfo1.setText(cpuSubValue.cpuSubName);
                 checkInfo2.setText(maintainReportByCPUItemValue.subItemName);
-                checkContainer.addView(inflate1);
+                checkInfoContainer.addView(inflate1);
             }
+        }
+
+        for (String str : subByCPU.cpuCheckInfoMap.keySet()) {
+            View inflate1 = View.inflate(getContext(), R.layout.report_fill_type_3_item_cpu_desc_contianer, null);
+            TextView cpuCheckDesc = (TextView) inflate1.findViewById(R.id.cpu_check_desc);
+//            inflate1.findViewById(R.id.cpu_check_text);
+            cpuCheckDesc.setText(str);
+            checkDescContainer.addView(inflate1);
         }
         container.addView(inflate);
     }
@@ -224,7 +252,6 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
                 } else if (id == R.id.report_fill_type_3_item_cpu) {
                     MaintainReportSubByCPU subByCPU = (MaintainReportSubByCPU) subByBase;
                     LinearLayout checkInfoContainer = (LinearLayout) childAt1.findViewById(R.id.check_info_container);
-
                     int index = 0;
                     int lastSub = 0;
                     for (int k = 0; k < checkInfoContainer.getChildCount(); k++) {
@@ -249,6 +276,14 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
                         cpuSubValue.cpuItemValueList.get(lastSub).subItemValueText4 = checkInfo6.getText().toString();
                         lastSub++;
                         Log.i("lxltest", "size：" + cpuSubValue.cpuItemValueList.size());
+                    }
+                    LinearLayout checkDescContainer = (LinearLayout) childAt1.findViewById(R.id.check_desc_container);
+                    LinkedHashMap<String, String> cpuCheckInfoMap = subByCPU.cpuCheckInfoMap;
+                    for (int k = 0; k < checkInfoContainer.getChildCount(); k++) {
+                        View childAt2 = checkDescContainer.getChildAt(k);
+                        TextView cpuCheckDesc = (TextView) childAt2.findViewById(R.id.cpu_check_desc);
+                        EditText cpuCheckText = (EditText) childAt2.findViewById(R.id.cpu_check_text);
+                        cpuCheckInfoMap.put(cpuCheckDesc.getText().toString(), cpuCheckText.getText().toString());
                     }
                 } else {
                     MaintainReportSubByNormal subByNormal = (MaintainReportSubByNormal) subByBase;

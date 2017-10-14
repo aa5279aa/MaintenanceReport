@@ -1,6 +1,7 @@
 package com.lxl.valvedemo.model.buildModel.type3;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -15,7 +16,10 @@ public class MaintainReportSubByCPU extends MaintainReportSubByBase {
     public String cpuColumName3 = "";//ESD-A
     public String cpuColumName4 = "";//ESD-B
     public List<MaintainReportByCPUSubValue> cpuSubList = new ArrayList<>();
-    public String subDesc = "";//描述
+    public LinkedHashMap<String, String> cpuCheckInfoMap = new LinkedHashMap<>();
+
+    public String ioDescName;
+    public String ioDescText;
 
     public MaintainReportSubByCPU(int position) {
         super(position);

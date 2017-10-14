@@ -90,8 +90,7 @@ public class BuildType5Service extends BuildTypeBaseService {
         titleCell.setCellValue(reportModelType5.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
         borderCell.setCellStyle(StyleUtil.createBorderStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 1));
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 2, 4));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
 
         //desc
         HSSFRow stationRow = sheet.createRow(1);
@@ -102,6 +101,9 @@ public class BuildType5Service extends BuildTypeBaseService {
         stationCellName.setCellValue(reportModelType5.stationName);
         stationCellText.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
         stationCellText.setCellValue(reportModelType5.stationText);
+
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 1));
+        sheet.addMergedRegion(new CellRangeAddress(1, 1, 2, 4));
 
         if (reportModelType5.reportItemModelList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);
@@ -146,14 +148,14 @@ public class BuildType5Service extends BuildTypeBaseService {
                 checkDescStr = checkItem.checkDesc;
                 checkResultStr = checkItem.checkResult;
                 headerRow = sheet.createRow(sheet.getLastRowNum() + 1);
-                HSSFCell indexCell = createBaseCell(wb, headerRow, 0);
+                HSSFCell indexCell = createBase12Cell(wb, headerRow, 0);
                 if (k == 0) {
-                    HSSFCell projectCell = createBaseCell(wb, headerRow, 1);
+                    HSSFCell projectCell = createBase12Cell(wb, headerRow, 1);
                     projectCell.setCellValue(projectCellStr);
                 }
-                HSSFCell checkInfoCell = createBaseCell(wb, headerRow, 2);
-                HSSFCell checkResultCell = createBaseCell(wb, headerRow, 3);
-                HSSFCell checkDescCell = createBaseCell(wb, headerRow, 4);
+                HSSFCell checkInfoCell = createBase12Cell(wb, headerRow, 2);
+                HSSFCell checkResultCell = createBase12Cell(wb, headerRow, 3);
+                HSSFCell checkDescCell = createBase12Cell(wb, headerRow, 4);
                 indexCell.setCellValue(sheet.getLastRowNum() - 2);
                 checkInfoCell.setCellValue(checkInfoStr);
                 checkResultCell.setCellValue(checkResultStr);

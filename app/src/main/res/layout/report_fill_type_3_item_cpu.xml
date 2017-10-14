@@ -25,12 +25,28 @@
             android:text="记录以下指示灯状态" />
 
         <TextView
+            android:id="@+id/cpu_title_name1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="A机架" />
 
         <TextView
+            android:id="@+id/cpu_title_name2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="B机架" />
+
+        <TextView
+            android:id="@+id/cpu_title_name3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="B机架" />
+
+        <TextView
+            android:id="@+id/cpu_title_name4"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -45,10 +61,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" />
 
-    <EditText
-        android:id="@+id/check_desc"
+    <LinearLayout
+        android:id="@+id/check_desc_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="50dp" />
+        android:orientation="vertical" />
+
 
 </LinearLayout>

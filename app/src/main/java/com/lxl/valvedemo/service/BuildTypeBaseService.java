@@ -54,6 +54,12 @@ public abstract class BuildTypeBaseService {
         return cell;
     }
 
+    public HSSFCell createBase12Cell(HSSFWorkbook wb, HSSFRow row, int position) {
+        HSSFCell cell = row.createCell(position);
+        cell.setCellStyle(StyleUtil.createFont12LeftStyle(wb));
+        return cell;
+    }
+
     public HSSFCell createBaseNoBorderCell(HSSFWorkbook wb, HSSFRow row, int position) {
         HSSFCell cell = row.createCell(position);
         cell.setCellStyle(StyleUtil.createFont10LeftNoBorderStyle(wb));
