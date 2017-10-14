@@ -6,6 +6,7 @@
 
     <TextView
         android:id="@+id/filltwo_subtype_name"
+        style="@style/text_18_000000_b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

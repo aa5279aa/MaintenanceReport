@@ -26,6 +26,33 @@
                 android:orientation="vertical" />
             >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="确认项"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="是否对阀门执行机构进行排水、通风处理？（方法：打开齿轮箱侧面的内六角螺栓排水，每两月找晴朗无风的天气打开排水螺栓通风透气5～8天。）"
+                    />
+
+                <EditText
+                    android:id="@+id/confirm_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="请输入确认签字"
+                    />
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </com.lxl.valvedemo.view.ListLinearLayout>

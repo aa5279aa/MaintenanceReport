@@ -164,21 +164,12 @@ public class BuildType7Service extends BuildTypeBaseService {
             bottomRow = sheet.createRow(sheet.getLastRowNum() + 2);
             bottomRow.setHeight(StyleUtil.getRowHeight(15.6));
             bottomRow.setHeight(StyleUtil.getRowHeight(14.25));
-            HSSFCell checkerCell = bottomRow.createCell(0);
-            HSSFCell borderCell1 = bottomRow.createCell(1);
-            HSSFCell dateCell = bottomRow.createCell(2);
-            HSSFCell borderCell2 = bottomRow.createCell(2);
+            HSSFCell bottomCell = bottomRow.createCell(0);
 
-            checkerCell.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
-            borderCell1.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
-            dateCell.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
-            borderCell2.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
+            bottomCell.setCellStyle(StyleUtil.createFont12BoldCenterNoBorderStyle(wb));
+            bottomCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText + "   " + reportModelType7.confirmName + reportModelType7.confirmText + "   " + reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));
 
-            checkerCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText);
-            dateCell.setCellValue(reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));
-
-            mergedRegion(wb, sheet, bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1);
-            mergedRegion(wb, sheet, bottomRow.getRowNum(), bottomRow.getRowNum(), 2, 3);
+            mergedRegion(wb, sheet, bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 3);
 
             sheet.setColumnWidth(0, StyleUtil.getColumnWidth(5));
             sheet.setColumnWidth(1, StyleUtil.getColumnWidth(35));

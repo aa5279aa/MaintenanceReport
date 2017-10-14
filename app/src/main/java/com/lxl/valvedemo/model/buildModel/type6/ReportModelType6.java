@@ -18,6 +18,8 @@ public class ReportModelType6 {
     public String checkerText = "";
     public final String dateName = "日期：";
     public String dateText = "";
+    public final String confirmSignName = "确认签字：";//
+    public String confirmSign = "";
     public final String confirmName = "确认人：";//
     public String confirmText = "";
 

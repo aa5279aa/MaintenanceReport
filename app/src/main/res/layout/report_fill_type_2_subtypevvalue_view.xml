@@ -6,21 +6,23 @@
 
     <TextView
         android:id="@+id/filltwo_subtypevalue_require"
-        style="@style/text_16_000000"
+        style="@style/text_18_999999"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/check_record_edit"
+        style="@style/text_18_333333"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="输入检查记录"
-        android:textColorHint="@color/background_dialog" />
+        android:textColorHint="@color/hint_color" />
 
     <EditText
         android:id="@+id/check_desc_edit"
+        style="@style/text_18_333333"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="输入备注"
-        android:textColorHint="@color/background_dialog" />
+        android:textColorHint="@color/hint_color" />
 </LinearLayout>

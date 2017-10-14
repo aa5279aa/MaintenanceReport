@@ -210,6 +210,9 @@ public class BuildType2Service extends BuildTypeBaseService {
                 }
                 mergedRegion(wb, sheet, startSubRomNum, sheet.getLastRowNum(), 2, 2);
             }
+            if (startRomNum >= sheet.getLastRowNum()) {
+                continue;
+            }
             //合并单元格
             mergedRegion(wb, sheet, startRomNum, sheet.getLastRowNum(), 0, 0);
         }
@@ -230,9 +233,9 @@ public class BuildType2Service extends BuildTypeBaseService {
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(5));
         sheet.setColumnWidth(1, StyleUtil.getColumnWidth(3));
-        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(9.5));
+        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(10));
         sheet.setColumnWidth(3, StyleUtil.getColumnWidth(52));
-        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(9.5));
+        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(10));
         sheet.setColumnWidth(5, StyleUtil.getColumnWidth(25));
 
         FileOutputStream fileOut = new FileOutputStream(outFile);

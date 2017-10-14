@@ -124,7 +124,7 @@ public class BuildType6Service extends BuildTypeBaseService {
 
         cell0.setCellValue("确认项");
         cell1.setCellValue("是否对阀门执行机构进行排水、通风处理？（方法：打开齿轮箱侧面的内六角螺栓排水，每两月找晴朗无风的天气打开排水螺栓通风透气5～8天。）");
-        cell2.setCellValue(" 确认签字：" + reportModelType6.confirmText);
+        cell2.setCellValue(" 确认签字：" + reportModelType6.confirmSign);
 
         bottomRow = sheet.createRow(sheet.getLastRowNum() + 1);
         HSSFCell checkerCell = bottomRow.createCell(0);

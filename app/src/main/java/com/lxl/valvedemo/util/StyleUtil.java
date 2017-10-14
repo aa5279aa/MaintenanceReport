@@ -102,6 +102,20 @@ public class StyleUtil {
         return setBorder;
     }
 
+    //创造基础描述的样式
+    public static HSSFCellStyle createFont10BoldCenterNoBorderStyle(HSSFWorkbook wb) {
+        HSSFCellStyle setBorder = wb.createCellStyle();
+        HSSFFont font = wb.createFont();
+        font.setFontName("宋体");
+        font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
+        font.setFontHeightInPoints((short) 10);
+        setBorder.setFont(font);
+        setBorder.setAlignment(CellStyle.ALIGN_CENTER);
+        setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
+        setBorder.setWrapText(true);
+        return setBorder;
+    }
+
     //创造描述样式-带边框
     public static HSSFCellStyle createFont12BoldLeftStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();

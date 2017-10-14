@@ -23,6 +23,9 @@ public class MaintainReportModel {
     final public String checkerName = "维护保养人员";
     public String checkerText = "";
 
+    final public String confirmName = "维护保养人员";
+    public String confirmText = "";
+
     final public String dateName = "日期";
     public String dateText = "";
 

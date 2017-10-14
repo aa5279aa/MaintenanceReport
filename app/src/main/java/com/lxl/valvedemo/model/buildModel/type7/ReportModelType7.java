@@ -15,6 +15,8 @@ public class ReportModelType7 {
     public String stationText = "";
     public final String checkName = "检修人员：";
     public String checkText = "";
+    public final String confirmName = "确认人：";
+    public String confirmText = "";
     public final String dateName = "日期：";
     public String dateText = "";
 

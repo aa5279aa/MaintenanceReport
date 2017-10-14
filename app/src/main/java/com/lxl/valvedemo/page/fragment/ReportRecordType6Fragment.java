@@ -35,6 +35,7 @@ public class ReportRecordType6Fragment extends BaseBuildFragment {
     EditText mReportHeaderChecker;
     EditText mReportHeaderConfirm;
     TextView mReportHeaderDate;
+    EditText mReportConfirmSign;
 
     LinearLayout mReportFillContainer;
 
@@ -60,7 +61,7 @@ public class ReportRecordType6Fragment extends BaseBuildFragment {
         mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_checker);
         mReportHeaderConfirm = (EditText) view.findViewById(R.id.report_header_confirm);
         mReportHeaderDate = (TextView) view.findViewById(R.id.report_header_date);
-
+        mReportConfirmSign = (EditText) view.findViewById(R.id.confirm_sign);
 
         mReportFillContainer = (LinearLayout) view.findViewById(R.id.report_fill_contanier);
     }
@@ -112,12 +113,14 @@ public class ReportRecordType6Fragment extends BaseBuildFragment {
         String checker = mReportHeaderChecker.getText().toString();
         String data = mReportHeaderDate.getText().toString();
         String confirm = mReportHeaderConfirm.getText().toString();
+        String confirmSign = mReportConfirmSign.getText().toString();
 
         reportModelType6.workAreaText = workArea;
         reportModelType6.stationText = station;
         reportModelType6.checkerText = checker;
         reportModelType6.dateText = data;
         reportModelType6.confirmText = confirm;
+        reportModelType6.confirmSign = confirmSign;
 
         int childCount = mReportFillContainer.getChildCount();
         for (int i = 0; i < childCount; i++) {
