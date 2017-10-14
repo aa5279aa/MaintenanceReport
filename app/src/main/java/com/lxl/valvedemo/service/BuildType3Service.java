@@ -45,42 +45,67 @@ BuildType3Service extends BuildTypeBaseService {
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("Sheet1");
 
+        boolean isPingtai = !maintainReportByArea.tableName.contains("冀宁");
+        int lastCol = isPingtai ? 7 : 5;
+
         //title
         HSSFRow titleRow = sheet.createRow(0);
         HSSFCell titleCell = titleRow.createCell(0);
         titleCell.setCellValue(maintainReportByArea.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleSmallFontStyle(wb));
-        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 5));
+        sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, lastCol));
         titleRow.setHeight(StyleUtil.getRowHeight(28.5));
 
         //desc
         HSSFRow areaRow = sheet.createRow(1);
         areaRow.setHeight(StyleUtil.getRowHeight(28.5));
-        HSSFCell stationNameCell = createDescCell(wb, areaRow, 0);
-        HSSFCell stationTextCell = createBaseCell(wb, areaRow, 1);
-        HSSFCell dateNameCell = createDescCell(wb, areaRow, 3);
-        HSSFCell dateTextCell = createBaseCell(wb, areaRow, 4);
+        HSSFCell stationNameCell;
+        HSSFCell stationTextCell;
+        HSSFCell dateNameCell;
+        HSSFCell dateTextCell;
+        if (isPingtai) {
+            stationNameCell = createDescCell(wb, areaRow, 0);
+            stationTextCell = createDescCell(wb, areaRow, 1);
+            dateNameCell = createDescCell(wb, areaRow, 3);
+            dateTextCell = createBaseCell(wb, areaRow, 7);
+            mergedRegion(wb, sheet, 1, 1, 1, 2);
+            mergedRegion(wb, sheet, 1, 1, 3, 6);
+        } else {
+            stationNameCell = createDescCell(wb, areaRow, 0);
+            stationTextCell = createDescCell(wb, areaRow, 1);
+            dateNameCell = createDescCell(wb, areaRow, 3);
+            dateTextCell = createBaseCell(wb, areaRow, 4);
+            mergedRegion(wb, sheet, 1, 1, 1, 2);
+            mergedRegion(wb, sheet, 1, 1, lastCol - 1, lastCol);
+        }
         stationNameCell.setCellValue(maintainReportByArea.stationName);
         stationTextCell.setCellValue(maintainReportByArea.stationText);
         dateNameCell.setCellValue(maintainReportByArea.dateName);
         dateTextCell.setCellValue(maintainReportByArea.dateText);
-        mergedRegion(wb, sheet, 1, 1, 1, 2);
-        mergedRegion(wb, sheet, 1, 1, 4, 5);
 
         //desc
         HSSFRow headerRow = sheet.createRow(2);
         headerRow.setHeight(StyleUtil.getRowHeight(16));
-        HSSFCell cell0 = headerRow.createCell(0);
-        HSSFCell cell1 = headerRow.createCell(1);
-        HSSFCell cell5 = headerRow.createCell(5);
+        HSSFCell cell0;
+        HSSFCell cell1;
+        HSSFCell cell5;
+        if (isPingtai) {
+            cell0 = headerRow.createCell(0);
+            cell1 = headerRow.createCell(1);
+            cell5 = headerRow.createCell(7);
+            mergedRegion(wb, sheet, 2, 2, 1, 6);
+        } else {
+            cell0 = headerRow.createCell(0);
+            cell1 = headerRow.createCell(1);
+            cell5 = headerRow.createCell(5);
+            mergedRegion(wb, sheet, 2, 2, 1, 4);
+        }
         cell0.setCellValue("检查项目");
         cell1.setCellValue("检查内容");
         cell5.setCellValue("检查结论（如有故障详细记录故障状态）");
         cell0.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
         cell1.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
         cell5.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
-        mergedRegion(wb, sheet, 2, 2, 1, 4);
-
         if (maintainReportByArea.scadaList.size() == 0) {
             FileOutputStream fileOut = new FileOutputStream(outFile);
             wb.write(fileOut);
@@ -96,7 +121,7 @@ BuildType3Service extends BuildTypeBaseService {
             cell.setCellValue(reportBySCADA.scadaTitle);
             cell.setCellStyle(StyleUtil.createFont10CenterStyle(wb));
             row.setHeight(StyleUtil.getRowHeight(15));
-            mergedRegion(wb, sheet, rowNum, rowNum, 0, 5);
+            mergedRegion(wb, sheet, rowNum, rowNum, 0, lastCol);
             for (int j = 0; j < reportBySCADA.subList.size(); j++) {
                 MaintainReportSubByBase subByBase = reportBySCADA.subList.get(j);
                 if (subByBase instanceof MaintainReportSubByCPU) {
@@ -143,21 +168,30 @@ BuildType3Service extends BuildTypeBaseService {
                             mergedRegion(wb, sheet, subStartNum, sheet.getLastRowNum(), 1, 1);
                         }
                     }
+                    //添加io模块
+                    if (!StringUtil.emptyOrNull(subByCPU.ioDescName)) {
+                        HSSFRow ioRow = sheet.createRow(sheet.getLastRowNum() + 1);
+                        HSSFCell ioNameCell = createBaseCell(wb, ioRow, 1);
+                        HSSFCell ioTextCell = createBaseCell(wb, ioRow, 7);
+                        ioNameCell.setCellValue(subByCPU.ioDescName);
+                        ioTextCell.setCellValue(subByCPU.ioDescText);
+                        mergedRegion(wb, sheet, sheet.getLastRowNum(), sheet.getLastRowNum(), 1, 6);
+                    }
                     //设置名称并合并单元格
                     HSSFCell subTitleCell = sheet.getRow(cpuStartRowNum).createCell(0);
                     subTitleCell.setCellValue(subByCPU.cpuTitle);
                     subTitleCell.setCellStyle(StyleUtil.createVerticalCenterStyle(wb));
 
-                    HSSFCell subDescCell = sheet.getRow(cpuStartRowNum).createCell(5);
+                    HSSFCell subDescCell = sheet.getRow(cpuStartRowNum).createCell(lastCol);
                     StringBuilder subDescBuilder = new StringBuilder();
                     for (String key : subByCPU.cpuCheckInfoMap.keySet()) {
                         subDescBuilder.append(key + subByCPU.cpuCheckInfoMap.get(key) + "\n");
                     }
-                    subDescCell.setCellValue(subDescCell.toString());
-                    subDescCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
+                    subDescCell.setCellValue(subDescBuilder.toString());
+                    subDescCell.setCellStyle(StyleUtil.createFont10VerticalTopStyle(wb));
 
                     mergedRegion(wb, sheet, cpuStartRowNum, sheet.getLastRowNum(), 0, 0);
-                    mergedRegion(wb, sheet, cpuStartRowNum, sheet.getLastRowNum(), 5, 5);
+                    mergedRegion(wb, sheet, cpuStartRowNum, !StringUtil.emptyOrNull(subByCPU.ioDescName) ? sheet.getLastRowNum() - 1 : sheet.getLastRowNum(), lastCol, lastCol);
                 } else if (subByBase instanceof MaintainReportSubByESD) {
                     MaintainReportSubByESD subByESD = (MaintainReportSubByESD) subByBase;
                     int esdStartRowNum = sheet.getLastRowNum() + 1;
@@ -198,17 +232,17 @@ BuildType3Service extends BuildTypeBaseService {
                         row = sheet.createRow(rowNum);
                         HSSFCell subCell0 = createBaseCell(wb, row, 0);
                         HSSFCell subCell1 = createBaseCell(wb, row, 1);
-                        HSSFCell subCell5 = createBaseCell(wb, row, 5);//todo
+                        HSSFCell subCell5 = createBaseCell(wb, row, lastCol);//todo
                         short excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc, 15, 18);
                         row.setHeight(excelCellAutoHeight);
                         subCell0.setCellValue(subByNormal.subNormalTitle);
                         subCell1.setCellValue(normalItemValue.columDesc);
                         subCell5.setCellValue(normalItemValue.columText);
-                        mergedRegion(wb, sheet, rowNum, rowNum, 1, 4);
+                        mergedRegion(wb, sheet, rowNum, rowNum, 1, lastCol - 1);
                     }
                     //合并单元格
                     mergedRegion(wb, sheet, normalStartRowNum, sheet.getLastRowNum(), 0, 0);
-                    mergedRegion(wb, sheet, normalStartRowNum, sheet.getLastRowNum(), 5, 5);
+                    mergedRegion(wb, sheet, normalStartRowNum, sheet.getLastRowNum(), lastCol, lastCol);
                 }
             }
 
@@ -218,53 +252,93 @@ BuildType3Service extends BuildTypeBaseService {
         int nextRowNum = sheet.getLastRowNum() + 1;
         HSSFRow nextRow = sheet.createRow(nextRowNum);
         HSSFCell nextCell = nextRow.createCell(0);
-        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 5);
+        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, lastCol);
         nextRow.setHeight(StyleUtil.getRowHeight(160));
         nextCell.setCellValue(maintainReportByArea.maintainDescName + maintainReportByArea.maintainDescText);
-        nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
+        nextCell.setCellStyle(StyleUtil.createFont10VerticalTopStyle(wb));
 
         nextRowNum = sheet.getLastRowNum() + 1;
         nextRow = sheet.createRow(nextRowNum);
         nextCell = nextRow.createCell(0);
         nextRow.setHeight(StyleUtil.getRowHeight(160));
-        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 5);
+        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, lastCol);
         nextCell.setCellValue(maintainReportByArea.maintainOtherName + maintainReportByArea.maintainOtherText);
-        nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
+        nextCell.setCellStyle(StyleUtil.createFont10VerticalTopStyle(wb));
 
         nextRowNum = sheet.getLastRowNum() + 1;
         nextRow = sheet.createRow(nextRowNum);
         nextCell = nextRow.createCell(0);
         nextRow.setHeight(StyleUtil.getRowHeight(160));
-        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 5);
+        mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, lastCol);
         nextCell.setCellValue(maintainReportByArea.stationConfirmName + maintainReportByArea.stationConfirmText);
-        nextCell.setCellStyle(StyleUtil.createVerticalTopStyle(wb));
+        nextCell.setCellStyle(StyleUtil.createFont10VerticalTopStyle(wb));
 
         nextRowNum = sheet.getLastRowNum() + 1;
         HSSFRow nextRow11 = sheet.createRow(nextRowNum);
-        HSSFCell nextCell11 = createBaseCell(wb, nextRow11, 3);
-        HSSFCell nextCell12 = createBaseCell(wb, nextRow11, 4);
-        HSSFCell nextCell13 = createBaseCell(wb, nextRow11, 5);
+        HSSFCell nextCell00;
+        HSSFCell nextCell11;
+        HSSFCell nextCell12;
+        HSSFCell nextCell13;
+        if (isPingtai) {
+            nextCell00 = createBaseCell(wb, nextRow11, 0);
+            nextCell11 = createBaseCell(wb, nextRow11, 3);
+            nextCell12 = createBaseCell(wb, nextRow11, 5);
+            nextCell13 = createBaseCell(wb, nextRow11, lastCol);
+            mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 2);
+            mergedRegion(wb, sheet, nextRowNum, nextRowNum, 3, 4);
+            mergedRegion(wb, sheet, nextRowNum, nextRowNum, 5, 6);
+        } else {
+            nextCell00 = createBaseCell(wb, nextRow11, 0);
+            nextCell11 = createBaseCell(wb, nextRow11, 3);
+            nextCell12 = createBaseCell(wb, nextRow11, 4);
+            nextCell13 = createBaseCell(wb, nextRow11, lastCol);
+            mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 3);
+        }
         nextCell11.setCellValue(maintainReportByArea.stationConfirmPersonName);
         nextCell12.setCellValue(maintainReportByArea.stationConfirmPersonText);
         nextCell13.setCellValue(maintainReportByArea.stationConfirmDateName + maintainReportByArea.stationConfirmDateText);
 
-        nextRowNum = sheet.getLastRowNum() + 1;
+        nextRowNum = sheet.getLastRowNum() + 2;
         HSSFRow bottomRow = sheet.createRow(nextRowNum);
-        HSSFCell bottomCell0 = createDescBoldNoBorderCell(wb, bottomRow, 0);
-        HSSFCell bottomCell1 = createBaseNoBorderCell(wb, bottomRow, 1);
-        HSSFCell bottomCell4 = createDescBoldNoBorderCell(wb, bottomRow, 4);
-        HSSFCell bottomCell5 = createBaseNoBorderCell(wb, bottomRow, 5);
+        HSSFCell bottomCell0;
+        HSSFCell bottomCell1;
+        HSSFCell bottomCell4;
+        HSSFCell bottomCell5;
+        if (isPingtai) {
+            bottomCell0 = createDescBoldNoBorderCell(wb, bottomRow, 0);
+            bottomCell1 = createBaseNoBorderCell(wb, bottomRow, 1);
+            bottomCell4 = createDescBoldNoBorderCell(wb, bottomRow, 4);
+            bottomCell5 = createBaseNoBorderCell(wb, bottomRow, 6);
+            mergedRegionNoBorder(wb, sheet, nextRowNum, nextRowNum, 4, 5);
+            mergedRegionNoBorder(wb, sheet, nextRowNum, nextRowNum, 6, 7);
+        } else {
+            bottomCell0 = createDescBoldNoBorderCell(wb, bottomRow, 0);
+            bottomCell1 = createBaseNoBorderCell(wb, bottomRow, 1);
+            bottomCell4 = createDescBoldNoBorderCell(wb, bottomRow, 4);
+            bottomCell5 = createBaseNoBorderCell(wb, bottomRow, 5);
+        }
         bottomCell0.setCellValue(maintainReportByArea.productName);
         bottomCell1.setCellValue(maintainReportByArea.productText);
         bottomCell4.setCellValue(maintainReportByArea.checkerName);
         bottomCell5.setCellValue(maintainReportByArea.checkerText);
 
-        sheet.setColumnWidth(0, StyleUtil.getColumnWidth(11.3));
-        sheet.setColumnWidth(1, StyleUtil.getColumnWidth(11));
-        sheet.setColumnWidth(2, StyleUtil.getColumnWidth(10));
-        sheet.setColumnWidth(3, StyleUtil.getColumnWidth(10));
-        sheet.setColumnWidth(4, StyleUtil.getColumnWidth(10));
-        sheet.setColumnWidth(5, StyleUtil.getColumnWidth(34.5));
+        if (isPingtai) {
+            sheet.setColumnWidth(0, StyleUtil.getColumnWidth(11.3));
+            sheet.setColumnWidth(1, StyleUtil.getColumnWidth(11));
+            sheet.setColumnWidth(2, StyleUtil.getColumnWidth(10));
+            sheet.setColumnWidth(3, StyleUtil.getColumnWidth(5.2));
+            sheet.setColumnWidth(4, StyleUtil.getColumnWidth(5.2));
+            sheet.setColumnWidth(5, StyleUtil.getColumnWidth(5.2));
+            sheet.setColumnWidth(6, StyleUtil.getColumnWidth(5.2));
+            sheet.setColumnWidth(7, StyleUtil.getColumnWidth(34.5));
+        } else {
+            sheet.setColumnWidth(0, StyleUtil.getColumnWidth(11.3));
+            sheet.setColumnWidth(1, StyleUtil.getColumnWidth(11));
+            sheet.setColumnWidth(2, StyleUtil.getColumnWidth(10));
+            sheet.setColumnWidth(3, StyleUtil.getColumnWidth(10));
+            sheet.setColumnWidth(4, StyleUtil.getColumnWidth(10));
+            sheet.setColumnWidth(5, StyleUtil.getColumnWidth(34.5));
+        }
 
         FileOutputStream fileOut = new FileOutputStream(outFile);
         wb.write(fileOut);
@@ -309,6 +383,13 @@ BuildType3Service extends BuildTypeBaseService {
                 MaintainReportSubByCPU reportSubByCPU = new MaintainReportSubByCPU(position++);
                 scada.subList.add(reportSubByCPU);
                 reportSubByCPU.cpuTitle = stringCellValue;
+                reportSubByCPU.cpuCheckInfoMap.put("CPU机架运行（正常/故障）:", "");
+                reportSubByCPU.cpuCheckInfoMap.put("冗余状态（正常/故障）:", "");
+                reportSubByCPU.cpuCheckInfoMap.put("远程机架通讯（正常/故障）:", "");
+                reportSubByCPU.cpuCheckInfoMap.put("以太网通讯（正常/故障）:", "");
+                reportSubByCPU.cpuCheckInfoMap.put("机架背板供电（正常/故障）:", "");
+                reportSubByCPU.cpuCheckInfoMap.put("其他事项:", "");
+
                 if (mainAreaModel.tableName.contains("冀宁线")) {
                     reportSubByCPU.cpuColumName1 = "A机架";
                     reportSubByCPU.cpuColumName2 = "B机架";

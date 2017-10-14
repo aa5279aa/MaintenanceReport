@@ -109,4 +109,13 @@ public abstract class BuildTypeBaseService {
         sheet.addMergedRegion(new CellRangeAddress(firstRow, lastRow, firstCol, lastCol));
     }
 
+    /**
+     * 核心逻辑，
+     * 如果没有单元格就创建并只添加边框样式
+     * 如果有就直接合并
+     */
+    public void mergedRegionNoBorder(HSSFWorkbook wb, Sheet sheet, int firstRow, int lastRow, int firstCol, int lastCol) {
+        sheet.addMergedRegion(new CellRangeAddress(firstRow, lastRow, firstCol, lastCol));
+    }
+
 }

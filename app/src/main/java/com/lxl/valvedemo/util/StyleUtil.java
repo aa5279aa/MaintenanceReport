@@ -256,13 +256,17 @@ public class StyleUtil {
      * @param wb
      * @return
      */
-    public static HSSFCellStyle createVerticalTopStyle(HSSFWorkbook wb) {
+    public static HSSFCellStyle createFont10VerticalTopStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         setBorder.setVerticalAlignment(CellStyle.VERTICAL_TOP);//垂直靠上
         setBorder.setBorderBottom(HSSFCellStyle.BORDER_THIN); //下边框
         setBorder.setBorderLeft(HSSFCellStyle.BORDER_THIN);//左边框
         setBorder.setBorderTop(HSSFCellStyle.BORDER_THIN);//上边框
         setBorder.setBorderRight(HSSFCellStyle.BORDER_THIN);//右边框
+        setBorder.setWrapText(true);
+        HSSFFont font = wb.createFont();
+        font.setFontHeightInPoints((short) 10);
+        setBorder.setFont(font);
         return setBorder;
     }
 

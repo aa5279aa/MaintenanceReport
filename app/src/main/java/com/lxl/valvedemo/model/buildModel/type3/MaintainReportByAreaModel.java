@@ -20,9 +20,9 @@ public class MaintainReportByAreaModel {
     public String stationText = "";
     public final String dateName = "测试日期";
     public String dateText = "";
-    public final String productName = "生产科";
+    public final String productName = "生产科：";
     public String productText = "";
-    public final String checkerName = "测试人";
+    public final String checkerName = "测试人：";
     public String checkerText = "";
 
     public final String colum1Name = "检查项目";

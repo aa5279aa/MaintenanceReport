@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/report_fill_type_3_item_cpu"
+    android:id="@+id/report_fill_type_3_item_cpu_desc_contianer"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="50dp"
@@ -9,12 +9,13 @@
 
     <TextView
         android:id="@+id/cpu_check_desc"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/cpu_check_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
 </LinearLayout>

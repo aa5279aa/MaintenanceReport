@@ -113,8 +113,9 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
         TextView checkTitle = (TextView) inflate.findViewById(R.id.check_title);
         LinearLayout checkInfoContainer = (LinearLayout) inflate.findViewById(R.id.check_info_container);
         LinearLayout checkDescContainer = (LinearLayout) inflate.findViewById(R.id.check_desc_container);
-        checkTitle.setText(subByCPU.cpuTitle);
+        LinearLayout checkIOContainer = (LinearLayout) inflate.findViewById(R.id.check_io_container);
 
+        checkTitle.setText(subByCPU.cpuTitle);
         TextView name1 = (TextView) inflate.findViewById(R.id.cpu_title_name1);
         TextView name2 = (TextView) inflate.findViewById(R.id.cpu_title_name2);
         TextView name3 = (TextView) inflate.findViewById(R.id.cpu_title_name3);
@@ -154,9 +155,17 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
         for (String str : subByCPU.cpuCheckInfoMap.keySet()) {
             View inflate1 = View.inflate(getContext(), R.layout.report_fill_type_3_item_cpu_desc_contianer, null);
             TextView cpuCheckDesc = (TextView) inflate1.findViewById(R.id.cpu_check_desc);
-//            inflate1.findViewById(R.id.cpu_check_text);
             cpuCheckDesc.setText(str);
             checkDescContainer.addView(inflate1);
+        }
+
+        if (StringUtil.emptyOrNull(subByCPU.ioDescName)) {
+            checkIOContainer.setVisibility(View.GONE);
+        } else {
+            checkIOContainer.setVisibility(View.VISIBLE);
+            TextView ioDesc = (TextView) checkIOContainer.findViewById(R.id.check_io_desc);
+//            EditText ioText = (EditText) checkIOContainer.findViewById(R.id.check_io_text);
+            ioDesc.setText(subByCPU.ioDescName);
         }
         container.addView(inflate);
     }
@@ -266,6 +275,7 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
                         if (cpuSubValue.cpuItemValueList.size() <= lastSub) {
                             index++;
                             lastSub = 0;
+                            cpuSubValue = subByCPU.cpuSubList.get(index);
                         }
                         String checkInfo1Str = checkInfo1.getText().toString();
                         String checkInfo2Str = checkInfo2.getText().toString();
@@ -279,12 +289,19 @@ public class ReportRecordType3Fragment extends BaseBuildFragment {
                     }
                     LinearLayout checkDescContainer = (LinearLayout) childAt1.findViewById(R.id.check_desc_container);
                     LinkedHashMap<String, String> cpuCheckInfoMap = subByCPU.cpuCheckInfoMap;
-                    for (int k = 0; k < checkInfoContainer.getChildCount(); k++) {
+                    for (int k = 0; k < checkDescContainer.getChildCount(); k++) {
                         View childAt2 = checkDescContainer.getChildAt(k);
                         TextView cpuCheckDesc = (TextView) childAt2.findViewById(R.id.cpu_check_desc);
                         EditText cpuCheckText = (EditText) childAt2.findViewById(R.id.cpu_check_text);
                         cpuCheckInfoMap.put(cpuCheckDesc.getText().toString(), cpuCheckText.getText().toString());
                     }
+                    LinearLayout checkIOContainer = (LinearLayout) childAt1.findViewById(R.id.check_io_container);
+                    if (checkIOContainer.getVisibility() == View.GONE) {
+                        continue;
+                    }
+                    TextView ioDesc = (TextView) checkIOContainer.findViewById(R.id.check_io_desc);
+                    TextView ioText = (TextView) checkIOContainer.findViewById(R.id.check_io_text);
+                    subByCPU.ioDescText = ioText.getText().toString();
                 } else {
                     MaintainReportSubByNormal subByNormal = (MaintainReportSubByNormal) subByBase;
                     TextView itemCheckTitle = (TextView) childAt1.findViewById(R.id.check_title);

@@ -67,5 +67,23 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" />
 
+    <LinearLayout
+        android:id="@+id/check_io_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/check_io_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/check_io_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
 </LinearLayout>
