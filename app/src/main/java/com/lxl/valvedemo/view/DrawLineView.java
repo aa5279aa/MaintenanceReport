@@ -24,8 +24,8 @@ public class DrawLineView extends View {
     private Bitmap bitmap;//位图
     private int blcolor;
 
-    public DrawLineView(Context context, AttributeSet attr) {
-        super(context);
+    public DrawLineView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         linePaint = new Paint(Paint.DITHER_FLAG);//创建一个画笔
         linePaint.setStyle(Paint.Style.STROKE);//设置非填充
         linePaint.setStrokeWidth(2);//笔宽5像素

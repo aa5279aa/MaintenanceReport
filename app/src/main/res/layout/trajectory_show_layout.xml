@@ -13,8 +13,9 @@
         android:layout_height="60dp"
         app:stock_title_text_msg="轨迹记录" />
 
+
     <com.lxl.valvedemo.view.DrawLineView
-        android:id="@+id/stock_title_view2"
+        android:id="@+id/stock_draw_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

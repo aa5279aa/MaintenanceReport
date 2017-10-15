@@ -12,19 +12,14 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.text.TextPaint;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.Text;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.DataConfig;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.viewmodel.LocationRecordModel;
-import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.DeviceUtil;
 import com.lxl.valvedemo.view.DrawLineView;
@@ -33,6 +28,7 @@ import com.lxl.valvedemo.view.StockTitleView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -75,7 +71,6 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
                 viewSaveToImage(file, drawView);
             }
         }, 1000);
-
     }
 
     private void initListener() {
@@ -87,11 +82,9 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
     private void initView() {
         LinearLayout container = (LinearLayout) findViewById(R.id.contanier);
         titleView = (StockTitleView) findViewById(R.id.stock_title_view);
-//        drawView = (DrawLineView) findViewById(R.id.stock_title_view2);
+        drawView = (DrawLineView) findViewById(R.id.stock_draw_line);
         openFile = (TextView) findViewById(R.id.open_file);
         backBtn = (TextView) findViewById(R.id.back_btn1);
-
-        drawView = (DrawLineView) container.getChildAt(1);
 
         drawView.getLayoutParams().width = screenWidth;
         drawView.getLayoutParams().height = screenWidth;
@@ -109,11 +102,29 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
             recordList.addAll(list);
         }
 
+        //刨除差别较大的点
+        checkRecordList(recordList);
+
         //初始化中心点位置
         center[0] = screenWidth / 2;
-        center[1] = screenWidth / 2 + titleView.getLayoutParams().height;
+        center[1] = screenWidth / 2;
     }
 
+    private void checkRecordList(ArrayList<LocationRecordModel> recordList) {
+        if (recordList.size() == 0) {
+            return;
+        }
+        LocationRecordModel last = recordList.get(0);
+        Iterator<LocationRecordModel> iterator = recordList.iterator();
+        while (iterator.hasNext()) {
+            LocationRecordModel next = iterator.next();
+            if ((last.latitude - next.latitude) > 0.001 || (last.longitude - next.longitude > 0.001)) {
+                iterator.remove();
+                continue;
+            }
+            last = next;
+        }
+    }
 
     private void bindData() {
         if (recordList.size() == 0) {
@@ -122,7 +133,7 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         LocationRecordModel lastRecordModel = recordList.get(0);
         lastRecordModel.x = center[0];
         lastRecordModel.y = center[1];
-        drawView.drawPoint(lastRecordModel.x, lastRecordModel.y);
+        drawView.drawPoint(lastRecordModel.x, lastRecordModel.y);//540 540
 
         for (int i = 1; i < recordList.size(); i++) {
             LocationRecordModel recordModel = recordList.get(i);
@@ -142,8 +153,8 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
              * 屏幕按照1000像素计算
              * 1000/2/0.005
              */
-            int diffX = (int) (diffLat * 100000);
-            int diffY = (int) (diffLong * 100000);
+            int diffX = (int) (diffLat * 200000);
+            int diffY = (int) (diffLong * 200000);
 
             recordModel.x = lastRecordModel.x + diffX;
             recordModel.y = lastRecordModel.y + diffY;
@@ -210,7 +221,6 @@ public class TrajectoryShowActivity extends Activity implements View.OnClickList
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         view.destroyDrawingCache();
     }
 
