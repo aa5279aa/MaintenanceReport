@@ -293,7 +293,7 @@ BuildType3Service extends BuildTypeBaseService {
             nextCell11 = createBaseCell(wb, nextRow11, 3);
             nextCell12 = createBaseCell(wb, nextRow11, 4);
             nextCell13 = createBaseCell(wb, nextRow11, lastCol);
-            mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 3);
+            mergedRegion(wb, sheet, nextRowNum, nextRowNum, 0, 2);
         }
         nextCell11.setCellValue(maintainReportByArea.stationConfirmPersonName);
         nextCell12.setCellValue(maintainReportByArea.stationConfirmPersonText);

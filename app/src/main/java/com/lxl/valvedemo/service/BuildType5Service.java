@@ -86,17 +86,15 @@ public class BuildType5Service extends BuildTypeBaseService {
         HSSFRow titleRow = sheet.createRow(0);
         titleRow.setHeight(StyleUtil.getRowHeight(25.5));
         HSSFCell titleCell = titleRow.createCell(0);
-        HSSFCell borderCell = titleRow.createCell(2);
         titleCell.setCellValue(reportModelType5.tableName);
         titleCell.setCellStyle(StyleUtil.createTitleBigFontStyle(wb));
-        borderCell.setCellStyle(StyleUtil.createBorderStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, 4));
 
         //desc
         HSSFRow stationRow = sheet.createRow(1);
         stationRow.setHeight(StyleUtil.getRowHeight(25.5));
         HSSFCell stationCellName = stationRow.createCell(0);
-        HSSFCell stationCellText = stationRow.createCell(1);
+        HSSFCell stationCellText = stationRow.createCell(2);
         stationCellName.setCellStyle(StyleUtil.createFont12BoldCenterNoBorderStyle(wb));
         stationCellName.setCellValue(reportModelType5.stationName);
         stationCellText.setCellStyle(StyleUtil.createFont12LeftNoBorderStyle(wb));
@@ -173,7 +171,7 @@ public class BuildType5Service extends BuildTypeBaseService {
         HSSFRow bottomRow = sheet.createRow(nextRow);
         bottomRow.setHeight(StyleUtil.getRowHeight(16));
         HSSFCell checkerCell = bottomRow.createCell(0);
-        checkerCell.setCellValue(reportModelType5.owerName + reportModelType5.owerText + "    " + reportModelType5.checkerName + reportModelType5.checkerText + "      " + reportModelType5.dateName + reportModelType5.dateText);
+        checkerCell.setCellValue(reportModelType5.owerName + reportModelType5.owerText + "      " + reportModelType5.checkerName + reportModelType5.checkerText + "      " + reportModelType5.dateName + reportModelType5.dateText);
         checkerCell.setCellStyle(StyleUtil.createFont12BoldCenterNoBorderStyle(wb));
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 4));
 

@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/sub_title"
-        style="@style/text_18_000000_b"
+        style="@style/text_18_3A3A3A_b"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="1.1发动机" />

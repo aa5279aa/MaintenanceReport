@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -35,7 +35,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -60,7 +60,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -84,7 +84,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

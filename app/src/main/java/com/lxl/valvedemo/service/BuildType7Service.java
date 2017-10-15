@@ -166,7 +166,7 @@ public class BuildType7Service extends BuildTypeBaseService {
             HSSFCell bottomCell = bottomRow.createCell(0);
 
             bottomCell.setCellStyle(StyleUtil.createFont12BoldCenterNoBorderStyle(wb));
-            bottomCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText + "   " + reportModelType7.confirmName + reportModelType7.confirmText + "   " + reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));
+            bottomCell.setCellValue(reportModelType7.checkName + reportModelType7.checkText + "      " + reportModelType7.confirmName + reportModelType7.confirmText + "      " + reportModelType7.dateName + DateUtil.formatDateTime2String(reportModelType7.dateText));
 
             sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 3));
 

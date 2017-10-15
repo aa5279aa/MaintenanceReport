@@ -32,13 +32,13 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/text_18_999999"
+                    style="@style/text_18_666666"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="确认项" />
 
                 <TextView
-                    style="@style/text_18_999999"
+                    style="@style/text_18_666666"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="是否对阀门执行机构进行排水、通风处理？（方法：打开齿轮箱侧面的内六角螺栓排水，每两月找晴朗无风的天气打开排水螺栓通风透气5～8天。）" />

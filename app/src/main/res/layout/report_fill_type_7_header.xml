@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -37,7 +37,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -62,7 +62,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -87,7 +87,32 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="right|center_vertical"
+            android:text="确认人员：" />
+
+        <EditText
+            android:id="@+id/report_header_confirm"
+            style="@style/text_18_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="确认人员签字"
+            android:textColorHint="@color/hint_color" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

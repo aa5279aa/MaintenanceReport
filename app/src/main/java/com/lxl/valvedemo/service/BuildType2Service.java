@@ -223,7 +223,7 @@ public class BuildType2Service extends BuildTypeBaseService {
         bottomRow.setHeight(StyleUtil.getRowHeight(28.5));
         HSSFCell checkCell = bottomRow.createCell(0);
         checkCell.setCellStyle(StyleUtil.createFont10BoldCenterNoBorderStyle(wb));
-        checkCell.setCellValue("检查人：" + inspectionReportModel.checkerText + "   " + "确认人：" + inspectionReportModel.checkerText + "   " + "日期：" + inspectionReportModel.dateText);
+        checkCell.setCellValue("检查人：" + inspectionReportModel.checkerText + "      " + "确认人：" + inspectionReportModel.checkerText + "      " + "日期：" + inspectionReportModel.dateText);
         sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 5));
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(5));

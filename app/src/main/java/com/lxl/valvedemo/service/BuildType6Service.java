@@ -127,13 +127,10 @@ public class BuildType6Service extends BuildTypeBaseService {
         cell2.setCellValue(" 确认签字：" + reportModelType6.confirmSign);
 
         bottomRow = sheet.createRow(sheet.getLastRowNum() + 1);
-        HSSFCell checkerCell = bottomRow.createCell(0);
-        HSSFCell dateCell = bottomRow.createCell(2);
-        checkerCell.setCellValue(reportModelType6.checkerName + reportModelType6.checkerText);
-        dateCell.setCellValue(reportModelType6.dateName + DateUtil.formatDateTime2String(reportModelType6.dateText));
-        checkerCell.setCellStyle(StyleUtil.createFont11NoBorderCenter(wb));
-        dateCell.setCellStyle(StyleUtil.createFont11NoBorderCenter(wb));
-        sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 1));
+        HSSFCell bottomrCell = bottomRow.createCell(0);
+        bottomrCell.setCellValue(reportModelType6.checkerName + reportModelType6.checkerText + "      " + reportModelType6.confirmName + reportModelType6.confirmText + "      " + reportModelType6.dateName + reportModelType6.dateText);
+        bottomrCell.setCellStyle(StyleUtil.createFont10BoldCenterNoBorderStyle(wb));
+        sheet.addMergedRegion(new CellRangeAddress(bottomRow.getRowNum(), bottomRow.getRowNum(), 0, 2));
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(6.2));
         sheet.setColumnWidth(1, StyleUtil.getColumnWidth(77));

@@ -6,21 +6,21 @@
 
     <TextView
         android:id="@+id/type6_title"
-        style="@style/text_18_000000_b"
+        style="@style/text_18_3A3A3A_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="项目" />
 
     <TextView
         android:id="@+id/check_info1"
-        style="@style/text_18_999999"
+        style="@style/text_18_666666"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="检查项目1" />
 
     <TextView
         android:id="@+id/check_info2"
-        style="@style/text_18_999999"
+        style="@style/text_18_666666"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="检查项目2" />

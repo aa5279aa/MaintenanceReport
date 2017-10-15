@@ -6,7 +6,7 @@
 
     <TextView
         android:id="@+id/filltwo_subtypevalue_require"
-        style="@style/text_18_999999"
+        style="@style/text_18_666666"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

@@ -108,7 +108,7 @@
 
         <TextView
             android:id="@+id/report_fill_specifications_name"
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="规格型号" />
@@ -132,7 +132,7 @@
 
         <TextView
             android:id="@+id/report_fill_number_name"
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="设备编号" />
@@ -157,7 +157,7 @@
 
         <TextView
             android:id="@+id/report_fill_situation_name"
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="检查与维护保养情况" />
@@ -234,7 +234,7 @@
 
         <TextView
             android:id="@+id/report_fill_desc_name"
-            style="@style/text_18_000000_b"
+            style="@style/text_18_3A3A3A_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="备注" />
