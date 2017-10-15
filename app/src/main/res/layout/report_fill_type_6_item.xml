@@ -6,28 +6,32 @@
 
     <TextView
         android:id="@+id/type6_title"
-        style="@style/text_16_000000_b"
+        style="@style/text_18_000000_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="项目" />
 
     <TextView
         android:id="@+id/check_info1"
+        style="@style/text_18_999999"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="检查项目1" />
 
     <TextView
         android:id="@+id/check_info2"
+        style="@style/text_18_999999"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="检查项目2" />
 
     <EditText
         android:id="@+id/check_desc"
+        style="@style/text_18_333333"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入设备情况"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:textColorHint="@color/hint_color" />
 
 </LinearLayout>

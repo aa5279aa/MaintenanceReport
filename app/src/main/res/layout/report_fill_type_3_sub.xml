@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/check_title"
-        style="@style/text_16_000000_b"
+        style="@style/text_19_000000_b"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/hotel_city_item_title_line"

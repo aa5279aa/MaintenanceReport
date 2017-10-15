@@ -9,13 +9,16 @@
 
     <TextView
         android:id="@+id/cpu_check_desc"
+        style="@style/text_18_999999"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/cpu_check_text"
+        style="@style/text_18_333333"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:textColorHint="@color/hint_color" />
 
 </LinearLayout>

@@ -25,6 +25,7 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
     EditText mReportHeaderWorkArea;
     EditText mReportHeaderStation;
     EditText mReportHeaderChecker;
+    EditText mReportHeaderConfirm;
     TextView mReportHeaderDate;
     TextView mFillAdd;
     LinearLayout mReportFillContainer;
@@ -47,6 +48,7 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
         mReportHeaderWorkArea = (EditText) view.findViewById(R.id.report_header_workarea);//厂区
         mReportHeaderStation = (EditText) view.findViewById(R.id.report_header_station);
         mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_checker);
+        mReportHeaderConfirm = (EditText) view.findViewById(R.id.confirm_text);
         mReportHeaderDate = (TextView) view.findViewById(R.id.report_header_date);
         mReportFillContainer = (LinearLayout) view.findViewById(R.id.report_fill_contanier);
         mFillAdd = (TextView) view.findViewById(R.id.report_fill_add);
@@ -128,13 +130,16 @@ public class ReportRecordType1Fragment extends BaseBuildFragment {
         String workArea = mReportHeaderWorkArea.getText().toString();
         String station = mReportHeaderStation.getText().toString();
         String checker = mReportHeaderChecker.getText().toString();
+        String confirm = mReportHeaderConfirm.getText().toString();
         String data = mReportHeaderDate.getText().toString();
 
 
         model.maintainReportModel.workAreaText = workArea;
         model.maintainReportModel.stationText = station;
         model.maintainReportModel.checkerText = checker;
+        model.maintainReportModel.confirmText = confirm;
         model.maintainReportModel.dateText = data;
+
 
         int childCount = mReportFillContainer.getChildCount();
         for (int i = 0; i < childCount; i++) {

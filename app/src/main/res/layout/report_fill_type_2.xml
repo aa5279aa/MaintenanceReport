@@ -16,7 +16,7 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/report_header_type1"
+                android:id="@+id/report_header_type2"
                 layout="@layout/report_fill_type_1_header" />
 
             <LinearLayout

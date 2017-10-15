@@ -32,7 +32,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/text_16_000000_b"
+                    style="@style/text_18_999999"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/hotel_city_item_title_line"
@@ -41,10 +41,12 @@
 
                 <EditText
                     android:id="@+id/maintain_desc"
+                    style="@style/text_18_333333"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入维护结论："
-                    android:minHeight="100dp" />
+                    android:minHeight="100dp"
+                    android:textColorHint="@color/hint_color" />
             </LinearLayout>
 
             <LinearLayout
@@ -53,7 +55,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/text_16_000000_b"
+                    style="@style/text_18_999999"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/hotel_city_item_title_line"
@@ -62,10 +64,12 @@
 
                 <EditText
                     android:id="@+id/maintain_other"
+                    style="@style/text_18_333333"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入其他事项"
-                    android:minHeight="100dp" />
+                    android:minHeight="100dp"
+                    android:textColorHint="@color/hint_color" />
             </LinearLayout>
 
             <LinearLayout
@@ -74,7 +78,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    style="@style/text_16_000000_b"
+                    style="@style/text_18_999999"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/hotel_city_item_title_line"
@@ -83,10 +87,12 @@
 
                 <EditText
                     android:id="@+id/station_confirm"
+                    style="@style/text_18_333333"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入场站确认结论"
-                    android:minHeight="100dp" />
+                    android:minHeight="100dp"
+                    android:textColorHint="@color/hint_color" />
             </LinearLayout>
         </LinearLayout>
 
@@ -97,18 +103,22 @@
 
             <EditText
                 android:id="@+id/confirm_person"
+                style="@style/text_18_333333"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                android:hint="请输入确认人" />
+                android:hint="请输入确认人"
+                android:textColorHint="@color/hint_color" />
 
             <EditText
                 android:id="@+id/confirm_date"
+                style="@style/text_18_333333"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:hint="请输入确认日期" />
+                android:hint="请输入确认日期"
+                android:textColorHint="@color/hint_color" />
         </LinearLayout>
 
     </com.lxl.valvedemo.view.ListLinearLayout>

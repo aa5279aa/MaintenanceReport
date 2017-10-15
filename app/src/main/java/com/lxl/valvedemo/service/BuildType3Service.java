@@ -148,6 +148,7 @@ BuildType3Service extends BuildTypeBaseService {
                         for (int m = 0; m < cpuSubValue.cpuItemValueList.size(); m++) {
                             MaintainReportSubByCPU.MaintainReportByCPUItemValue maintainReportByCPUItemValue = cpuSubValue.cpuItemValueList.get(m);
                             row = sheet.createRow(sheet.getLastRowNum() + 1);
+                            row.setHeight(StyleUtil.getRowHeight(15.6));
                             //title
                             HSSFCell subCell1 = createBaseCell(wb, row, 1);
                             HSSFCell subCell2 = createBaseCell(wb, row, 2);
@@ -233,7 +234,7 @@ BuildType3Service extends BuildTypeBaseService {
                         HSSFCell subCell0 = createBaseCell(wb, row, 0);
                         HSSFCell subCell1 = createBaseCell(wb, row, 1);
                         HSSFCell subCell5 = createBaseCell(wb, row, lastCol);//todo
-                        short excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc, 15, 18);
+                        short excelCellAutoHeight = StyleUtil.getExcelCellAutoHeight(normalItemValue.columDesc, 16, 23);
                         row.setHeight(excelCellAutoHeight);
                         subCell0.setCellValue(subByNormal.subNormalTitle);
                         subCell1.setCellValue(normalItemValue.columDesc);
@@ -334,7 +335,7 @@ BuildType3Service extends BuildTypeBaseService {
         } else {
             sheet.setColumnWidth(0, StyleUtil.getColumnWidth(11.3));
             sheet.setColumnWidth(1, StyleUtil.getColumnWidth(11));
-            sheet.setColumnWidth(2, StyleUtil.getColumnWidth(10));
+            sheet.setColumnWidth(2, StyleUtil.getColumnWidth(11));
             sheet.setColumnWidth(3, StyleUtil.getColumnWidth(10));
             sheet.setColumnWidth(4, StyleUtil.getColumnWidth(10));
             sheet.setColumnWidth(5, StyleUtil.getColumnWidth(34.5));

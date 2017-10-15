@@ -47,11 +47,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
         <activity
-            android:name=".page.ReportActivity"
-            android:label="@string/title_activity_select"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"></activity>
-        <activity
             android:name=".page.ReportRecordActivity"
             android:label="@string/title_activity_select"
             android:screenOrientation="portrait"

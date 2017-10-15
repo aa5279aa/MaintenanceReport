@@ -221,15 +221,10 @@ public class BuildType2Service extends BuildTypeBaseService {
         int nextRow = sheet.getLastRowNum() + 1;
         HSSFRow bottomRow = sheet.createRow(nextRow);
         bottomRow.setHeight(StyleUtil.getRowHeight(28.5));
-        HSSFCell checkerNameCell = createDescBoldNoBorderCell(wb, bottomRow, 1);
-        HSSFCell checkerTextCell = createDescBoldNoBorderCell(wb, bottomRow, 3);
-        HSSFCell dateNameCell = createDescBoldNoBorderCell(wb, bottomRow, 4);
-        HSSFCell dateTextCell = createDescBoldNoBorderCell(wb, bottomRow, 5);
-        checkerNameCell.setCellValue(inspectionReportModel.checkerName);
-        checkerTextCell.setCellValue(inspectionReportModel.checkerText);
-        dateNameCell.setCellValue(inspectionReportModel.dateName);
-        dateTextCell.setCellValue(inspectionReportModel.dateText);
-        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 1, 2));
+        HSSFCell checkCell = bottomRow.createCell(0);
+        checkCell.setCellStyle(StyleUtil.createFont10BoldCenterNoBorderStyle(wb));
+        checkCell.setCellValue("检查人：" + inspectionReportModel.checkerText + "   " + "确认人：" + inspectionReportModel.checkerText + "   " + "日期：" + inspectionReportModel.dateText);
+        sheet.addMergedRegion(new CellRangeAddress(nextRow, nextRow, 0, 5));
 
         sheet.setColumnWidth(0, StyleUtil.getColumnWidth(5));
         sheet.setColumnWidth(1, StyleUtil.getColumnWidth(3));

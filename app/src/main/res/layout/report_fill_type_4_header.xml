@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_999999"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -21,9 +21,11 @@
 
         <EditText
             android:id="@+id/station"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="请输入输气站名称" />
+            android:hint="请输入输气站名称"
+            android:textColorHint="@color/hint_color" />
     </LinearLayout>
 
 
@@ -34,7 +36,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_999999"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -44,9 +46,11 @@
 
         <EditText
             android:id="@+id/standard"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="请输入浓度值" />
+            android:hint="请输入浓度值"
+            android:textColorHint="@color/hint_color" />
     </LinearLayout>
 
 
@@ -57,7 +61,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_999999"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -66,10 +70,12 @@
 
         <EditText
             android:id="@+id/checker"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="请输入校对人" />
+            android:hint="请输入校对人"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 
@@ -80,7 +86,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_999999"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -89,7 +95,7 @@
 
         <TextView
             android:id="@+id/report_header_date"
-            style="@style/text_16_000000"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

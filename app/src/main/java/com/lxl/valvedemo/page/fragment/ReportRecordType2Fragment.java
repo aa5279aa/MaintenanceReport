@@ -32,6 +32,7 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
     EditText mReportHeaderWorkArea;
     EditText mReportHeaderStation;
     EditText mReportHeaderChecker;
+    EditText mReportConfirmText;
     TextView mReportHeaderDate;
 
     LinearLayout mReportFillContanier;
@@ -55,6 +56,7 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
         mReportHeaderWorkArea = (EditText) view.findViewById(R.id.report_header_workarea);//厂区
         mReportHeaderStation = (EditText) view.findViewById(R.id.report_header_station);
         mReportHeaderChecker = (EditText) view.findViewById(R.id.report_header_checker);
+        mReportConfirmText = (EditText) view.findViewById(R.id.confirm_text);
         mReportHeaderDate = (TextView) view.findViewById(R.id.report_header_date);
         mReportFillContanier = (LinearLayout) view.findViewById(R.id.report_fill_contanier);
     }
@@ -108,11 +110,13 @@ public class ReportRecordType2Fragment extends BaseBuildFragment {
         String workArea = mReportHeaderWorkArea.getText().toString();
         String station = mReportHeaderStation.getText().toString();
         String checker = mReportHeaderChecker.getText().toString();
+        String reportConfirmText = mReportConfirmText.getText().toString();
         String data = mReportHeaderDate.getText().toString();
         model.inspectionReportModel.workAreaText = workArea;
         model.inspectionReportModel.stationText = station;
         model.inspectionReportModel.checkerText = checker;
         model.inspectionReportModel.dateText = data;
+        model.inspectionReportModel.confirmText = reportConfirmText;
 
         //如果值为空则不展示
         for (int i = 0; i < mReportFillContanier.getChildCount(); i++) {

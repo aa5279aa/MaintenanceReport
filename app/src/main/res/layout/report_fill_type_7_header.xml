@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -20,10 +20,12 @@
 
         <EditText
             android:id="@+id/report_header_workarea"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="作业区信息" />
+            android:hint="作业区信息"
+            android:textColorHint="@color/hint_color" />
 
 
     </LinearLayout>
@@ -35,7 +37,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -44,10 +46,12 @@
 
         <EditText
             android:id="@+id/report_header_station"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="场站信息" />
+            android:hint="场站信息"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 
@@ -58,7 +62,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -67,10 +71,12 @@
 
         <EditText
             android:id="@+id/report_header_checker"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="检修人员信息" />
+            android:hint="检修人员信息"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 
@@ -81,7 +87,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -90,7 +96,7 @@
 
         <TextView
             android:id="@+id/report_header_date"
-            style="@style/text_16_000000"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

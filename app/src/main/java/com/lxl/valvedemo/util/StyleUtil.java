@@ -102,7 +102,7 @@ public class StyleUtil {
         return setBorder;
     }
 
-    //创造基础描述的样式
+    //创造底部样式
     public static HSSFCellStyle createFont10BoldCenterNoBorderStyle(HSSFWorkbook wb) {
         HSSFCellStyle setBorder = wb.createCellStyle();
         HSSFFont font = wb.createFont();
@@ -110,9 +110,8 @@ public class StyleUtil {
         font.setBoldweight(HSSFFont.BOLDWEIGHT_BOLD);//粗体显示
         font.setFontHeightInPoints((short) 10);
         setBorder.setFont(font);
-        setBorder.setAlignment(CellStyle.ALIGN_CENTER);
+        setBorder.setAlignment(CellStyle.ALIGN_CENTER);//左右居中
         setBorder.setVerticalAlignment(CellStyle.VERTICAL_CENTER);//垂直居中
-        setBorder.setWrapText(true);
         return setBorder;
     }
 
@@ -357,7 +356,9 @@ public class StyleUtil {
             float ff = getregex(str.substring(i, i + 1));
             defaultCount = defaultCount + ff;
         }
-        return (short) (((defaultCount / fontCountInline) + 1) * defaultRowHeight * 20);//计算
+        float line = defaultCount / fontCountInline;
+        double ceil = Math.ceil(line);
+        return (short) ((ceil + 1) * defaultRowHeight * 10);//计算
     }
 
     public static float getregex(String charStr) {

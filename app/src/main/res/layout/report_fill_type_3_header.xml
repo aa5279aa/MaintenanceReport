@@ -11,7 +11,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -20,10 +20,12 @@
 
         <EditText
             android:id="@+id/report_header_station"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="场站信息" />
+            android:hint="场站信息"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 
@@ -34,30 +36,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="right|center_vertical"
-            android:text="测试日期：" />
-
-        <TextView
-            android:id="@+id/report_header_date"
-            style="@style/text_16_000000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -66,10 +45,12 @@
 
         <EditText
             android:id="@+id/report_header_create"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="生产科信息" />
+            android:hint="生产科信息"
+            android:textColorHint="@color/hint_color" />
 
     </LinearLayout>
 
@@ -80,7 +61,7 @@
         android:orientation="horizontal">
 
         <TextView
-            style="@style/text_14_000000"
+            style="@style/text_18_000000_b"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -89,10 +70,35 @@
 
         <EditText
             android:id="@+id/report_header_checker"
+            style="@style/text_18_333333"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="测试人信息" />
+            android:hint="测试人信息"
+            android:textColorHint="@color/hint_color" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/text_18_000000_b"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="right|center_vertical"
+            android:text="测试日期：" />
+
+        <TextView
+            android:id="@+id/report_header_date"
+            style="@style/text_18_333333"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
