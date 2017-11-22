@@ -1,9 +1,12 @@
 package com.lxl.valvedemo.page;
 
+import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -304,4 +307,17 @@ public class ReportRecordActivity extends FragmentActivity {
         mClient.stop();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (titleText.mediaFile == null)
+                return;
+            final ContentValues values = new ContentValues(2);
+            values.put(MediaStore.Video.Media.MIME_TYPE, "image/jpeg");
+            values.put(MediaStore.Video.Media.DATA, titleText.mediaFile.getAbsolutePath());
+            // Add a new record (identified by uri)
+            getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        }
+    }
 }

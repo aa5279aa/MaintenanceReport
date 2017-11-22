@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.config.ReportBuildConfig;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -62,9 +69,52 @@ public class StockTitleView extends RelativeLayout {
 
             @Override
             public void onClick(View v) {
-                ((Activity) mContext).startActivityForResult(new Intent("android.media.action.IMAGE_CAPTURE"), TAKE_PICTURE);
+                Uri fileUri = getOutputMediaFileUri();
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
+                ((Activity) mContext).startActivityForResult(intent, TAKE_PICTURE);
             }
         });
+    }
+
+    private Uri getOutputMediaFileUri() {
+        return Uri.fromFile(getOutputMediaFile());
+    }
+
+    public File mediaFile;
+
+    public File getOutputMediaFile() {
+        // To be safe, you should check that the SDCard is mounted
+        // using Environment.getExternalStorageState() before doing this.
+
+        File mediaStorageDir = null;
+        try {
+            // This location works best if you want the created images to be
+            // shared
+            // between applications and persist after your app has been
+            // uninstalled.
+            mediaStorageDir = new File(ReportBuildConfig.getBaseBuildPath());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Create the storage directory if it does not exist
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                // 在SD卡上创建文件夹需要权限：
+                // <uses-permission
+                // android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+                return null;
+            }
+        }
+
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".jpg");
+        return mediaFile;
     }
 
     private void initView() {
