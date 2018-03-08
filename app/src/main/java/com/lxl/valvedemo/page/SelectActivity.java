@@ -149,8 +149,12 @@ public class SelectActivity extends Activity {
     //先权限检查，然后进界面
     private void gotoReportActivity(SingleSelectionModel sonSingleSelctionEntity) {
         Intent intent = new Intent();
-        intent.setClass(context, ReportRecordActivity.class);
-        intent.putExtra(ReportRecordActivity.SelectModel, sonSingleSelctionEntity);
+        if ("8".equals(sonSingleSelctionEntity.parseType)) {
+            intent.setClass(context, ReportRecord2Activity.class);
+        } else {
+            intent.setClass(context, ReportRecordActivity.class);
+        }
+        intent.putExtra(SELECT_MODEL, sonSingleSelctionEntity);
         startActivity(intent);
     }
 

@@ -54,9 +54,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportRecordActivity extends FragmentActivity {
+import static com.lxl.valvedemo.page.SelectActivity.SELECT_MODEL;
 
-    public static final String SelectModel = "SelectModel";
+public class ReportRecordActivity extends FragmentActivity {
 
     private StockTitleView titleText;
     private Context mContext;
@@ -115,7 +115,7 @@ public class ReportRecordActivity extends FragmentActivity {
 
     private void initData() {
         Bundle extras = getIntent().getExtras();
-        mSelectModel = (SingleSelectionModel) extras.getSerializable(SelectModel);
+        mSelectModel = (SingleSelectionModel) extras.getSerializable(SELECT_MODEL);
         //获取到对应的execl表
         String path = "";
         try {

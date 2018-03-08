@@ -52,6 +52,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
         <activity
+            android:name=".page.ReportRecord2Activity"
+            android:label="@string/title_activity_select"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+        <activity
             android:name=".page.TrajectoryShowActivity"
             android:label="@string/title_activity_select"
             android:screenOrientation="portrait"
