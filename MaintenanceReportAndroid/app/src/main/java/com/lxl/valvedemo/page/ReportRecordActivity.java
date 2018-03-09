@@ -54,7 +54,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.lxl.valvedemo.page.SelectActivity.SELECT_MODEL;
+import static com.lxl.valvedemo.config.Definition.Serializable_Model.SELECT_MODEL;
 
 public class ReportRecordActivity extends FragmentActivity {
 

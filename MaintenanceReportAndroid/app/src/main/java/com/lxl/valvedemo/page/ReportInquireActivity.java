@@ -96,7 +96,7 @@ public class ReportInquireActivity extends Activity implements View.OnClickListe
         for (int i = 0; i < reportRecord2Models.size(); i++) {
             View inflate = View.inflate(this, R.layout.report_record2_show_item, null);
             TextView showTitle = (TextView) inflate.findViewById(R.id.report_record2_show_title);
-            TextView showValue = (TextView) inflate.findViewById(R.id.report_record2_show_value;
+            TextView showValue = (TextView) inflate.findViewById(R.id.report_record2_show_value);
             ReportRecord2Model reportRecord2Model = reportRecord2Models.get(i);
             showTitle.setText(reportRecord2Model.name);
             showValue.setText(reportRecord2Model.value);
