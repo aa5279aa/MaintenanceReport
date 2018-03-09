@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xiangleiliu on 2017/8/6.
@@ -18,12 +19,9 @@ import java.util.List;
 public class StockSender {
     private static StockSender sender;
     private static String mBaseStockUrl = "http://qt.gtimg.cn/q=";
-    //    http://qt.gtimg.cn/q=sz300170,sz300171,sz300172,sz300173,sz300174,sz300170,sz300170,sz300170,sz300170,
-//    private static String mBaseAPIUrl = "http://10.32.151.30:8090/zzfin/api/";
     public static String PermissionUrl = "http://115.159.31.128:8090/zzfin/api/getpermission";
-//    public static String PermissionUrl = "http://192.168.1.101:8080/zzfin/api/getpermission";
-//    http://10.32.151.30:8090/zzfin/api/register?moblie=15601817211
-//    http://10.32.151.30:8090/zzfin/api/completion?userid=10000002&moblie=15601817296&nickname=hahahah&area=山东日照&age=28
+    public static String SubmitUrl = "http://115.159.31.128:8090/zzfin/api/getpermission?";
+    public static String SelectUrl = "http://115.159.31.128:8090/zzfin/api/getpermission?";
 
     private StockSender() {
     }
@@ -36,12 +34,12 @@ public class StockSender {
     }
 
     private static String requestGet(String baseUrl, String requestJsonStr, String code) {
-        HashMap<String, String> paramsMap = new HashMap<>();
+        HashMap<String, Object> paramsMap = new HashMap<>();
         paramsMap.put("data", requestJsonStr);
         return requestGet(baseUrl, paramsMap, "utf-8");
     }
 
-    public static String requestGet(String baseUrl, HashMap<String, String> paramsMap, String code) {
+    public static String requestGet(String baseUrl, Map<String, Object> paramsMap, String code) {
         try {
             StringBuilder tempParams = new StringBuilder();
             int pos = 0;
@@ -49,7 +47,7 @@ public class StockSender {
                 if (pos > 0) {
                     tempParams.append("&");
                 }
-                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(paramsMap.get(key), code)));
+                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(String.valueOf(paramsMap.get(key)), code)));
                 pos++;
             }
             String requestUrl = baseUrl + tempParams.toString();

@@ -83,10 +83,11 @@
             android:enabled="true"
             android:process=":remote"></service>
 
+        <!-- key:开发者申请的Key-->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="nhYzLZtYBkVWR1pF123Kpsq8xvyQB8FY" />
-        //key:开发者申请的Key
+
     </application>
 
 </manifest>

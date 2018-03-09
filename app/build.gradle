@@ -41,4 +41,5 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
     compile files('libs/poi-3.9-20121203.jar')
     compile files('libs/BaiduLBS_Android.jar')
+    compile 'com.alibaba:fastjson:1.2.38'
 }

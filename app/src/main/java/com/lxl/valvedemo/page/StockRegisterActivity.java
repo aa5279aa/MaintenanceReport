@@ -93,7 +93,7 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    String s = StockSender.requestGet(StockSender.PermissionUrl, new HashMap<String, String>(), "utf-8");
+                    String s = StockSender.requestGet(StockSender.PermissionUrl, new HashMap<String, Object>(), "utf-8");
                     SharedPreferences.Editor edit = login.edit();
                     if ("noPermission".equals(s)) {
                         edit.putBoolean("canLogin", false);
