@@ -16,15 +16,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.config.Definition;
 import com.lxl.valvedemo.config.TableConfig;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
 import com.lxl.valvedemo.util.DeviceUtil;
 import com.lxl.valvedemo.util.StringUtil;
 import com.lxl.valvedemo.view.StockTitleView;
 
+import static com.lxl.valvedemo.config.Definition.Serializable_Model.SELECT_MODEL;
+
 public class SelectActivity extends Activity {
     Context context;
-    public final static String SELECT_MODEL = "SELECT_MODEL";
     private static final int BAIDU_READ_PHONE_STATE = 100;
 
     SingleSelectionModel singleSelctionEntity;

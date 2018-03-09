@@ -36,7 +36,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.lxl.valvedemo.page.SelectActivity.SELECT_MODEL;
+import static com.lxl.valvedemo.config.Definition.Serializable_Model.SELECT_MODEL;
+
 
 /**
  * Created by xiangleiliu on 2018/3/8.
