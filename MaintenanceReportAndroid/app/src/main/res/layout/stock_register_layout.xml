@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <com.lxl.valvedemo.view.StockTitleView
+        android:id="@+id/stock_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentTop="true"
+        app:stock_title_text_msg="中原输油气分公司" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_16_000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="30dp"
+            android:gravity="center_horizontal"
+            android:text="移动智能巡检平台\nMobile smart inspection platform" />
+
+        <ImageView
+            android:id="@+id/icon_logo"
+            android:layout_width="160dp"
+            android:layout_height="152dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/check_logo" />
+
+        <Button
+            android:id="@+id/stock_register_next_step"
+            style="@style/text_18_ffffff"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/icon_logo"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="26.0dip"
+            android:background="@drawable/report_button"
+            android:gravity="center"
+            android:minHeight="40dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingTop="5dp"
+            android:text="登录" />
+    </LinearLayout>
+
+</RelativeLayout>

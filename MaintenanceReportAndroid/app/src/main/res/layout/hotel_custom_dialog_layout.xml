@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="25dip">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/common_bg_alert"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/title_text"
+                style="@style/text_16_000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:paddingTop="20dip"
+                android:text="放大撒发"
+                android:visibility="gone"
+                />
+
+            <TextView
+                android:id="@+id/close"
+                style="@style/text_16_000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dip"
+                android:paddingRight="20dip"
+                android:paddingTop="10dip"
+                android:text="关闭"
+                android:gravity="center"
+                android:layout_gravity="right"
+                android:visibility="gone"
+                />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/content_text"
+            style="@style/text_14_333333"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip"
+            android:layout_marginTop="15dip"
+            android:layout_marginBottom="15dip"
+            android:text="发大厦发生大幅撒的fdsafdasfdasfdsa"
+
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/carrental_dark2" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/lef_btn"
+                style="@style/hotel_text_15_4289ff"
+                android:layout_width="0dip"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/common_btn_dialog_selector"
+                android:gravity="center"
+                android:text="@string/ok" />
+
+            <TextView
+                android:id="@+id/btn_divider"
+                android:layout_width="1dip"
+                android:layout_height="fill_parent"
+                android:background="@color/carrental_dark2"
+                android:gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/right_btn"
+                style="@style/hotel_text_15_4289ff"
+                android:layout_width="0dip"
+                android:layout_height="44dp"
+                android:layout_weight="1"
+                android:background="@drawable/common_btn_dialog_selector"
+                android:gravity="center"
+                android:text="@string/cancel" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>
