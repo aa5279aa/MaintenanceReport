@@ -74,6 +74,10 @@ public class TableConfig {
             plateModel.level = 1;
             plateModel.parentModel = selectionModel;
             plateModel.path = selectionModel.path + File.separator + plateModel.itemStr;
+            if (plate.equals("查询模块")) {
+                plateModel.isInquire = true;
+                plateModel.isCanSelect = false;
+            }
             selectionModel.selectList.add(plateModel);
         }
         SingleSelectionModel majorModel = findFromModel(plateModel.selectList, major);

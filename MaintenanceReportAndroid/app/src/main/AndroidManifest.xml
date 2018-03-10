@@ -68,6 +68,11 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
         <activity
+            android:name=".page.ReportInquireActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+        <activity
             android:name=".page.LocationActivity"
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"

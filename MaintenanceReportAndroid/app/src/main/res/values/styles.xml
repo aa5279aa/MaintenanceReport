@@ -227,4 +227,10 @@
         <item name="android:textColor">#333333</item>
     </style>
 
+    <style name="text_14_6c6c6c">
+        <item name="android:textSize">14dip</item>
+        <item name="android:textColor">#6c6c6c</item>
+    </style>
+
+
 </resources>

@@ -12,6 +12,7 @@ public class SingleSelectionModel implements Serializable {
     public String path;
     public boolean isCanSelect = true;
     public boolean isCanJump = false;
+    public boolean isInquire = false;
     public List<SingleSelectionModel> selectList = new ArrayList<SingleSelectionModel>();
     public SingleSelectionModel parentModel = null;
     public String parseType = "";

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="StockTextView">
-        <attr name="hotel_text_drawable_src" format="reference" />
-        <attr name="hotel_text_drawable_direction">
-            <enum name="hotel_left" value="0" />
-            <enum name="hotel_top" value="1" />
-            <enum name="hotel_right" value="2" />
-            <enum name="hotel_bottom" value="3" />
+        <attr name="stock_text_drawable_src" format="reference" />
+        <attr name="stock_text_drawable_direction">
+            <enum name="stock_left" value="0" />
+            <enum name="stock_top" value="1" />
+            <enum name="stock_right" value="2" />
+            <enum name="stock_bottom" value="3" />
         </attr>
-        <attr name="hotel_text_drawable_width" format="dimension" />
-        <attr name="hotel_text_drawable_height" format="dimension" />
-        <attr name="hotel_text_drawable_padding" format="dimension" />
+        <attr name="stock_text_drawable_width" format="dimension" />
+        <attr name="stock_text_drawable_height" format="dimension" />
+        <attr name="stock_text_drawable_padding" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="StockTitleView">

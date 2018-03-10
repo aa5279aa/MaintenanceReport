@@ -79,6 +79,8 @@ public class SelectActivity extends Activity {
                     selectSingleSelctionEntity = (SingleSelectionModel) v.getTag();
                     if (selectSingleSelctionEntity.isCanJump) {
                         gotoReportActivityForCheck(selectSingleSelctionEntity);
+                    } else if (selectSingleSelctionEntity.isInquire) {
+                        gotoInquireActivity(selectSingleSelctionEntity);
                     } else if (selectSingleSelctionEntity.isCanSelect) {
                         gotoSelectActivity(selectSingleSelctionEntity);
                     } else {
@@ -87,6 +89,12 @@ public class SelectActivity extends Activity {
                 }
             });
         }
+    }
+
+    private void gotoInquireActivity(SingleSelectionModel selectSingleSelctionEntity) {
+        Intent intent = new Intent();
+        intent.setClass(context, ReportInquireActivity.class);
+        startActivity(intent);
     }
 
     private void initData() {

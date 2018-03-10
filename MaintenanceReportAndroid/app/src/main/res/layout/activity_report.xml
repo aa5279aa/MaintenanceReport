@@ -11,8 +11,79 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        app:stock_title_text_msg="填写页"
-        />
+        app:stock_title_text_msg="填写页" />
+
+    <LinearLayout
+        android:id="@+id/report_filter_header"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_below="@id/stock_title_view">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.lxl.valvedemo.view.StockTextView
+                android:id="@+id/inquire_type"
+                style="@style/text_11_000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="类型"
+                app:stock_text_drawable_direction="stock_right"
+                app:stock_text_drawable_height="7dp"
+                app:stock_text_drawable_src="@drawable/stock_rank_filter_enable"
+                app:stock_text_drawable_width="11dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.lxl.valvedemo.view.StockTextView
+                android:id="@+id/inquire_area"
+                style="@style/text_11_000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="作业区"
+                app:stock_text_drawable_direction="stock_right"
+                app:stock_text_drawable_height="7dp"
+                app:stock_text_drawable_src="@drawable/stock_rank_filter_enable"
+                app:stock_text_drawable_width="11dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <com.lxl.valvedemo.view.StockTextView
+                android:id="@+id/inquire_station"
+                style="@style/text_11_000000"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="场站"
+                app:stock_text_drawable_direction="stock_right"
+                app:stock_text_drawable_height="7dp"
+                app:stock_text_drawable_src="@drawable/stock_rank_filter_enable"
+                app:stock_text_drawable_width="11dp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/inquire_checker"
+            style="@style/text_11_000000"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="检查人" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bottomlayout"
@@ -39,14 +110,29 @@
             android:layout_gravity="center"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="提交" />
+            android:text="查询" />
     </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/report_record2_fill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottomlayout"
+        android:layout_below="@id/report_filter_header">
+
+        <LinearLayout
+            android:id="@+id/data_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </ScrollView>
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/bottomlayout"
-        android:layout_below="@id/stock_title_view" />
+        android:layout_below="@id/report_filter_header" />
 
 </RelativeLayout>

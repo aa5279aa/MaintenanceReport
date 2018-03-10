@@ -20,8 +20,8 @@ public class StockSender {
     private static StockSender sender;
     private static String mBaseStockUrl = "http://qt.gtimg.cn/q=";
     public static String PermissionUrl = "http://115.159.31.128:8090/zzfin/api/getpermission";
-    public static String SubmitUrl = "http://115.159.31.128:8090/zzfin/api/getpermission?";
-    public static String SelectUrl = "http://115.159.31.128:8090/zzfin/api/getpermission?";
+    public static String SubmitUrl = "http://115.159.31.128:8090/zzfin/api/report_submit?";
+    public static String SelectUrl = "http://115.159.31.128:8090/zzfin/api/report_inquire?";
 
     private StockSender() {
     }
