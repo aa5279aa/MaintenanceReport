@@ -166,7 +166,7 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
         };
         mClient.registerLocationListener(listener);
         LocationClientOption option = new LocationClientOption();
-        option.setScanSpan(10 * 1000);
+        option.setScanSpan(100 * 1000);
         option.setIsNeedAddress(true);
         mClient.setLocOption(option);
         mClient.start();

@@ -24,6 +24,8 @@ import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.model.buildModel.type8.ReportRecord2Model;
 import com.lxl.valvedemo.model.viewmodel.ReportInquireModel;
 import com.lxl.valvedemo.sender.StockSender;
+import com.lxl.valvedemo.util.NumberUtil;
+import com.lxl.valvedemo.util.StockShowUtil;
 import com.lxl.valvedemo.view.StockRankFilterBaseFragment;
 import com.lxl.valvedemo.view.StockRankFilterGroupFragment;
 
@@ -61,7 +63,6 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
     private void initView() {
         mGoTop = (Button) findViewById(R.id.go_top_btn);
         mSubmit = (Button) findViewById(R.id.submit);
-        mSubmit.setVisibility(View.GONE);
 
         scrollView = (ScrollView) findViewById(R.id.report_record2_fill);
 
@@ -90,6 +91,9 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
             return;
         }
         if (id == R.id.submit) {
+            mInquireModel.type = NumberUtil.parseInteger(mInquireType.getText().toString());
+            mInquireModel.area = mInquireArea.getText().toString();
+            mInquireModel.station = mInquireStation.getText().toString();
             inquireValue();
             return;
         }
@@ -118,12 +122,14 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
     }
 
     private void inquireValue() {
-        if (mInquireModel.selectType == 0) {
+        if (mInquireModel.type == 0) {
+            StockShowUtil.showToastOnMainThread(this, "请先选择类型");
             return;
         }
         final Map<String, Object> paramsMap = new HashMap<>();
-        paramsMap.put("type", mInquireModel.selectType);
-        paramsMap.put("table", mInquireModel.tableName);
+        paramsMap.put("type", mInquireModel.type);
+        paramsMap.put("station", mInquireModel.station);
+        paramsMap.put("area", mInquireModel.area);
         new Thread(new Runnable() {
             @Override
             public void run() {

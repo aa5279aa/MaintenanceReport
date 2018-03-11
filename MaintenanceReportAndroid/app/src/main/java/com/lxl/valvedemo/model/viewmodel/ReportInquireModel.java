@@ -8,7 +8,8 @@ import java.io.Serializable;
 
 public class ReportInquireModel implements Serializable {
 
-    public int selectType;
-    public String tableName;
+    public int type;
+    public String area;
+    public String station;
 
 }

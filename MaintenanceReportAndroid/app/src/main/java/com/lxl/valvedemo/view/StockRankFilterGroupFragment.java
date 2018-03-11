@@ -51,7 +51,7 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
         for (int i = 0; i < list.size(); i++) {
             TextView text = new TextView(getContext());
             text.setText(list.get(i));
-            text.setPadding(10, 10, 10, 10);
+            text.setPadding(20, 20, 20, 20);
             text.setOnClickListener(this);
             mSubGroupView.addView(text);
         }

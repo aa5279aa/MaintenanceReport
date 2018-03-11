@@ -20,8 +20,8 @@ public class StockSender {
     private static StockSender sender;
     private static String mBaseStockUrl = "http://qt.gtimg.cn/q=";
     public static String PermissionUrl = "http://115.159.31.128:8090/zzfin/api/getpermission";
-    public static String SubmitUrl = "http://115.159.31.128:8090/zzfin/api/report_submit?";
-    public static String SelectUrl = "http://115.159.31.128:8090/zzfin/api/report_inquire?";
+    public static String SubmitUrl = "http://192.168.0.103:8080/ReportWeb/report_submit?";
+    public static String SelectUrl = "http://192.168.0.103:8080/ReportWeb/report_inquire?";
 
     private StockSender() {
     }
@@ -84,7 +84,7 @@ public class StockSender {
             urlConn.disconnect();
         } catch (Exception e) {
             Log.e("TEST", e.toString());
-            return e.getMessage();
+            return "";
         }
         return "";
     }

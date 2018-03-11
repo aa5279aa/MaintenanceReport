@@ -6,6 +6,15 @@ package com.lxl.valvedemo.util;
 
 public class NumberUtil {
 
+    public static int parseInteger(String str) {
+        try {
+            return Integer.parseInt(str);
+        } catch (Exception e) {
+            return 0;
+        }
+
+    }
+
     public static String formatDouble(double d) {
         return formatDouble(d, 5);
     }

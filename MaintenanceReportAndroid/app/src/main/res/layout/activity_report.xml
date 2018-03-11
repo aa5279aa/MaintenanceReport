@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
-        app:stock_title_text_msg="填写页" />
+        app:stock_title_text_msg="查询页" />
 
     <LinearLayout
         android:id="@+id/report_filter_header"
