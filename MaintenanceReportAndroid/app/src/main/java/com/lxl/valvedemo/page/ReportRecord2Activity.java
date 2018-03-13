@@ -182,7 +182,7 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
             model.value = editStr;
             list.add(model);
         }
-        String inputListJson = reportRecord2ModelList2JsonString(list);
+        String inputListJson = JSON.toJSONString(list);
         // EditText mReportHeaderArea, mReportHeaderStation, mReportHeaderChecker, mReportHeaderDate;
         String areaStr = mReportHeaderArea.getText().toString();
         String stationStr = mReportHeaderStation.getText().toString();
@@ -315,18 +315,5 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
             }
         }, time);
     }
-
-    public String reportRecord2ModelList2JsonString(List<ReportRecord2Model> list) {
-        JSONArray array = new JSONArray();
-        for (int i = 0; i < list.size(); i++) {
-            ReportRecord2Model reportRecord2Model = list.get(i);
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("key", reportRecord2Model.key);
-            jsonObject.put("value", reportRecord2Model.value);
-            array.add(jsonObject);
-        }
-        return array.toString();
-    }
-
 
 }
