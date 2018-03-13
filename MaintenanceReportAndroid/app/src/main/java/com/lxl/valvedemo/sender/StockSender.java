@@ -2,7 +2,6 @@ package com.lxl.valvedemo.sender;
 
 import android.util.Log;
 
-
 import com.lxl.valvedemo.util.IOHelper;
 
 import java.io.DataOutputStream;
@@ -14,9 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -28,10 +25,12 @@ import static android.provider.Telephony.Mms.Part.CHARSET;
  */
 public class StockSender {
     private static StockSender sender;
-    private static String mBaseStockUrl = "http://qt.gtimg.cn/q=";
+    private static String mBaseIP = "http://10.32.151.132:5389";
+    //    private static String mBaseIP = "http://115.159.31.128:8090";
     public static String PermissionUrl = "http://115.159.31.128:8090/zzfin/api/getpermission";
-    public static String SubmitUrl = "http://115.159.31.128:8090/ReportWeb/report_submit?";
-    public static String SelectUrl = "http://115.159.31.128:8090/ReportWeb/report_inquire?";
+    public static String SubmitUrl = mBaseIP + "/ReportWeb/report_submit?";
+    public static String SelectUrl = mBaseIP + "/ReportWeb/report_inquire?";
+    public static String UploadImgUrl = mBaseIP + "/ReportWeb/report_upload?";
 
     private StockSender() {
     }
@@ -107,8 +106,8 @@ public class StockSender {
         try {
             URL url = new URL(RequestURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(TIME_OUT);
-            conn.setConnectTimeout(TIME_OUT);
+            conn.setReadTimeout(10*1000);
+            conn.setConnectTimeout(10*1000);
             conn.setDoInput(true);          // 允许输入流
             conn.setDoOutput(true);         // 允许输出流
             conn.setUseCaches(false);       // 不允许使用缓存

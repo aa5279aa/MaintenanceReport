@@ -2,10 +2,8 @@ package com.lxl.valvedemo.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,6 +27,7 @@ public class StockTitleView extends RelativeLayout {
     TextView mTitle;
     ImageView mBackBtn;
     ImageView mActionBtn;
+    View.OnClickListener mActionListener;
 
     public static int TAKE_PICTURE = 101;
 
@@ -69,17 +68,22 @@ public class StockTitleView extends RelativeLayout {
 
             @Override
             public void onClick(View v) {
-                Uri fileUri = getOutputMediaFileUri();
-                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-                intent.putExtra(MediaStore.EXTRA_VIDEO_QUALITY, 1);
-                ((Activity) mContext).startActivityForResult(intent, TAKE_PICTURE);
+                if (mActionListener != null) {
+                    mActionListener.onClick(v);
+                }
             }
         });
     }
 
-    private Uri getOutputMediaFileUri() {
-        return Uri.fromFile(getOutputMediaFile());
+
+    public void setActionListener(View.OnClickListener actionListener) {
+        this.mActionListener = actionListener;
+
+    }
+
+
+    public Uri getOutputMediaFileUri(File file) {
+        return Uri.fromFile(file);
     }
 
     public File mediaFile;
