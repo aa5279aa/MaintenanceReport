@@ -30,7 +30,7 @@ public class StockTitleView extends RelativeLayout {
     ImageView mBackBtn;
     ImageView mActionBtn;
 
-    int TAKE_PICTURE = 101;
+    public static int TAKE_PICTURE = 101;
 
     public StockTitleView(Context context, AttributeSet attrs) {
         super(context, attrs);

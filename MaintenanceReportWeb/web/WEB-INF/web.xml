@@ -7,18 +7,27 @@
         <servlet-name>MaintenanceInquireServlet</servlet-name>
         <servlet-class>com.lxl.maintenance.MaintenanceInquireServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>MaintenanceSubmitServlet</servlet-name>
-        <servlet-class>com.lxl.maintenance.MaintenanceSubmitServlet</servlet-class>
-    </servlet>
-
     <servlet-mapping>
         <servlet-name>MaintenanceInquireServlet</servlet-name>
         <url-pattern>/report_inquire</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>MaintenanceSubmitServlet</servlet-name>
+        <servlet-class>com.lxl.maintenance.MaintenanceSubmitServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MaintenanceSubmitServlet</servlet-name>
         <url-pattern>/report_submit</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>MaintenanceUploadImageServlet</servlet-name>
+        <servlet-class>com.lxl.maintenance.MaintenanceUploadImageServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MaintenanceUploadImageServlet</servlet-name>
+        <url-pattern>/report_upload</url-pattern>
+    </servlet-mapping>
+
 </web-app>

@@ -28,6 +28,7 @@ import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.StockShowUtil;
 import com.lxl.valvedemo.util.StringUtil;
+import com.lxl.valvedemo.view.StockTitleView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -44,6 +45,7 @@ import static com.lxl.valvedemo.config.Definition.Serializable_Model.SELECT_MODE
  */
 
 public class ReportRecord2Activity extends FragmentActivity implements View.OnClickListener {
+    StockTitleView titleView;
     Button mGoTop, mSubmit;
     ScrollView scrollView;
     EditText mReportHeaderArea, mReportHeaderStation, mReportHeaderChecker, mReportHeaderDate;
@@ -65,6 +67,7 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
     }
 
     private void initView() {
+        titleView = (StockTitleView) findViewById(R.id.stock_title_view);
         mGoTop = (Button) findViewById(R.id.go_top_btn);
         mSubmit = (Button) findViewById(R.id.submit);
 
@@ -77,6 +80,7 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
 
         mGoTop.setOnClickListener(this);
         mSubmit.setOnClickListener(this);
+        titleView.setActionBtnShow(View.VISIBLE);
     }
 
 
@@ -212,4 +216,11 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
         super.onDestroy();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == StockTitleView.TAKE_PICTURE) {
+            Log.i("lxltest", "onActivityResult");
+        }
+    }
 }
