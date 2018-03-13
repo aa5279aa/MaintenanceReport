@@ -31,6 +31,7 @@ public class MaintenanceUploadImageServlet extends HttpServlet {
         response.setContentType("text/html;charset=utf-8");
         PrintWriter writer = response.getWriter();
         JSONObject requestJson = new JSONObject();
+        System.out.println("收到图片伤处你请求");
         try {
             //解析请求参数
             DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -54,15 +55,18 @@ public class MaintenanceUploadImageServlet extends HttpServlet {
     }
 
     //请求转化为ImgeModel
-    public ImageModel readImageModel(List<FileItem> list) throws FileUploadException, IOException {
+    public ImageModel readImageModel(List<FileItem> list) throws Exception {
         ImageModel imageModel = new ImageModel();
         String fileName = "temp.png";
         for (FileItem fileItem : list) {
             String fieldName = fileItem.getFieldName();
-            if ("input_img".equals(fieldName) && fileItem instanceof DiskFileItem) {
+            if ("uploadfile".equals(fieldName) && fileItem instanceof DiskFileItem) {
                 fileName = fileItem.getName();
                 imageModel.fileItem = fileItem;
             }
+        }
+        if (imageModel.fileItem == null) {
+            throw new Exception("没有上传文件");
         }
         //重新整理imgName
         imageModel.mImgName = "Maintenance_" + fileName;
