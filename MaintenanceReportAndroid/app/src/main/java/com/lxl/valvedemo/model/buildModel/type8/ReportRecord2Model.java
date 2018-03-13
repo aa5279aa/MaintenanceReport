@@ -5,6 +5,7 @@ package com.lxl.valvedemo.model.buildModel.type8;
  */
 
 public class ReportRecord2Model {
-    public String name;
+    public String desc;
+    public String key;
     public String value;
 }

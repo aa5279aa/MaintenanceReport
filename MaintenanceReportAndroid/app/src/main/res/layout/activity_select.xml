@@ -12,19 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentTop="true"
-        app:stock_title_text_msg="选择模块"
-        />
+        app:stock_title_text_msg="选择模块" />
 
-
-    <LinearLayout
-        android:id="@+id/radio_group"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_horizontal"
-        android:divider="@drawable/divider_vertical_bg"
-        android:dividerPadding="30dp"
-        android:orientation="vertical"
-        android:showDividers="middle" />
+        android:layout_below="@id/stock_title_view">
 
+        <LinearLayout
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:divider="@drawable/divider_vertical_bg"
+            android:dividerPadding="30dp"
+            android:orientation="vertical"
+            android:showDividers="middle" />
+    </ScrollView>
 </RelativeLayout>

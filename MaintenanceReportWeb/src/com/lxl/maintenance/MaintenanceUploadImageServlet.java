@@ -71,7 +71,7 @@ public class MaintenanceUploadImageServlet extends HttpServlet {
         //重新整理imgName
         imageModel.mImgName = "Maintenance_" + fileName;
         imageModel.mImgPath = MaintenanceConfig.Save_Path;
-        imageModel.mImgUrl = imageModel.mImgPath + File.separator + imageModel.mImgName;
+        imageModel.mImgUrl = imageModel.mImgPath + "/" + imageModel.mImgName;
         return imageModel;
     }
 

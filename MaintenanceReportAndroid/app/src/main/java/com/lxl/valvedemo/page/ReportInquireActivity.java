@@ -154,7 +154,7 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
             TextView showTitle = (TextView) inflate.findViewById(R.id.report_record2_show_title);
             TextView showValue = (TextView) inflate.findViewById(R.id.report_record2_show_value);
             ReportRecord2Model reportRecord2Model = reportRecord2Models.get(i);
-            showTitle.setText(reportRecord2Model.name);
+            showTitle.setText(reportRecord2Model.desc);
             showValue.setText(reportRecord2Model.value);
             dataContainer.addView(inflate);
         }

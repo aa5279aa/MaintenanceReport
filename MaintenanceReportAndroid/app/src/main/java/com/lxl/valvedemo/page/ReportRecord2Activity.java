@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +18,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.config.DataConfig;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.buildModel.type8.ReportRecord2Model;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
@@ -30,6 +33,7 @@ import com.lxl.valvedemo.util.JsonUtil;
 import com.lxl.valvedemo.util.NumberUtil;
 import com.lxl.valvedemo.util.StockShowUtil;
 import com.lxl.valvedemo.util.StringUtil;
+import com.lxl.valvedemo.view.HotelCustomDialog;
 import com.lxl.valvedemo.view.StockTitleView;
 
 import java.io.File;
@@ -63,10 +67,14 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
     File file;
     UploadImageModel uploadImageModel = new UploadImageModel();
 
+    HotelCustomDialog dialog = new HotelCustomDialog();
+    FragmentManager fragmentManager;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+        fragmentManager = getSupportFragmentManager();
         setContentView(R.layout.activity_report2);
         initView();
         initData();
@@ -103,7 +111,7 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
 
 
     private void bindData() {
-        mReportHeaderDate.setText(DateUtil.getCurrentDate());
+        mReportHeaderDate.setText(DateUtil.getCurrentDate(DateUtil.SIMPLEFORMATTYPESTRING7));
         try {
             InputStream open = getAssets().open(mSelectModel.path + ReportBuildConfig.Location_Suffix);
             List<String> strings = IOHelper.readListStrByCode(open, "utf-8");
@@ -111,7 +119,17 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
                 View inflate = View.inflate(this, R.layout.report_record2_fill_item, null);
                 TextView textView = (TextView) inflate.findViewById(R.id.report_record2_title);
                 TextView editView = (TextView) inflate.findViewById(R.id.report_record2_edit);
-                textView.setText(strings.get(i));
+                String text = strings.get(i);
+                String key = "";
+                String desc = "";
+                if (text.contains("_")) {
+                    key = text.substring(0, text.indexOf("_"));
+                    desc = text.substring(text.indexOf("_") + 1, text.length());
+                } else {
+                    desc = text;
+                }
+                textView.setTag(key);
+                textView.setText(desc);
                 mReportRecordCcontainer.addView(inflate);
             }
         } catch (IOException e) {
@@ -130,6 +148,12 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
         if (id == R.id.go_top_btn) {
             gotoTop();
         } else if (id == R.id.submit) {
+            if (dialog.isAdded()) {
+                return;
+            }
+            dialog.setTitle("提交中");
+            dialog.setContent("正在提交中，请稍等。。。", "", "");
+            dialog.show(fragmentManager, "dialog");
             submitReport();
         }
     }
@@ -150,13 +174,15 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
             TextView titleText = (TextView) childAt.findViewById(R.id.report_record2_title);
             EditText editText = (EditText) childAt.findViewById(R.id.report_record2_edit);
             String titleStr = titleText.getText().toString();
+            String keyStr = String.valueOf(titleText.getTag());
             String editStr = editText.getText().toString();
             ReportRecord2Model model = new ReportRecord2Model();
-            model.name = titleStr;
+            model.desc = titleStr;
+            model.key = keyStr;
             model.value = editStr;
             list.add(model);
         }
-        String inputListJson = JSON.toJSONString(list);
+        String inputListJson = reportRecord2ModelList2JsonString(list);
         // EditText mReportHeaderArea, mReportHeaderStation, mReportHeaderChecker, mReportHeaderDate;
         String areaStr = mReportHeaderArea.getText().toString();
         String stationStr = mReportHeaderStation.getText().toString();
@@ -196,18 +222,12 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
     }
 
     private int getReportType() {
-        if (mSelectModel == null) {
-            return 0;
+        Map<String, Integer> mapping = DataConfig.getMapping();
+        Integer integer = mapping.get(mSelectModel.itemStr);
+        if (integer == 0) {
+            integer = 0;
         }
-        if (!mSelectModel.itemStr.contains("_")) {
-            return 0;
-        }
-        String[] split = mSelectModel.itemStr.split("_");
-        if (split.length <= 1) {
-            return 0;
-        }
-        String s = split[1];
-        return NumberUtil.parseInteger(s);
+        return integer;
     }
 
 
@@ -221,22 +241,36 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
                     //解析成功，则添加地址
 //                    {"imgpath":"C://img\\Maintenance_IMG_20180313_181830.jpg","result":200,"resultMessage":"success"}
                     JSONObject imgResultJson = JsonUtil.string2JSON(s);
+                    if (imgResultJson == null) {
+                        StockShowUtil.showToastOnMainThread(ReportRecord2Activity.this, "服务器无响应");
+                    }
                     String webImgPath = imgResultJson.getString("imgpath");
                     map.put("imgPath", webImgPath);
                 } else {
-                    map.put("imgPath", "null");
+                    map.put("imgPath", "");
                 }
                 //上传参数
                 String s = StockSender.requestGet(StockSender.SubmitUrl, map, "utf-8");
                 JSONObject resultJSON = JsonUtil.string2JSON(s);
-                if (resultJSON.getInteger("result") == 200) {
-                    StockShowUtil.showToastOnMainThread(ReportRecord2Activity.this, "提交成功！");
-                    //成功提交，离开界面
-                    finishCurrencyAcitivityForDelay(2000);
-                } else {
+                if (resultJSON == null) {
+                    StockShowUtil.showToastOnMainThread(ReportRecord2Activity.this, "服务器无响应");
+                    return;
+                }
+                mHander.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                    }
+                });
+                if (resultJSON.getInteger("result") == null || resultJSON.getInteger("result") != 200) {
                     String resultMessage = resultJSON.getString("resultMessage");
                     //提交失败，留在当前界面
                     StockShowUtil.showToastOnMainThread(ReportRecord2Activity.this, resultMessage);
+                } else {
+                    StockShowUtil.showToastOnMainThread(ReportRecord2Activity.this, "提交成功！");
+                    //成功提交，离开界面
+                    finishCurrencyAcitivityForDelay(2000);
+
                 }
             }
         }).start();
@@ -280,6 +314,18 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
                 finish();
             }
         }, time);
+    }
+
+    public String reportRecord2ModelList2JsonString(List<ReportRecord2Model> list) {
+        JSONArray array = new JSONArray();
+        for (int i = 0; i < list.size(); i++) {
+            ReportRecord2Model reportRecord2Model = list.get(i);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("key", reportRecord2Model.key);
+            jsonObject.put("value", reportRecord2Model.value);
+            array.add(jsonObject);
+        }
+        return array.toString();
     }
 
 

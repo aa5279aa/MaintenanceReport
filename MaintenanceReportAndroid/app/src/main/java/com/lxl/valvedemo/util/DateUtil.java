@@ -234,6 +234,20 @@ public class DateUtil {
      *
      * @return String
      */
+    public static String getCurrentDate(String format) {
+        Calendar currentCalendar = getCurrentCalendar();
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        TimeZone timeZone = TimeZone.getTimeZone(TIMEZONE_CN);
+        dateFormat.setTimeZone(timeZone);
+        String str = dateFormat.format(currentCalendar.getTime());
+        return str;
+    }
+
+    /**
+     * 获取当前日期 8位
+     *
+     * @return String
+     */
     public static String getCurrentTime(String format) {
         Calendar currentCalendar = getCurrentCalendar();
         SimpleDateFormat dateFormat = new SimpleDateFormat(format);

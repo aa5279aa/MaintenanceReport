@@ -25,7 +25,7 @@ import static android.provider.Telephony.Mms.Part.CHARSET;
  */
 public class StockSender {
     private static StockSender sender;
-    private static String mBaseIP = "http://10.32.151.132:5389";
+    private static String mBaseIP = "http://192.168.0.102:8080";
     //    private static String mBaseIP = "http://115.159.31.128:8090";
     public static String PermissionUrl = "http://115.159.31.128:8090/zzfin/api/getpermission";
     public static String SubmitUrl = mBaseIP + "/ReportWeb/report_submit?";
@@ -65,9 +65,9 @@ public class StockSender {
             // 打开一个HttpURLConnection连接
             HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
             // 设置连接主机超时时间
-            urlConn.setConnectTimeout(5 * 1000);
+            urlConn.setConnectTimeout(10 * 1000);
             //设置从主机读取数据超时
-            urlConn.setReadTimeout(5 * 1000);
+            urlConn.setReadTimeout(10 * 1000);
             // 设置是否使用缓存  默认是true
             urlConn.setUseCaches(true);
             // 设置为Post请求
@@ -106,8 +106,8 @@ public class StockSender {
         try {
             URL url = new URL(RequestURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10*1000);
-            conn.setConnectTimeout(10*1000);
+            conn.setReadTimeout(10 * 1000);
+            conn.setConnectTimeout(10 * 1000);
             conn.setDoInput(true);          // 允许输入流
             conn.setDoOutput(true);         // 允许输出流
             conn.setUseCaches(false);       // 不允许使用缓存

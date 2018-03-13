@@ -4,7 +4,9 @@ import com.lxl.valvedemo.model.viewmodel.LocationRecordModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DataConfig {
 
@@ -76,5 +78,19 @@ public class DataConfig {
         list.add(new LocationRecordModel(34.834255, 117.485855));
         return list;
     }
+
+
+    public static Map<String, Integer> getMapping() {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("维修队仪表自动化计量通讯专业检查表", 801);//wxd_ybzdhjltx
+        map.put("维修队设备专业预防性维护检查表", 802);//wxd_sbweihu
+        map.put("作业区仪表计量通讯专业表", 811);//zyq_ybzdhjltx
+        map.put("作业区电气专业巡检检查表", 812);//zyq_dq
+        map.put("作业区管道专业巡检检查表", 813);//zyq_gq
+        map.put("作业区设备专业巡检检查表", 814);//zyq_sb_xunjian
+        map.put("作业区设备专业预防性维护表", 815);//zyq_sb_weihu
+        return map;
+    }
+
 
 }
