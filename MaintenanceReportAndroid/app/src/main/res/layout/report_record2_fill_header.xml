@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -8,7 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             style="@style/text_19_000000_b"
@@ -21,9 +24,13 @@
         <com.lxl.valvedemo.view.StockTextView
             android:id="@+id/report_header_area"
             style="@style/text_18_333333"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:text="选择生产区"
+            app:stock_text_drawable_direction="stock_right"
+            app:stock_text_drawable_height="16dp"
+            app:stock_text_drawable_src="@drawable/hotel_arrow_down_blue"
+            app:stock_text_drawable_width="20dp" />
 
     </LinearLayout>
 
@@ -31,7 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="10dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             style="@style/text_19_000000_b"
@@ -44,9 +53,13 @@
         <com.lxl.valvedemo.view.StockTextView
             android:id="@+id/report_header_station"
             style="@style/text_18_333333"
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:text="选择场站"
+            app:stock_text_drawable_direction="stock_right"
+            app:stock_text_drawable_height="16dp"
+            app:stock_text_drawable_src="@drawable/hotel_arrow_down_blue"
+            app:stock_text_drawable_width="20dp" />
 
     </LinearLayout>
 

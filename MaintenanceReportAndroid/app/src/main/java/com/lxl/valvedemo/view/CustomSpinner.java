@@ -205,7 +205,7 @@ public class CustomSpinner extends LinearLayout {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            View view = mInflater.inflate(R.layout.item, null);
+            View view = mInflater.inflate(R.layout.report_record2_fill_select_item, null);
             if (position == CustomSpinner.this.postion) {
                 //选中条目的背景色
                 view.setBackgroundColor(Color.rgb(26, 208, 189));

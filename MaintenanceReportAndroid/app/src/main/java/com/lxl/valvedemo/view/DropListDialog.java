@@ -50,7 +50,7 @@ public class DropListDialog {
         listView = new ListView(mContext);
         listView.setCacheColorHint(0x00000000);
         listView.setDividerHeight(0);
-        listView.setBackgroundColor(Color.rgb(255, 255, 255));
+        listView.setBackgroundColor(Color.parseColor("#dddddd"));
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -75,16 +75,14 @@ public class DropListDialog {
         } else {
             pop = new PopupWindow(listView, mTextName.getWidth(), heiht, true);
         }
-        pop.setBackgroundDrawable(new ColorDrawable(0x00000000));
+        pop.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#dddddd")));
         pop.setFocusable(true);
         pop.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
                 isPopShow = false;
-                mTextName.setCompoundDrawable(mInflater.getContext().getResources().getDrawable(R.drawable.hotel_arrow_down_blue), 2, 10, 10);
             }
         });
-        mTextName.setCompoundDrawable(mInflater.getContext().getResources().getDrawable(R.drawable.hotel_arrow_up_blue), 2, 10, 10);
         pop.showAsDropDown(mTextName, 0, 0);
         isPopShow = false;
     }
@@ -133,7 +131,7 @@ public class DropListDialog {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            View view = mInflater.inflate(R.layout.item, null);
+            View view = mInflater.inflate(R.layout.report_record2_fill_select_item, null);
             if (position == mPostion) {
                 //选中条目的背景色
                 view.setBackgroundColor(Color.rgb(26, 208, 189));

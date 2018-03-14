@@ -18,7 +18,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.DataConfig;
@@ -30,15 +29,11 @@ import com.lxl.valvedemo.sender.StockSender;
 import com.lxl.valvedemo.util.DateUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.JsonUtil;
-import com.lxl.valvedemo.util.NumberUtil;
 import com.lxl.valvedemo.util.StockShowUtil;
 import com.lxl.valvedemo.util.StringUtil;
-<<<<<<< HEAD
-import com.lxl.valvedemo.view.HotelCustomDialog;
-=======
 import com.lxl.valvedemo.view.DropListDialog;
+import com.lxl.valvedemo.view.HotelCustomDialog;
 import com.lxl.valvedemo.view.StockTextView;
->>>>>>> 取消测试
 import com.lxl.valvedemo.view.StockTitleView;
 
 import java.io.File;
@@ -73,14 +68,12 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
     File file;
     UploadImageModel uploadImageModel = new UploadImageModel();
 
-<<<<<<< HEAD
     HotelCustomDialog dialog = new HotelCustomDialog();
     FragmentManager fragmentManager;
-=======
     HashMap<String, List<String>> areaStationMap = new HashMap<>();
->>>>>>> 取消测试
 
     @Override
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
@@ -171,7 +164,6 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
             submitReport();
         } else if (id == R.id.report_header_area) {
             final List<String> result = new ArrayList<>(areaStationMap.keySet());
-
             DropListDialog dropListDialog = new DropListDialog(mContext);
             dropListDialog.setOnItemSelectedListener(new DropListDialog.OnItemSelectedListenerSpinner() {
                 @Override
