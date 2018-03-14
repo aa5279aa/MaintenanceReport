@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.config.DataConfig;
 import com.lxl.valvedemo.config.ReportBuildConfig;
 import com.lxl.valvedemo.model.buildModel.type8.ReportRecord2Model;
 import com.lxl.valvedemo.model.viewmodel.SingleSelectionModel;
@@ -30,6 +31,8 @@ import com.lxl.valvedemo.util.JsonUtil;
 import com.lxl.valvedemo.util.NumberUtil;
 import com.lxl.valvedemo.util.StockShowUtil;
 import com.lxl.valvedemo.util.StringUtil;
+import com.lxl.valvedemo.view.DropListDialog;
+import com.lxl.valvedemo.view.StockTextView;
 import com.lxl.valvedemo.view.StockTitleView;
 
 import java.io.File;
@@ -52,7 +55,8 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
     StockTitleView titleView;
     Button mGoTop, mSubmit;
     ScrollView scrollView;
-    EditText mReportHeaderArea, mReportHeaderStation, mReportHeaderChecker, mReportHeaderDate;
+    StockTextView mReportHeaderArea, mReportHeaderStation;
+    EditText mReportHeaderChecker, mReportHeaderDate;
     LinearLayout mReportRecordCcontainer;
 
     SingleSelectionModel mSelectModel;
@@ -63,11 +67,14 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
     File file;
     UploadImageModel uploadImageModel = new UploadImageModel();
 
+    HashMap<String, List<String>> areaStationMap = new HashMap<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_report2);
+        areaStationMap = DataConfig.getAreaStationMap();
         initView();
         initData();
         bindData();
@@ -79,8 +86,8 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
         mSubmit = (Button) findViewById(R.id.submit);
 
         scrollView = (ScrollView) findViewById(R.id.report_record2_fill);
-        mReportHeaderArea = (EditText) findViewById(R.id.report_header_area);
-        mReportHeaderStation = (EditText) findViewById(R.id.report_header_station);
+        mReportHeaderArea = (StockTextView) findViewById(R.id.report_header_area);
+        mReportHeaderStation = (StockTextView) findViewById(R.id.report_header_station);
         mReportHeaderChecker = (EditText) findViewById(R.id.report_header_checker);
         mReportHeaderDate = (EditText) findViewById(R.id.report_header_date);
         mReportRecordCcontainer = (LinearLayout) findViewById(R.id.report_record_container);
@@ -99,6 +106,9 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
                 startActivityForResult(intent, TAKE_PICTURE);
             }
         });
+
+        mReportHeaderArea.setOnClickListener(this);
+        mReportHeaderStation.setOnClickListener(this);
     }
 
 
@@ -131,6 +141,37 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
             gotoTop();
         } else if (id == R.id.submit) {
             submitReport();
+        } else if (id == R.id.report_header_area) {
+            final List<String> result = new ArrayList<>(areaStationMap.keySet());
+
+            DropListDialog dropListDialog = new DropListDialog(mContext);
+            dropListDialog.setOnItemSelectedListener(new DropListDialog.OnItemSelectedListenerSpinner() {
+                @Override
+                public void onItemSelected(View view1, int i, long l) {
+                    mReportHeaderArea.setText(result.get(i));
+                    List<String> list = areaStationMap.get(result.get(i));
+                    if (list.size() == 0) {
+                        return;
+                    }
+                    mReportHeaderStation.setText(list.get(0));
+                }
+            });
+            dropListDialog.show(mReportHeaderArea, result);
+        } else if (id == R.id.report_header_station) {
+            DropListDialog dropListDialog = new DropListDialog(mContext);
+            final List<String> result = areaStationMap.get(mReportHeaderArea.getText().toString());
+            if (result.size() == 0) {
+                StockShowUtil.showToastOnMainThread(mContext, "该节点下无筛选项");
+                return;
+            }
+            dropListDialog.setOnItemSelectedListener(new DropListDialog.OnItemSelectedListenerSpinner() {
+                @Override
+                public void onItemSelected(View view1, int i, long l) {
+                    mReportHeaderStation.setText(result.get(i));
+                }
+            });
+            dropListDialog.show(mReportHeaderArea, result);
+
         }
     }
 
