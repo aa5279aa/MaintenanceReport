@@ -19,6 +19,10 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.config.DataConfig;
 import com.lxl.valvedemo.config.ReportBuildConfig;
@@ -180,7 +184,7 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
         } else if (id == R.id.report_header_station) {
             DropListDialog dropListDialog = new DropListDialog(mContext);
             final List<String> result = areaStationMap.get(mReportHeaderArea.getText().toString());
-            if (result.size() == 0) {
+            if (result == null || result.size() == 0) {
                 StockShowUtil.showToastOnMainThread(mContext, "该节点下无筛选项");
                 return;
             }
@@ -190,72 +194,72 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
                     mReportHeaderStation.setText(result.get(i));
                 }
             });
-            dropListDialog.show(mReportHeaderArea, result);
+            dropListDialog.show(mReportHeaderStation, result);
 
         }
     }
 
     private void submitReport() {
-//        final LocationClient mClient = new LocationClient(getApplicationContext());
-//        BDAbstractLocationListener listener = new BDAbstractLocationListener() {
-//            @Override
-//            public void onReceiveLocation(BDLocation bdLocation) {
-//                Log.i("lxltest", "location,lat:" + bdLocation.getLatitude() + ",long:" + bdLocation.getLongitude() + ",address:" + bdLocation.getAddrStr());
-//                mClient.stop();
+        final LocationClient mClient = new LocationClient(getApplicationContext());
+        BDAbstractLocationListener listener = new BDAbstractLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation bdLocation) {
+                Log.i("lxltest", "location,lat:" + bdLocation.getLatitude() + ",long:" + bdLocation.getLongitude() + ",address:" + bdLocation.getAddrStr());
+                mClient.stop();
 
-        List<ReportRecord2Model> list = new ArrayList<>();
+                List<ReportRecord2Model> list = new ArrayList<>();
 
-        int childCount = mReportRecordCcontainer.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View childAt = mReportRecordCcontainer.getChildAt(i);
-            TextView titleText = (TextView) childAt.findViewById(R.id.report_record2_title);
-            EditText editText = (EditText) childAt.findViewById(R.id.report_record2_edit);
-            String titleStr = titleText.getText().toString();
-            String keyStr = String.valueOf(titleText.getTag());
-            String editStr = editText.getText().toString();
-            ReportRecord2Model model = new ReportRecord2Model();
-            model.desc = titleStr;
-            model.key = keyStr;
-            model.value = editStr;
-            list.add(model);
-        }
-        String inputListJson = JSON.toJSONString(list);
-        // EditText mReportHeaderArea, mReportHeaderStation, mReportHeaderChecker, mReportHeaderDate;
-        String areaStr = mReportHeaderArea.getText().toString();
-        String stationStr = mReportHeaderStation.getText().toString();
-        String checkerStr = mReportHeaderChecker.getText().toString();
-        String dateStr = mReportHeaderDate.getText().toString();
+                int childCount = mReportRecordCcontainer.getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                    View childAt = mReportRecordCcontainer.getChildAt(i);
+                    TextView titleText = (TextView) childAt.findViewById(R.id.report_record2_title);
+                    EditText editText = (EditText) childAt.findViewById(R.id.report_record2_edit);
+                    String titleStr = titleText.getText().toString();
+                    String keyStr = String.valueOf(titleText.getTag());
+                    String editStr = editText.getText().toString();
+                    ReportRecord2Model model = new ReportRecord2Model();
+                    model.desc = titleStr;
+                    model.key = keyStr;
+                    model.value = editStr;
+                    list.add(model);
+                }
+                String inputListJson = JSON.toJSONString(list);
+                // EditText mReportHeaderArea, mReportHeaderStation, mReportHeaderChecker, mReportHeaderDate;
+                String areaStr = mReportHeaderArea.getText().toString();
+                String stationStr = mReportHeaderStation.getText().toString();
+                String checkerStr = mReportHeaderChecker.getText().toString();
+                String dateStr = mReportHeaderDate.getText().toString();
 
-        Map<String, Object> map = new HashMap<>();
-        map.put("type", getReportType());
-        map.put("data", inputListJson);
-        map.put("area", areaStr);
-        map.put("station", stationStr);
-        map.put("checker", checkerStr);
-        map.put("date", dateStr);
-//                map.put("location", bdLocation.getAddrStr());//定位地址
-//                map.put("lat_long", bdLocation.getLatitude() + "*" + bdLocation.getLongitude());//经纬度坐标
-        if (StringUtil.emptyOrNull(areaStr)) {
-            StockShowUtil.showToastOnMainThread(mContext, "请输入区域");
-            return;
-        }
-        if (StringUtil.emptyOrNull(checkerStr)) {
-            StockShowUtil.showToastOnMainThread(mContext, "请输入检查人");
-            return;
-        }
-        if (StringUtil.emptyOrNull(stationStr)) {
-            StockShowUtil.showToastOnMainThread(mContext, "请输入场站");
-            return;
-        }
-        sendSubmitReportService(map);
-//            }
-//        };
-//        mClient.registerLocationListener(listener);
-//        LocationClientOption option = new LocationClientOption();
-//        option.setScanSpan(5 * 1000);
-//        option.setIsNeedAddress(true);
-//        mClient.setLocOption(option);
-//        mClient.start();
+                Map<String, Object> map = new HashMap<>();
+                map.put("type", getReportType());
+                map.put("data", inputListJson);
+                map.put("area", areaStr);
+                map.put("station", stationStr);
+                map.put("checker", checkerStr);
+                map.put("date", dateStr);
+                map.put("location", bdLocation.getAddrStr());//定位地址
+                map.put("lat_long", bdLocation.getLatitude() + "*" + bdLocation.getLongitude());//经纬度坐标
+                if (StringUtil.emptyOrNull(areaStr)) {
+                    StockShowUtil.showToastOnMainThread(mContext, "请输入区域");
+                    return;
+                }
+                if (StringUtil.emptyOrNull(checkerStr)) {
+                    StockShowUtil.showToastOnMainThread(mContext, "请输入检查人");
+                    return;
+                }
+                if (StringUtil.emptyOrNull(stationStr)) {
+                    StockShowUtil.showToastOnMainThread(mContext, "请输入场站");
+                    return;
+                }
+                sendSubmitReportService(map);
+            }
+        };
+        mClient.registerLocationListener(listener);
+        LocationClientOption option = new LocationClientOption();
+        option.setScanSpan(5 * 1000);
+        option.setIsNeedAddress(true);
+        mClient.setLocOption(option);
+        mClient.start();
     }
 
     private int getReportType() {

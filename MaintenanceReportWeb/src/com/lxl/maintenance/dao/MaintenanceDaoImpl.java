@@ -1,10 +1,11 @@
 package com.lxl.maintenance.dao;
 
+import com.lxl.maintenance.config.MaintenanceConfig;
 import com.lxl.maintenance.model.RecordModel;
 import com.lxl.maintenance.util.StringUtil;
 
 import java.sql.*;
-import java.util.Map;
+import java.util.*;
 
 public class MaintenanceDaoImpl implements MaintenanceDao {
     Connection conn;
@@ -171,6 +172,42 @@ public class MaintenanceDaoImpl implements MaintenanceDao {
         } finally {
             closeSql(state, rs);
         }
+    }
+
+    @Override
+    public List<HashMap<String, String>> selectDataFromDbByTable(RecordModel recordModel, String table) {
+        List<HashMap<String, String>> list = new ArrayList<>();
+        String sql = "select * from " + table + " where jiancharen = ? and zuoyequ = ? and zhanchang = ? and jianchariqi like ?";
+        PreparedStatement preStmt = null;
+        try {
+            preStmt = conn.prepareStatement(sql);
+            preStmt.setString(1, recordModel.checker);
+            preStmt.setString(2, recordModel.area);
+            preStmt.setString(3, recordModel.station);
+            preStmt.setString(4, recordModel.date);
+            ResultSet rs = preStmt.executeQuery();
+            Set<String> noNeedKey = MaintenanceConfig.getNoNeedKey();
+            while (rs.next()) {
+                int count = rs.getMetaData().getColumnCount();
+                HashMap<String, String> params = new HashMap<>();
+                for (int i = 1; i <= count; i++) {
+                    String columnName = rs.getMetaData().getColumnName(i);
+                    if (noNeedKey.contains(columnName)) {
+                        continue;
+                    }
+                    String value = rs.getString(columnName);
+                    params.put(columnName, value);
+                }
+                list.add(params);
+                break;
+            }
+            return list;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeSql(preStmt, null);
+        }
+        return list;
     }
 
     @Override

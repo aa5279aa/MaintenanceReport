@@ -11,5 +11,7 @@ public class ReportInquireModel implements Serializable {
     public int type;
     public String area;
     public String station;
+    public String date;
+    public String checker;
 
 }

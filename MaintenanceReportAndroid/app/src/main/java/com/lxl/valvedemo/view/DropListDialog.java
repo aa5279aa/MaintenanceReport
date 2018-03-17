@@ -14,6 +14,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.util.DeviceUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class DropListDialog {
     private StockTextView mTextName;
     private boolean isPopShow;
     private OnItemSelectedListenerSpinner onItemSelectedListener;
-
+    public boolean isLarge = false;
 
     public DropListDialog(Context context) {
         mContext = context;
@@ -65,13 +66,19 @@ public class DropListDialog {
         });
 
         if (heiht == 0) {
-            int hei = setListViewHeightBasedOnChildren(listView);
+
             //这里设置下拉框的高度
-            if (hei >= 550) {
-                pop = new PopupWindow(listView, mTextName.getWidth(), 550, true);
+            if (isLarge) {
+                pop = new PopupWindow(listView, mTextName.getWidth(), DeviceUtil.getPixelFromDip(mContext, 200), true);
             } else {
-                pop = new PopupWindow(listView, mTextName.getWidth(), hei, true);
+                int hei = setListViewHeightBasedOnChildren(listView);
+                if (hei >= 550) {
+                    pop = new PopupWindow(listView, mTextName.getWidth(), 550, true);
+                } else {
+                    pop = new PopupWindow(listView, mTextName.getWidth(), hei, true);
+                }
             }
+
         } else {
             pop = new PopupWindow(listView, mTextName.getWidth(), heiht, true);
         }
@@ -132,6 +139,10 @@ public class DropListDialog {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             View view = mInflater.inflate(R.layout.report_record2_fill_select_item, null);
+            if (isLarge) {
+                view = mInflater.inflate(R.layout.report_record2_fill_select_item2, null);
+            }
+
             if (position == mPostion) {
                 //选中条目的背景色
                 view.setBackgroundColor(Color.rgb(26, 208, 189));

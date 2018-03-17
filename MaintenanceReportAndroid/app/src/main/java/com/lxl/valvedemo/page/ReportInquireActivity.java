@@ -10,6 +10,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,19 +22,25 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.baidu.mapapi.map.Text;
 import com.lxl.valvedemo.R;
+import com.lxl.valvedemo.config.DataConfig;
 import com.lxl.valvedemo.model.buildModel.type8.ReportRecord2Model;
 import com.lxl.valvedemo.model.viewmodel.ReportInquireModel;
 import com.lxl.valvedemo.sender.StockSender;
 import com.lxl.valvedemo.util.NumberUtil;
 import com.lxl.valvedemo.util.StockShowUtil;
+import com.lxl.valvedemo.view.DropListDialog;
 import com.lxl.valvedemo.view.StockRankFilterBaseFragment;
 import com.lxl.valvedemo.view.StockRankFilterGroupFragment;
+import com.lxl.valvedemo.view.StockTextView;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.lxl.valvedemo.config.Definition.Serializable_Model.INQUIRE_MODEL;
 
@@ -42,11 +51,11 @@ import static com.lxl.valvedemo.config.Definition.Serializable_Model.INQUIRE_MOD
 public class ReportInquireActivity extends FragmentActivity implements View.OnClickListener {
     Button mGoTop, mSubmit;
     ScrollView scrollView;
-    TextView mInquireType, mInquireArea, mInquireStation;
-    EditText mChecker;
+    StockTextView mInquireType, mInquireArea, mInquireStation;
+    EditText mChecker, mDateEdit;
     FrameLayout fragmentContainer;
     LinearLayout dataContainer;
-
+    HashMap<String, List<String>> areaStationMap = DataConfig.getAreaStationMap();
 
     ReportInquireModel mInquireModel = new ReportInquireModel();
     Context mContext;
@@ -69,17 +78,50 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
         fragmentContainer = (FrameLayout) findViewById(R.id.fragment_container);
         dataContainer = (LinearLayout) findViewById(R.id.data_container);
 
-        mInquireType = (TextView) findViewById(R.id.inquire_type);
-        mInquireArea = (TextView) findViewById(R.id.inquire_area);
-        mInquireStation = (TextView) findViewById(R.id.inquire_station);
+        mInquireType = (StockTextView) findViewById(R.id.inquire_type);
+        mInquireArea = (StockTextView) findViewById(R.id.inquire_area);
+        mInquireStation = (StockTextView) findViewById(R.id.inquire_station);
         mChecker = (EditText) findViewById(R.id.inquire_checker);
-
+        mDateEdit = (EditText) findViewById(R.id.inquire_date);
 
         mInquireType.setOnClickListener(this);
         mInquireArea.setOnClickListener(this);
         mInquireStation.setOnClickListener(this);
         mGoTop.setOnClickListener(this);
         mSubmit.setOnClickListener(this);
+        mDateEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                return false;
+            }
+        });
+        mDateEdit.addTextChangedListener(new TextWatcher() {
+            int after = 0;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (before == 1) {
+                    return;
+                }
+                // 输入后的监听
+                if (s.length() == 4 && !s.toString().endsWith("_")) {
+                    mDateEdit.setText(s + "-");
+                    mDateEdit.setSelection(s.length() + 1);
+                } else if (s.length() == 7 && !s.toString().endsWith("_")) {
+                    mDateEdit.setText(s + "-");
+                    mDateEdit.setSelection(s.length() + 1);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
 
@@ -91,34 +133,52 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
             return;
         }
         if (id == R.id.submit) {
-            mInquireModel.type = NumberUtil.parseInteger(mInquireType.getText().toString());
+            mInquireModel.type = DataConfig.getMapping().get(mInquireType.getText().toString());
             mInquireModel.area = mInquireArea.getText().toString();
             mInquireModel.station = mInquireStation.getText().toString();
+            mInquireModel.date = mDateEdit.getText().toString();
+            mInquireModel.checker = mChecker.getText().toString();
             inquireValue();
             return;
         }
-        StockRankFilterGroupFragment filterGroupFragmen = new StockRankFilterGroupFragment();
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
-        Fragment fragmentById = supportFragmentManager.findFragmentById(R.id.fragment_container);
-        if (fragmentById instanceof StockRankFilterBaseFragment) {
-            fragmentTransaction.remove(fragmentById);
-            fragmentTransaction.commitAllowingStateLoss();
-            return;
-        }
-        Bundle bundle = new Bundle();
         if (id == R.id.inquire_type) {
-            bundle.putInt(StockRankFilterBaseFragment.SelectItemIndexTag, 1);
+            DropListDialog dropListDialog = new DropListDialog(mContext);
+            dropListDialog.isLarge = true;
+            String[] strings = DataConfig.getMapping().keySet().toArray(new String[]{});
+            final List<String> allType = Arrays.asList(strings);
+            dropListDialog.setOnItemSelectedListener(new DropListDialog.OnItemSelectedListenerSpinner() {
+                @Override
+                public void onItemSelected(View view1, int i, long l) {
+                    mInquireType.setText(allType.get(i));
+                }
+            });
+            dropListDialog.show(mInquireType, allType);
         } else if (id == R.id.inquire_area) {
-            bundle.putInt(StockRankFilterBaseFragment.SelectItemIndexTag, 2);
+            DropListDialog dropListDialog = new DropListDialog(mContext);
+            String[] strings = areaStationMap.keySet().toArray(new String[]{});
+            final List<String> list = Arrays.asList(strings);
+            dropListDialog.setOnItemSelectedListener(new DropListDialog.OnItemSelectedListenerSpinner() {
+                @Override
+                public void onItemSelected(View view1, int i, long l) {
+                    mInquireArea.setText(list.get(i));
+                }
+            });
+            dropListDialog.show(mInquireArea, list);
         } else if (id == R.id.inquire_station) {
-            bundle.putInt(StockRankFilterBaseFragment.SelectItemIndexTag, 3);
+            final List<String> strings = areaStationMap.get(mInquireArea.getText().toString());
+            if (strings == null || strings.size() == 0) {
+                StockShowUtil.showToastOnMainThread(mContext, "该节点下没有选项");
+                return;
+            }
+            DropListDialog dropListDialog = new DropListDialog(mContext);
+            dropListDialog.setOnItemSelectedListener(new DropListDialog.OnItemSelectedListenerSpinner() {
+                @Override
+                public void onItemSelected(View view1, int i, long l) {
+                    mInquireStation.setText(strings.get(i));
+                }
+            });
+            dropListDialog.show(mInquireStation, strings);
         }
-//        bundle.putSerializable(StockRankFilterBaseFragment.StockRankFilterGroupModelTag, subGroupModel);
-        filterGroupFragmen.setArguments(bundle);
-        findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
-        fragmentTransaction.replace(R.id.fragment_container, filterGroupFragmen, "filter");
-        fragmentTransaction.commitAllowingStateLoss();
     }
 
     private void inquireValue() {
@@ -130,11 +190,20 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
         paramsMap.put("type", mInquireModel.type);
         paramsMap.put("station", mInquireModel.station);
         paramsMap.put("area", mInquireModel.area);
+        paramsMap.put("date", mInquireModel.date);
+        paramsMap.put("checker", mInquireModel.checker);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 String s = StockSender.requestGet(StockSender.SelectUrl, paramsMap, "utf-8");
-                final List<ReportRecord2Model> reportRecord2Models = JSON.parseArray(s, ReportRecord2Model.class);
+                JSONArray array = JSON.parseArray(s);
+                if (array == null || array.size() == 0) {
+                    return;
+                }
+                final List<ReportRecord2Model> reportRecord2Models = JSON.parseArray(array.getJSONArray(0).toString(), ReportRecord2Model.class);
+                if (reportRecord2Models == null || reportRecord2Models.size() == 0) {
+                    return;
+                }
                 mHander.post(new Runnable() {
                     @Override
                     public void run() {
@@ -154,7 +223,7 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
             TextView showTitle = (TextView) inflate.findViewById(R.id.report_record2_show_title);
             TextView showValue = (TextView) inflate.findViewById(R.id.report_record2_show_value);
             ReportRecord2Model reportRecord2Model = reportRecord2Models.get(i);
-            showTitle.setText(reportRecord2Model.desc);
+            showTitle.setText(reportRecord2Model.key);
             showValue.setText(reportRecord2Model.value);
             dataContainer.addView(inflate);
         }
@@ -176,28 +245,4 @@ public class ReportInquireActivity extends FragmentActivity implements View.OnCl
             }
         });
     }
-
-    public void onReceiveResult(int requestCode, int index, String str) {
-        findViewById(R.id.fragment_container).setVisibility(View.VISIBLE);
-        if (StockRankFilterBaseFragment.FilterFragmentCode == requestCode) {
-            if (index > 4) {
-                return;
-            }
-            if (index == 1) {
-                mInquireType.setText(str);
-                return;
-            }
-            if (index == 2) {
-                mInquireArea.setText(str);
-                return;
-            }
-            if (index == 3) {
-                mInquireStation.setText(str);
-                return;
-            }
-
-        }
-    }
-
-
 }

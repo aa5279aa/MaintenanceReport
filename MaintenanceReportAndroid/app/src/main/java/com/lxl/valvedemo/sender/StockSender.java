@@ -25,8 +25,8 @@ import static android.provider.Telephony.Mms.Part.CHARSET;
  */
 public class StockSender {
     private static StockSender sender;
-    private static String mBaseIP = "http://192.168.0.102:8080";
-    //    private static String mBaseIP = "http://115.159.31.128:8090";
+//        private static String mBaseIP = "http://112.253.42.243:8009";
+    private static String mBaseIP = "http://192.168.0.104:8080";
     public static String PermissionUrl = "http://115.159.31.128:8090/zzfin/api/getpermission";
     public static String SubmitUrl = mBaseIP + "/ReportWeb/report_submit?";
     public static String SelectUrl = mBaseIP + "/ReportWeb/report_inquire?";

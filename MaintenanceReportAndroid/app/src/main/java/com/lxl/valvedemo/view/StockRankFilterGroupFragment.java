@@ -71,7 +71,6 @@ public class StockRankFilterGroupFragment extends StockRankFilterBaseFragment {
 
 
     protected void submitFilter(String str) {
-        ((ReportInquireActivity) getActivity()).onReceiveResult(FilterFragmentCode, index, str);
     }
 
 }

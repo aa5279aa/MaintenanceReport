@@ -3,11 +3,16 @@ package com.lxl.maintenance.service;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.lxl.maintenance.config.MaintenanceConfig;
 import com.lxl.maintenance.dao.MaintenanceDao;
 import com.lxl.maintenance.dao.MaintenanceDaoImpl;
 import com.lxl.maintenance.model.RecordModel;
 import com.sun.org.apache.regexp.internal.RE;
 import sun.applet.Main;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MaintenanceService {
     MaintenanceDao dao;
@@ -64,6 +69,35 @@ public class MaintenanceService {
                 return dao.insertZyqSbWeihu(recordModel) > 0;
         }
         return false;
+    }
+
+
+    public String actionselectDB(String type, String area, String station, String checker, String date) {
+        RecordModel recordModel = new RecordModel();
+        recordModel.type = type;
+        recordModel.area = area;
+        recordModel.station = station;
+        recordModel.checker = checker;
+        recordModel.date = date;
+
+        //根据不同的type插入不同的表格
+        Map<String, String> idAndNameMap = MaintenanceConfig.getIdAndNameMap();
+        String tableName = idAndNameMap.get(recordModel.type);
+        List<HashMap<String, String>> resultList = dao.selectDataFromDbByTable(recordModel, tableName);
+
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < resultList.size(); i++) {
+            HashMap<String, String> resultMap = resultList.get(i);
+            JSONArray jsonArray1 = new JSONArray();
+            for (String key : resultMap.keySet()) {
+                JSONObject itemJSONObj = new JSONObject();
+                itemJSONObj.put("key", key);
+                itemJSONObj.put("value", resultMap.get(key));
+                jsonArray1.add(itemJSONObj);
+            }
+            jsonArray.add(jsonArray1);
+        }
+        return jsonArray.toJSONString();
     }
 
 
