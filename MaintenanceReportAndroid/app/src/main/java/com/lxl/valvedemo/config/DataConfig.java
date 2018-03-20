@@ -134,8 +134,8 @@ public class DataConfig {
     public static Map<String, Integer> getMapping() {
         Map<String, Integer> map = new HashMap<>();
         map.put("维修队仪表自动化计量通讯专业检查表", 801);//wxd_ybzdhjltx
-        map.put("维修队设备专业预防性维护检查表", 802);//wxd_sbweihu
-        map.put("作业区仪表计量通讯专业表", 811);//zyq_ybzdhjltx
+        map.put("维修队设备专业预防性维护检查表", 802);//wxd_sbweihu  //
+        map.put("作业区仪表计量通讯专业表", 811);//zyq_ybzdhjltx   //
         map.put("作业区电气专业巡检检查表", 812);//zyq_dq
         map.put("作业区管道专业巡检检查表", 813);//zyq_gq
         map.put("作业区设备专业巡检检查表", 814);//zyq_sb_xunjian

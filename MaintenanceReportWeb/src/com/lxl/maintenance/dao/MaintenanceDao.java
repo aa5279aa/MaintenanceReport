@@ -3,7 +3,9 @@ package com.lxl.maintenance.dao;
 import com.lxl.maintenance.model.RecordModel;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface MaintenanceDao {
     int insertWxdYbzdhjltx(RecordModel recordModel);
@@ -20,6 +22,9 @@ public interface MaintenanceDao {
 
     int insertZyqSbWeihu(RecordModel recordModel);
 
-    List<HashMap<String, String>> selectDataFromDbByTable(RecordModel recordModel, String table);
+    List<LinkedHashMap<String, String>> selectDataFromDbByTable(RecordModel recordModel, String table);
+
+    Map<String,String> selectCommentByTableName(String table);
+
 
 }

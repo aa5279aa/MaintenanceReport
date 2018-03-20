@@ -63,12 +63,12 @@ public class SelectActivity extends Activity {
             SingleSelectionModel sonSingleSelctionEntity = singleSelctionEntity.selectList.get(i);
             Button button = new Button(context);
             button.setBackgroundResource(R.drawable.select_button_bg);
-            int pixelFromDip = DeviceUtil.getPixelFromDip(this, 30);
-            button.setPadding(pixelFromDip, pixelFromDip, pixelFromDip, pixelFromDip);
+            int pixelFromDip = DeviceUtil.getPixelFromDip(this, 10);
+            button.setPadding(pixelFromDip, pixelFromDip * 3, pixelFromDip, pixelFromDip * 3);
             button.setId(i);
             button.setText(sonSingleSelctionEntity.itemStr);
             button.setTag(sonSingleSelctionEntity);
-            button.setTextAppearance(this, R.style.text_18_ffffff);
+            button.setTextAppearance(this, R.style.text_17_ffffff);
             button.setSingleLine(false);
 
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(btnwidth, -2);

@@ -31,9 +31,6 @@ public class MaintenanceConfig {
         set.add("jianchariqi");
         set.add("zuoyequ");
         set.add("zhanchang");
-        set.add("location");
-        set.add("lat_long");
-        set.add("imgpath");
         return set;
     }
 }

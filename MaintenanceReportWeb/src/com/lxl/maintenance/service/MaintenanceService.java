@@ -11,6 +11,7 @@ import com.sun.org.apache.regexp.internal.RE;
 import sun.applet.Main;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -83,16 +84,18 @@ public class MaintenanceService {
         //根据不同的type插入不同的表格
         Map<String, String> idAndNameMap = MaintenanceConfig.getIdAndNameMap();
         String tableName = idAndNameMap.get(recordModel.type);
-        List<HashMap<String, String>> resultList = dao.selectDataFromDbByTable(recordModel, tableName);
+        List<LinkedHashMap<String, String>> resultList = dao.selectDataFromDbByTable(recordModel, tableName);
+        Map<String, String> commentMap = dao.selectCommentByTableName(tableName);
 
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < resultList.size(); i++) {
-            HashMap<String, String> resultMap = resultList.get(i);
+            LinkedHashMap<String, String> resultMap = resultList.get(i);
             JSONArray jsonArray1 = new JSONArray();
             for (String key : resultMap.keySet()) {
                 JSONObject itemJSONObj = new JSONObject();
                 itemJSONObj.put("key", key);
                 itemJSONObj.put("value", resultMap.get(key));
+                itemJSONObj.put("comment", commentMap.get(key));
                 jsonArray1.add(itemJSONObj);
             }
             jsonArray.add(jsonArray1);

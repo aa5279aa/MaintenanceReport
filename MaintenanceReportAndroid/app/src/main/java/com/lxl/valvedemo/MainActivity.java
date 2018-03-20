@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.lxl.valvedemo.config.DataConfig;
 import com.lxl.valvedemo.page.SelectActivity;
+import com.lxl.valvedemo.page.StockRegisterActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +44,7 @@ public class MainActivity extends Activity {
             public void onClick(View v) {
                 Log.i("lxltest", "start time:" + System.currentTimeMillis());
                 Intent intent = new Intent();
-                intent.setClass(MainActivity.this, SelectActivity.class);
+                intent.setClass(MainActivity.this,StockRegisterActivity.class);
                 startActivity(intent);
 
             }

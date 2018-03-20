@@ -1,9 +1,11 @@
 package com.lxl.valvedemo.page;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -13,8 +15,10 @@ import android.widget.TextView;
 import com.lxl.valvedemo.R;
 import com.lxl.valvedemo.sender.StockSender;
 import com.lxl.valvedemo.util.DateUtil;
+import com.lxl.valvedemo.util.DeviceUtil;
 import com.lxl.valvedemo.util.IOHelper;
 import com.lxl.valvedemo.util.StockShowUtil;
+import com.lxl.valvedemo.util.StringUtil;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,7 +34,7 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
     TextView mNextStep;
     EditText mPhoneEdit;
 
-    List<String> mUserList = new ArrayList<>();
+    HashMap<String, String> mUserMap = new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +45,18 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
     }
 
     private void initData() {
-//        try {
-//            InputStream user = getAssets().open("user.txt");
-//            List<String> strings = IOHelper.readListStrByCode(user, "utf-8");
-//            mUserList.clear();
-//            mUserList.addAll(strings);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            mUserMap.clear();
+            InputStream user = getAssets().open("user.txt");
+            List<String> strings = IOHelper.readListStrByCode(user, "utf-8");
+            for (int i = 0; i < strings.size(); i++) {
+                String[] split = strings.get(i).split(",");
+                mUserMap.put(split[0], split[1]);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ((TextView) findViewById(R.id.version_text)).setText("版本号：" + DeviceUtil.getLocalVersionName(this));
     }
 
     private void initView() {
@@ -65,16 +73,25 @@ public class StockRegisterActivity extends Activity implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.stock_register_next_step) {
-            handleGoToNext("lxl");
+            String user = ((EditText) findViewById(R.id.input_user)).getText().toString();
+            String password = ((EditText) findViewById(R.id.input_password)).getText().toString();
+            handleGoToNext(user, password);
         }
     }
 
-    private void handleGoToNext(String user) {
+    private void handleGoToNext(String user, String password) {
+        String s = mUserMap.get(user);
+//        if (StringUtil.emptyOrNull(s) || !s.equals(password)) {
+//            StockShowUtil.showToastOnMainThread(this, "请输入正确的账号和密码！");
+//            return;
+//        }
+
         if (checkLoginPermission()) {
             Intent intent = new Intent();
 //            intent.setClass(this, OperationActivity.class);
             intent.setClass(this, SelectActivity.class);
             startActivity(intent);
+            finish();
             return;
         }
         //不可登录

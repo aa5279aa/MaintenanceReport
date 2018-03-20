@@ -200,6 +200,27 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
     }
 
     private void submitReport() {
+        final String areaStr = mReportHeaderArea.getText().toString();
+        final String stationStr = mReportHeaderStation.getText().toString();
+        final String checkerStr = mReportHeaderChecker.getText().toString();
+        final String dateStr = mReportHeaderDate.getText().toString();
+        if (StringUtil.emptyOrNull(areaStr) || "选择生产区".equals(areaStr)) {
+            StockShowUtil.showToastOnMainThread(this, "请选择生产区！");
+            return;
+        }
+        if (StringUtil.emptyOrNull(stationStr) || "选择场站".equals(stationStr)) {
+            StockShowUtil.showToastOnMainThread(this, "请选择场站！");
+            return;
+        }
+        if (StringUtil.emptyOrNull(checkerStr)) {
+            StockShowUtil.showToastOnMainThread(this, "请输入检查人！");
+            return;
+        }
+        if (StringUtil.emptyOrNull(dateStr)) {
+            StockShowUtil.showToastOnMainThread(this, "请输入日期！");
+            return;
+        }
+
         final LocationClient mClient = new LocationClient(getApplicationContext());
         BDAbstractLocationListener listener = new BDAbstractLocationListener() {
             @Override
@@ -225,11 +246,6 @@ public class ReportRecord2Activity extends FragmentActivity implements View.OnCl
                 }
                 String inputListJson = JSON.toJSONString(list);
                 // EditText mReportHeaderArea, mReportHeaderStation, mReportHeaderChecker, mReportHeaderDate;
-                String areaStr = mReportHeaderArea.getText().toString();
-                String stationStr = mReportHeaderStation.getText().toString();
-                String checkerStr = mReportHeaderChecker.getText().toString();
-                String dateStr = mReportHeaderDate.getText().toString();
-
                 Map<String, Object> map = new HashMap<>();
                 map.put("type", getReportType());
                 map.put("data", inputListJson);

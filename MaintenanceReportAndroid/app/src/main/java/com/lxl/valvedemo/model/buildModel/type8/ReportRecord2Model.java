@@ -11,4 +11,5 @@ public class ReportRecord2Model {
     public String desc;
     public String key;
     public String value;
+    public String comment;//注释
 }
